@@ -17,7 +17,7 @@ export const blogCategories = {
 export const blogPosts: BlogPost[] = [
   {
     slug: "what-patients-withhold",
-    title: "What Patients Withhold \u2014 and Why It Matters for Your Clinic\u2019s Bottom Line",
+    title: "What Patients Withhold, and Why It Matters for Your Clinic\u2019s Bottom Line",
     excerpt: "Research shows patients disclose significantly more through conversational AI than standard assessment. Here\u2019s what that means for specialty care documentation and revenue.",
     category: "clinical-evidence",
     date: "2026-04-01",

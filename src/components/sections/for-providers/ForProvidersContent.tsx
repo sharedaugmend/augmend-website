@@ -20,7 +20,7 @@ const reportFeatures = [
   },
   {
     title: "Cross-session intelligence",
-    body: "The system tracks what\u2019s been covered, what\u2019s changed, and what you directed \u2014 including between-visit check-ins and exercise engagement. Follow-ups are 10\u201315 minutes, not full re-assessments. Patients feel known.",
+    body: "The system tracks what\u2019s been covered, what\u2019s changed, and what you directed, including between-visit check-ins and exercise engagement. Follow-ups are 10\u201315 minutes, not full re-assessments. Patients feel known.",
   },
   {
     title: "Confidence markers",
@@ -45,7 +45,7 @@ export default function ForProvidersContent() {
             Know your patient before the visit begins.
           </h1>
           <p className="mt-6 max-w-2xl text-neutral-slate">
-            A structured clinical picture — risk factors, psychosocial context, functional status, behavioral health indicators — reviewed in under a minute. Before the first question is asked. Updated between visits. Building with every session.
+            A structured clinical picture: risk factors, psychosocial context, functional status, behavioral health indicators, reviewed in under a minute. Before the first question is asked. Updated between visits. Building with every session.
           </p>
         </ScrollReveal>
       </Section>
@@ -55,7 +55,7 @@ export default function ForProvidersContent() {
         <ScrollReveal>
           <SectionLabel>What You Receive</SectionLabel>
           <h2 className="mt-4 max-w-3xl">
-            A report that reads like a thorough intake — without the 45 minutes.
+            A report that reads like a thorough intake, without the 45 minutes.
           </h2>
         </ScrollReveal>
 
@@ -139,7 +139,7 @@ export default function ForProvidersContent() {
               &ldquo;I really just want to be like a curious med student to gather as much information as possible and then be able to report back.&rdquo;
             </p>
             <cite className="mt-4 block font-body text-sm not-italic text-neutral-slate">
-              — Psychiatrist, Montefiore Hospital, on what he needs from CAS before each visit
+              - Psychiatrist, Montefiore Hospital, on what he needs from CAS before each visit
             </cite>
           </blockquote>
         </ScrollReveal>

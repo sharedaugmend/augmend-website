@@ -4,7 +4,6 @@ import { useState } from "react"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
-import Section from "@/components/layout/Section"
 import SectionLabel from "@/components/ui/SectionLabel"
 import StatCard from "@/components/ui/StatCard"
 import Counter from "@/components/ui/Counter"
@@ -12,22 +11,20 @@ import ScrollReveal from "@/components/ui/ScrollReveal"
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/animations"
 
 const references = [
-  { id: 1, text: 'CDC, Preventing Chronic Disease. "Trends in Multiple Chronic Conditions Among US Adults, By Life Stage, BRFSS 2013\u20132023." Published 2025.' },
+  { id: 1, text: 'CDC, Preventing Chronic Disease. "Trends in Multiple Chronic Conditions Among US Adults, By Life Stage, BRFSS 2013-2023." Published 2025.' },
   { id: 2, text: 'HRSA Bureau of Health Workforce. "HPSA Quarterly Report, Q1 FY2025." December 2024.' },
   { id: 3, text: 'Chandawarkar R, Nadkarni P, Barmash E, et al. "Revenue Cycle Management: The Art and the Science." Plast Reconstr Surg Glob Open. 2024;12(7):e5756.' },
-  { id: 4, text: 'American Health Information Management Association (AHIMA). Survey on documentation impact on revenue. Cited in MedLearn Publishing, "What\'s the Deal with Medical Notes?" March 2023.' },
-  { id: 5, text: 'McKinsey & Company. Healthcare revenue cycle efficiency analysis. Cited in Open Practice, "Lost Revenue: Uncovering Inefficiencies in Healthcare Revenue Cycle Practices." December 2023.' },
-  { id: 6, text: "Journal of General Internal Medicine. Study on incomplete medical notes and hospital costs. Analysis of 20,000+ hospital admissions. Cited in MedLearn Publishing." },
-  { id: 7, text: "Rikard SM, Strahan AE, Schmit KM, et al. Chronic Pain Among Adults \u2014 United States, 2019\u20132021. MMWR Morb Mortal Wkly Rep 2023; 72: 379\u2013385." },
+  { id: 4, text: "American Health Information Management Association (AHIMA). Survey on documentation impact on revenue. Cited in MedLearn Publishing, March 2023." },
+  { id: 5, text: 'McKinsey & Company. Healthcare revenue cycle efficiency analysis. Cited in Open Practice, December 2023.' },
+  { id: 6, text: "Journal of General Internal Medicine. Study on incomplete medical notes and hospital costs. Analysis of 20,000+ hospital admissions." },
 ]
 
 export default function TheProblem() {
   const [refsOpen, setRefsOpen] = useState(false)
 
   return (
-    <Section bg="white" id="the-gap" dots>
-      {/* Heading row with image */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-start">
+    <section id="the-gap" className="relative overflow-hidden py-12 md:py-16 xl:py-24" style={{ backgroundColor: "#F5F0E8" }}>
+      <div className="relative z-10 mx-auto max-w-[1280px] px-6">
         <ScrollReveal>
           <SectionLabel>The Gap</SectionLabel>
           <h2 className="mt-4 max-w-3xl">
@@ -37,61 +34,60 @@ export default function TheProblem() {
             We make it easier to get the full picture sooner.
           </p>
           <p className="mt-6 max-w-2xl text-neutral-slate">
-            Chronic conditions require data that specialty clinics were never built to capture. Not because providers fail to ask; because standard clinical assessment was never designed to capture the full breadth of what drives symptoms and outcomes. History, physical and emotional trauma, substance use, psychosocial stressors and determinants, functional limitations. The biopsychosocial complexity that shapes both treatment decisions and billing complexity stays hidden in the limited time frame of the encounter.
+            Chronic conditions require data that specialty clinics were never built to capture. Not because providers fail to ask, but because standard clinical assessment was never designed to capture the full breadth of what drives symptoms and outcomes. History, physical and emotional trauma, substance use, psychosocial stressors and determinants, functional limitations. The biopsychosocial complexity that shapes both treatment decisions and billing complexity stays hidden in the limited time frame of the encounter.
           </p>
         </ScrollReveal>
-        <ScrollReveal delay={0.15} className="hidden lg:block">
-          <div className="rounded-2xl overflow-hidden w-[320px]">
+
+        {/* Image below text, above stats */}
+        <ScrollReveal>
+          <div className="mt-10 mx-auto max-w-[80%]">
             <Image
               src="/images/illustrations/problem-data-capture.png"
-              alt="Data capture gap — sparse versus dense clinical data visualization"
-              width={320}
-              height={400}
-              className="w-full h-auto object-cover"
+              alt="Data capture gap: sparse versus dense clinical data visualization"
+              width={1024}
+              height={600}
+              className="w-full h-auto"
             />
           </div>
         </ScrollReveal>
-      </div>
 
-      {/* Stat row 1 */}
-      <motion.div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12" initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerParent}>
-        <motion.div variants={staggerChild}>
-          <StatCard value={<Counter target={194} suffix=" million" />} label="Americans live with chronic conditions" description="Cancer, chronic pain, diabetes, heart disease, autoimmune disease \u2014 whose full complexity has never fit inside a clinical encounter. [1]" accent="indigo" />
-        </motion.div>
-        <motion.div variants={staggerChild}>
-          <StatCard value={<Counter target={122} suffix=" million" />} label="Americans with chronic conditions and behavioral health needs live in shortage areas" description="Mental Health Professional Shortage Areas leave the majority of behavioral health needs in chronic disease populations unaddressed. [2]" accent="orange" />
-        </motion.div>
-      </motion.div>
-
-      {/* Stat row 2 */}
-      <motion.div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12" initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerParent}>
-        <motion.div variants={staggerChild}>
-          <StatCard value="5\u201320%" label="Of annual specialty care revenue lost to incomplete documentation" description="Industry estimates across revenue cycle analyses. Incomplete documentation limits a provider\u2019s ability to make fully informed treatment decisions \u2014 and prevents billing at the level of care actually delivered. [3][4][5]" accent="lime" />
-        </motion.div>
-        <motion.div variants={staggerChild}>
-          <StatCard value={<Counter prefix="$" target={1386} />} label="Additional hospital costs per patient from incomplete medical notes" description="Associated with a 0.4-day increase in length of stay per admission. Analysis of 20,000+ hospital admissions. [6]" accent="pink" />
-        </motion.div>
-        <motion.div variants={staggerChild}>
-          <StatCard value={<Counter target={50} suffix=" million" />} label="U.S. adults live with chronic pain" description="20.4% of the population \u2014 and 23.9% of those patients also experience persistent anxiety and/or depression. The biopsychosocial overlap is the rule, not the exception. [7]" accent="indigo" />
-        </motion.div>
-      </motion.div>
-
-      {/* References */}
-      <div className="mt-16">
-        <button onClick={() => setRefsOpen(!refsOpen)} className="flex items-center gap-2 font-body text-sm text-neutral-slate hover:text-neutral-near-black transition-colors duration-200">
-          <span>References</span>
-          <motion.span animate={{ rotate: refsOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
-            <ChevronDown className="h-4 w-4" strokeWidth={1.5} />
-          </motion.span>
-        </button>
-        {refsOpen && (
-          <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="mt-4 space-y-2 overflow-hidden">
-            {references.map((ref) => (
-              <p key={ref.id} className="font-body text-xs text-neutral-slate leading-relaxed">[{ref.id}] {ref.text}</p>
-            ))}
+        {/* Stat row 1 */}
+        <motion.div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12" initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerParent}>
+          <motion.div variants={staggerChild}>
+            <StatCard value={<Counter target={194} suffix=" million" />} label="Americans live with chronic conditions" description="Cancer, chronic pain, diabetes, heart disease, autoimmune disease, whose full complexity has never fit inside a clinical encounter. [1]" accent="indigo" />
           </motion.div>
-        )}
+          <motion.div variants={staggerChild}>
+            <StatCard value={<Counter target={122} suffix=" million" />} label="Americans with chronic conditions and behavioral health needs live in shortage areas" description="Mental Health Professional Shortage Areas leave the majority of behavioral health needs in chronic disease populations unaddressed. [2]" accent="orange" />
+          </motion.div>
+        </motion.div>
+
+        {/* Stat row 2 */}
+        <motion.div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-12" initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerParent}>
+          <motion.div variants={staggerChild}>
+            <StatCard value="5-20%" label="Of annual specialty care revenue lost to incomplete documentation" description="Industry estimates across revenue cycle analyses. Incomplete documentation limits a provider's ability to make fully informed treatment decisions, and prevents billing at the level of care actually delivered. [3][4][5]" accent="lime" />
+          </motion.div>
+          <motion.div variants={staggerChild}>
+            <StatCard value={<Counter prefix="$" target={1386} />} label="Additional hospital costs per patient from incomplete medical notes" description="Associated with a 0.4-day increase in length of stay per admission. Analysis of 20,000+ hospital admissions. [6]" accent="pink" />
+          </motion.div>
+        </motion.div>
+
+        {/* References */}
+        <div className="mt-16">
+          <button onClick={() => setRefsOpen(!refsOpen)} className="flex items-center gap-2 font-body text-sm text-neutral-slate hover:text-neutral-near-black transition-colors duration-200">
+            <span>References</span>
+            <motion.span animate={{ rotate: refsOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+              <ChevronDown className="h-4 w-4" strokeWidth={1.5} />
+            </motion.span>
+          </button>
+          {refsOpen && (
+            <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="mt-4 space-y-2 overflow-hidden">
+              {references.map((ref) => (
+                <p key={ref.id} className="font-body text-xs text-neutral-slate leading-relaxed">[{ref.id}] {ref.text}</p>
+              ))}
+            </motion.div>
+          )}
+        </div>
       </div>
-    </Section>
+    </section>
   )
 }

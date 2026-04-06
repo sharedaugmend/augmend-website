@@ -24,10 +24,10 @@ export default function OurStoryContent() {
 
         <blockquote className="max-w-3xl">
           <p className="font-display italic text-2xl md:text-3xl xl:text-4xl leading-relaxed text-white">
-            &ldquo;The time I meet with my patient is the most important part of my day — that&#39;s when their bodies tell me everything, and during that time I aspire to give them my full attention.&rdquo;
+            &ldquo;The time I meet with my patient is the most important part of my day, that&#39;s when their bodies tell me everything, and during that time I aspire to give them my full attention.&rdquo;
           </p>
           <cite className="mt-6 block font-body text-sm not-italic text-white/50">
-            — Grandpa, MD, PhD
+            - Grandpa, MD, PhD
           </cite>
         </blockquote>
       </Section>
@@ -41,7 +41,7 @@ export default function OurStoryContent() {
               Somewhere in a specialty clinic today, a provider has very little time. They know it isn&#39;t enough. The patient knows it isn&#39;t enough. And yet this is how medicine works: one constrained window, repeated across a lifetime of chronic illness, trying to compress everything into a form that fits.
             </p>
             <p className="text-neutral-slate">
-              The provider asks for support. The patient describes a limited set of symptoms. But there is a complex history underneath — a trauma, a job lost, a history of substance use, a relationship that fell apart, a fear they have never said out loud to anyone in a white coat. That detailed story never makes it into the chart.
+              The provider asks for support. The patient describes a limited set of symptoms. But there is a complex history underneath: a trauma, a job lost, a history of substance use, a relationship that fell apart, a fear they have never said out loud to anyone in a white coat. That detailed story never makes it into the chart.
             </p>
             <p className="text-neutral-slate">
               Not because the provider doesn&#39;t care. Because the system was never designed to create the conditions to capture the full story.
@@ -80,7 +80,7 @@ export default function OurStoryContent() {
               Research is clear: people disclose sensitive information to AI-driven digital environments at significantly higher rates than to clinicians face-to-face. The stigma lifts. The truth is captured. And when you structure what you collect for billing compliance from the moment of capture, the documentation problem and the revenue problem close together. One session. Two outputs. Neither one a compromise.
             </p>
             <p className="text-neutral-slate">
-              That insight became three systems — Anamnesis for listening, Anodyne for education, Summa for understanding at scale — designed from the beginning to compound in value with every session. The architecture was always building toward a dataset that no competitor can replicate without equivalent time.
+              That insight became three systems: Anamnesis for listening, Anodyne for education, Summa for understanding at scale, designed from the beginning to compound in value with every session. The architecture was always building toward a dataset that no competitor can replicate without equivalent time.
             </p>
           </div>
         </ScrollReveal>

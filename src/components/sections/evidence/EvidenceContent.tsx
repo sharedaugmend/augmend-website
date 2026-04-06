@@ -65,7 +65,7 @@ export default function EvidenceContent() {
                   </div>
                   <h3 className="font-body font-bold text-lg leading-tight">{item.title}</h3>
                   <p className="mt-2 font-body text-sm text-neutral-slate">
-                    {item.authors} — {item.venue}
+                    {item.authors}, {item.venue}
                   </p>
                   {item.stat && (
                     <div className="mt-4 border-l-2 border-l-accent-lime pl-4">

@@ -73,7 +73,7 @@ export default function TrustSecurityContent() {
               <Server className="h-6 w-6 text-brand-indigo mb-3" strokeWidth={1.5} />
               <h4>Cloud Infrastructure</h4>
               <p className="mt-2 text-neutral-slate">
-                Hosted on Amazon Web Services (AWS) — enterprise-grade security infrastructure certified for HIPAA, SOC 2, and FedRAMP compliance. Containerized deployment with encrypted object storage for all session artifacts.
+                Hosted on Amazon Web Services (AWS), enterprise-grade security infrastructure certified for HIPAA, SOC 2, and FedRAMP compliance. Containerized deployment with encrypted object storage for all session artifacts.
               </p>
             </Card>
           </motion.div>
@@ -134,7 +134,7 @@ export default function TrustSecurityContent() {
             <Card className="h-full">
               <h4>Automated De-Identification</h4>
               <p className="mt-2 text-neutral-slate">
-                All transcripts undergo automated de-identification using NLP tools — replacing names, dates, geographic identifiers, and other HIPAA-specified identifiers with generic labels. Aligned with HIPAA Safe Harbor method for removal of the 18 specified identifiers.
+                All transcripts undergo automated de-identification using NLP tools, replacing names, dates, geographic identifiers, and other HIPAA-specified identifiers with generic labels. Aligned with HIPAA Safe Harbor method for removal of the 18 specified identifiers.
               </p>
             </Card>
           </motion.div>
@@ -170,7 +170,7 @@ export default function TrustSecurityContent() {
               <Eye className="h-6 w-6 text-accent-lime mb-3" strokeWidth={1.5} />
               <h4 className="text-white">Real-Time Safety Detection</h4>
               <p className="mt-3 text-white/70">
-                Dual-layer system operating continuously during every session. Layer 1 (Deterministic): keyword-based detection scanning against comprehensive safety dictionary. Layer 2 (Contextual): AI-based detection analyzing contextual meaning — identifies indirect references, euphemistic language, and emergent risk indicators that keyword matching alone would miss.
+                Dual-layer system operating continuously during every session. Layer 1 (Deterministic): keyword-based detection scanning against comprehensive safety dictionary. Layer 2 (Contextual): AI-based detection analyzing contextual meaning, identifies indirect references, euphemistic language, and emergent risk indicators that keyword matching alone would miss.
               </p>
             </div>
           </motion.div>
@@ -179,7 +179,7 @@ export default function TrustSecurityContent() {
               <AlertTriangle className="h-6 w-6 text-accent-lime mb-3" strokeWidth={1.5} />
               <h4 className="text-white">Post-Session Risk Classification</h4>
               <p className="mt-3 text-white/70">
-                Four-tier system: Tier 0 (no concern), Tier 1 (passive harming thoughts — monitor), Tier 2 (active risk signals — escalate), Tier 3 (imminent danger — immediate intervention). Each classification is evidence-grounded with justification linked to specific conversational exchanges. Conservative rule: uncertain between tiers → select the higher tier.
+                Four-tier system: Tier 0 (no concern), Tier 1 (passive harming thoughts, monitor), Tier 2 (active risk signals, escalate), Tier 3 (imminent danger, immediate intervention). Each classification is evidence-grounded with justification linked to specific conversational exchanges. Conservative rule: uncertain between tiers → select the higher tier.
               </p>
             </div>
           </motion.div>
@@ -227,7 +227,7 @@ export default function TrustSecurityContent() {
             <Card className="h-full">
               <h4>CAS (Conversational AI System)</h4>
               <p className="mt-2 text-neutral-slate">
-                Classified as Non-Device Clinical Decision Support Software. Meets the 21st Century Cures Act Section 3060(a) exclusion and FDA Clinical Decision Support Software guidance (2022) criteria — the system presents structured information for clinician review, does not make independent diagnostic or treatment decisions, and enables clinicians to independently verify every finding.
+                Classified as Non-Device Clinical Decision Support Software. Meets the 21st Century Cures Act Section 3060(a) exclusion and FDA Clinical Decision Support Software guidance (2022) criteria: the system presents structured information for clinician review, does not make independent diagnostic or treatment decisions, and enables clinicians to independently verify every finding.
               </p>
             </Card>
           </motion.div>

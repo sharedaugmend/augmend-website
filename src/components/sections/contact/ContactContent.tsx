@@ -177,7 +177,7 @@ export default function ContactContent() {
                 <div className="border-t border-neutral-border pt-6">
                   <h4>What to expect</h4>
                   <p className="mt-2 text-neutral-slate text-[15px]">
-                    A clinical conversation about your workflow — not a sales pitch. Our team includes clinicians, health economists, and engineers who help adapt the platform to your specialty.
+                    A clinical conversation about your workflow, not a sales pitch. Our team includes clinicians, health economists, and engineers who help adapt the platform to your specialty.
                   </p>
                 </div>
               </div>

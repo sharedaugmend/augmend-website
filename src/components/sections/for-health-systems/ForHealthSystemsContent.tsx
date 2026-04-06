@@ -34,7 +34,7 @@ const complianceCards = [
 const populationCards = [
   {
     title: "Population Management",
-    body: "Identify high-risk patients before they escalate. Comorbidity clusters, SDOH burden, and treatment non-response patterns revealed across your chronic disease population \u2014 not at the point of acute admission, but across the full longitudinal record. Resource allocation, early intervention, and quality metric reporting grounded in structured evidence.",
+    body: "Identify high-risk patients before they escalate. Comorbidity clusters, SDOH burden, and treatment non-response patterns revealed across your chronic disease population, not at the point of acute admission, but across the full longitudinal record. Resource allocation, early intervention, and quality metric reporting grounded in structured evidence.",
   },
   {
     title: "Clinical Research Revenue",
@@ -42,7 +42,7 @@ const populationCards = [
   },
   {
     title: "Value-Based Care Performance",
-    body: "SDOH documentation and longitudinal outcome tracking are foundational to shared savings contracts, ACO performance measurement, and CMMI model participation. AugMend structures this data at the point of patient contact \u2014 every session, every domain \u2014 producing audit-ready documentation payers and CMS require without a separate infrastructure build.",
+    body: "SDOH documentation and longitudinal outcome tracking are foundational to shared savings contracts, ACO performance measurement, and CMMI model participation. AugMend structures this data at the point of patient contact, every session, every domain, producing audit-ready documentation payers and CMS require without a separate infrastructure build.",
   },
 ]
 
@@ -63,7 +63,7 @@ export default function ForHealthSystemsContent() {
             Clinical AI infrastructure that scales across service lines.
           </h1>
           <p className="mt-6 max-w-2xl text-white/70">
-            Deploy across pain medicine, behavioral health, neurology, rehabilitation, and oncology supportive care — same platform, same data architecture, same billing pathway.
+            Deploy across pain medicine, behavioral health, neurology, rehabilitation, and oncology supportive care: same platform, same data architecture, same billing pathway.
           </p>
         </ScrollReveal>
       </Section>
@@ -173,7 +173,7 @@ export default function ForHealthSystemsContent() {
             A proprietary clinical dataset your health system builds with every session.
           </h2>
           <p className="mt-6 max-w-2xl text-neutral-slate">
-            Every intake, check-in, interval assessment, and care engagement event contributes to a structured, longitudinal data asset that no competitor can replicate without equivalent time at scale. AugMend data is captured in structured format from the first session — SDOH, biopsychosocial complexity, symptom trajectories, treatment response patterns, care engagement — not extracted or cleaned retroactively from unstructured notes. That distinction matters for what the data can do.
+            Every intake, check-in, interval assessment, and care engagement event contributes to a structured, longitudinal data asset that no competitor can replicate without equivalent time at scale. AugMend data is captured in structured format from the first session: SDOH, biopsychosocial complexity, symptom trajectories, treatment response patterns, care engagement, not extracted or cleaned retroactively from unstructured notes. That distinction matters for what the data can do.
           </p>
         </ScrollReveal>
 
@@ -196,7 +196,7 @@ export default function ForHealthSystemsContent() {
 
         <ScrollReveal>
           <p className="mt-8 max-w-2xl text-neutral-slate italic">
-            The data compounds. The longer it runs, the more irreplaceable it becomes — as a clinical asset, a research resource, and a competitive advantage in payer contract negotiations.
+            The data compounds. The longer it runs, the more irreplaceable it becomes: as a clinical asset, a research resource, and a competitive advantage in payer contract negotiations.
           </p>
         </ScrollReveal>
       </Section>

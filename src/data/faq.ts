@@ -24,7 +24,7 @@ export const faq: FaqEntry[] = [
   },
   {
     question: "Why VR? Isn't that complicated?",
-    answer: "VR drives better data: our MIT trial showed higher disclosure of sensitive information (trauma, substance use, SDOH) versus standard intake. Patients find it a safer space — they're not facing a person, which reduces judgment anxiety. Setup is under 5 minutes with consumer-grade hardware. Patients self-guide after handoff; 77% wanted to use it again.",
+    answer: "VR drives better data: our MIT trial showed higher disclosure of sensitive information (trauma, substance use, SDOH) versus standard intake. Patients find it a safer space; they're not facing a person, which reduces judgment anxiety. Setup is under 5 minutes with consumer-grade hardware. Patients self-guide after handoff; 77% wanted to use it again.",
     category: "technology-safety",
   },
   {
@@ -44,7 +44,7 @@ export const faq: FaqEntry[] = [
   },
   {
     question: "Can we actually bill for this?",
-    answer: "Yes — existing CPT codes, no FDA clearance required. Our billing report auto-generates E&M documentation (target: 99213→99214-99215), SDOH Z-codes, and health behavior codes (96156). Includes exact MDM complexity language payers require. Validated by a medical director of revenue cycles. Billing AI model currently in development to support revenue management teams further.",
+    answer: "Yes: existing CPT codes, no FDA clearance required. Our billing report auto-generates E&M documentation (target: 99213→99214-99215), SDOH Z-codes, and health behavior codes (96156). Includes exact MDM complexity language payers require. Validated by a medical director of revenue cycles. Billing AI model currently in development to support revenue management teams further.",
     category: "billing-economics",
   },
   {
@@ -54,7 +54,7 @@ export const faq: FaqEntry[] = [
   },
   {
     question: "Does it work for patients with lower reading levels or accessibility needs?",
-    answer: "Yes. All content is designed at a 4th-5th grade reading level — essential for health literacy. The AI adapts conversationally based on patient responses. Future development includes demographic and cultural adaptation. Patients who struggle with paper forms often do better with conversational AI because they can just talk.",
+    answer: "Yes. All content is designed at a 4th-5th grade reading level, essential for health literacy. The AI adapts conversationally based on patient responses. Future development includes demographic and cultural adaptation. Patients who struggle with paper forms often do better with conversational AI because they can just talk.",
     category: "validation-credibility",
   },
   {
@@ -64,7 +64,7 @@ export const faq: FaqEntry[] = [
   },
   {
     question: "What if it doesn't work for us?",
-    answer: "90-day pilot with ROI visible in 30 days. We provide hands-on support — we come to you, set up the technology, train your staff, and stay involved. If no value, you're out $7,500 in implementation and coordination time. We even offer free trials of specific modules so you can see how staff and patients respond before committing.",
+    answer: "90-day pilot with ROI visible in 30 days. We provide hands-on support: we come to you, set up the technology, train your staff, and stay involved. If no value, you're out $7,500 in implementation and coordination time. We even offer free trials of specific modules so you can see how staff and patients respond before committing.",
     category: "validation-credibility",
   },
 ]

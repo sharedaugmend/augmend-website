@@ -1,13 +1,11 @@
 "use client"
 
 import Image from "next/image"
-import Section from "@/components/layout/Section"
 import ScrollReveal from "@/components/ui/ScrollReveal"
-import Button from "@/components/ui/Button"
 
 export default function SeeWhatYoureMissing() {
   return (
-    <section className="relative overflow-hidden bg-brand-indigo py-12 md:py-16 xl:py-24">
+    <section className="relative overflow-hidden bg-brand-deep-space py-12 md:py-16 xl:py-24">
       <Image
         src="/images/illustrations/running-phrases-indigo-1.png"
         alt=""
