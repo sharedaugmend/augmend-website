@@ -3,23 +3,12 @@
 import { motion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import Button from "@/components/ui/Button"
+import ParticleFlow from "@/components/ui/ParticleFlow"
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        className="absolute inset-0 w-full h-full object-cover z-0 motion-safe:block hidden"
-        aria-hidden
-      >
-        <source src="/images/hero/Flow Mar 27 2026 (1).mp4" type="video/mp4" />
-      </video>
-      <div className="absolute inset-0 z-0 motion-safe:hidden bg-brand-deep-space" />
-      <div className="absolute inset-0 bg-[#0D0B3E]/60 z-[1]" />
+    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden" style={{ background: '#1F1C98' }}>
+      <ParticleFlow className="absolute inset-0 w-full h-full z-0" />
 
       <div className="relative z-10 mx-auto max-w-[1280px] px-6 pt-32 pb-24 md:pt-40 md:pb-32">
         <div className="max-w-3xl">
