@@ -15,25 +15,8 @@ export interface NavItem {
 }
 
 export const mainNav: NavItem[] = [
-  {
-    label: "Platform",
-    href: "/platform/how-it-works",
-    dropdown: [
-      {
-        links: [
-          { label: "How It Works", href: "/platform/how-it-works" },
-        ],
-      },
-      {
-        heading: "Use Cases",
-        links: [
-          { label: "For Clinics", href: "/for-clinics" },
-          { label: "For Providers", href: "/for-providers" },
-          { label: "For Health Systems", href: "/for-health-systems" },
-        ],
-      },
-    ],
-  },
+  { label: "How It Works", href: "/platform/how-it-works" },
+  { label: "In Practice", href: "/in-practice" },
   { label: "Evidence", href: "/evidence" },
   {
     label: "Company",
@@ -43,12 +26,10 @@ export const mainNav: NavItem[] = [
         links: [
           { label: "Our Story", href: "/company/our-story" },
           { label: "Team", href: "/company/team" },
-          { label: "Advisors", href: "/company/advisors" },
         ],
       },
     ],
   },
-  { label: "Contact", href: "/contact" },
 ]
 
 export interface FooterColumn {
@@ -61,9 +42,8 @@ export const footerColumns: FooterColumn[] = [
     title: "Platform",
     links: [
       { label: "How It Works", href: "/platform/how-it-works" },
-      { label: "For Clinics", href: "/for-clinics" },
-      { label: "For Providers", href: "/for-providers" },
-      { label: "For Health Systems", href: "/for-health-systems" },
+      { label: "In Practice", href: "/in-practice" },
+      { label: "Evidence", href: "/evidence" },
     ],
   },
   {
@@ -71,8 +51,6 @@ export const footerColumns: FooterColumn[] = [
     links: [
       { label: "Our Story", href: "/company/our-story" },
       { label: "Team", href: "/company/team" },
-      { label: "Advisors", href: "/company/advisors" },
-      { label: "Evidence", href: "/evidence" },
     ],
   },
   {
@@ -80,7 +58,6 @@ export const footerColumns: FooterColumn[] = [
     links: [
       { label: "FAQ", href: "/faq" },
       { label: "Blog", href: "/blog" },
-      { label: "Trust & Security", href: "/trust-security" },
       { label: "Contact", href: "/contact" },
     ],
   },

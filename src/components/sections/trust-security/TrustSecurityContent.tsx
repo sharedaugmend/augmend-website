@@ -152,7 +152,7 @@ export default function TrustSecurityContent() {
       {/* Section 3: AI Safety Monitoring */}
       <Section bg="deep-space">
         <ScrollReveal>
-          <SectionLabel className="!text-accent-lime">AI Safety Monitoring &amp; Governance</SectionLabel>
+          <SectionLabel dark>AI Safety Monitoring &amp; Governance</SectionLabel>
           <h2 className="mt-4 text-white max-w-3xl">
             Dual-layer detection. Four-tier classification. Clinician-in-the-loop.
           </h2>

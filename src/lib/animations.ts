@@ -1,8 +1,8 @@
-export const smoothEase = [0.25, 0.1, 0.25, 1] as const
+export const smoothEase = [0.23, 1, 0.32, 1] as const
 
 export const staggerParent = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
+  visible: { transition: { staggerChildren: 0.06 } },
 }
 
 export const staggerChild = {
@@ -10,7 +10,7 @@ export const staggerChild = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: smoothEase },
+    transition: { duration: 0.4, ease: smoothEase },
   },
 }
 

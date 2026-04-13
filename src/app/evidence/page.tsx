@@ -4,10 +4,10 @@ import EvidenceContent from "@/components/sections/evidence/EvidenceContent"
 export const metadata: Metadata = {
   title: "Evidence",
   description:
-    "Peer-reviewed research, registered clinical trials, and active institutional partnerships supporting AugMend Health's clinical data infrastructure.",
+    "Peer-reviewed research, registered clinical trials, and active institutional partnerships supporting AugMend Health.",
   openGraph: {
     title: "Evidence — AugMend Health",
-    description: "Peer-reviewed. Independently validated. Actively recruiting.",
+    description: "Peer-reviewed. Independently validated.",
     type: "website",
   },
 }

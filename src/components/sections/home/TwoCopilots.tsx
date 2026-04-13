@@ -9,7 +9,7 @@ import { staggerParent, staggerChild, viewportOnce } from "@/lib/animations"
 
 export default function TwoCopilots() {
   return (
-    <section id="architecture" className="relative overflow-hidden py-12 md:py-16 xl:py-24" style={{ backgroundColor: "#F5F0E8" }}>
+    <section id="architecture" className="relative overflow-hidden py-16 md:py-20 xl:py-24 bg-surface-cream">
       <div className="relative z-10 mx-auto max-w-[1280px] px-6">
         <ScrollReveal>
           <SectionLabel>The Architecture</SectionLabel>

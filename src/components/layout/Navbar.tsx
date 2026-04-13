@@ -42,6 +42,8 @@ function DesktopDropdown({
       onMouseLeave={handleLeave}
     >
       <button
+        aria-expanded={open}
+        aria-haspopup="menu"
         className={`flex items-center gap-1 font-body font-bold text-[15px] tracking-[0.01em] transition-colors duration-200 ${
           isTransparent
             ? "text-white/90 hover:text-white"
@@ -207,10 +209,10 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 h-16 transition-colors duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 h-16 transition-all duration-300 ${
           isTransparent
             ? "bg-transparent"
-            : "bg-surface-warm-white border-b border-neutral-border"
+            : "bg-surface-warm-white/90 backdrop-blur-lg border-b border-neutral-border"
         }`}
       >
         <nav className="mx-auto flex h-full max-w-[1280px] items-center justify-between px-6">
@@ -265,7 +267,7 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden lg:block">
             <Button
-              variant={isTransparent ? "ghost" : "primary"}
+              variant="lime"
               href="/contact"
               className="!h-10 !px-6 !text-sm"
             >

@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { type ReactNode } from "react"
 
-type ButtonVariant = "primary" | "secondary" | "ghost"
+type ButtonVariant = "primary" | "secondary" | "lime" | "ghost"
 type ButtonSize = "default" | "large"
 
 interface ButtonProps {
@@ -15,17 +15,23 @@ interface ButtonProps {
 }
 
 const variantClasses: Record<ButtonVariant, string> = {
+  // Light backgrounds: indigo fill
   primary:
-    "bg-brand-indigo text-white hover:bg-brand-soft-indigo",
+    "bg-brand-indigo text-white hover:bg-brand-deep-space hover:-translate-y-px active:scale-[0.97] shadow-sm hover:shadow-md",
+  // Light backgrounds: indigo outline
   secondary:
-    "bg-transparent border-[1.5px] border-brand-indigo text-brand-indigo hover:bg-brand-indigo hover:text-white",
+    "bg-transparent border-2 border-brand-indigo text-brand-indigo hover:bg-brand-indigo/[0.06] active:scale-[0.97]",
+  // Dark backgrounds: lime fill (primary action on dark)
+  lime:
+    "bg-accent-lime text-brand-deep-space hover:brightness-110 hover:-translate-y-px active:scale-[0.97] shadow-sm hover:shadow-md",
+  // Dark backgrounds: white outline (secondary action on dark)
   ghost:
-    "bg-transparent border-[1.5px] border-white text-white hover:bg-white hover:text-brand-indigo",
+    "bg-transparent border-2 border-white text-white hover:bg-white/10 active:scale-[0.97]",
 }
 
 const sizeClasses: Record<ButtonSize, string> = {
-  default: "h-12 px-8",
-  large: "h-14 px-10",
+  default: "h-12 px-7",
+  large: "h-14 px-10 text-base",
 }
 
 export default function Button({
@@ -37,18 +43,19 @@ export default function Button({
   onClick,
   type = "button",
 }: ButtonProps) {
-  const classes = `inline-flex items-center justify-center font-body font-bold text-[15px] tracking-[0.02em] rounded-lg transition-colors duration-200 ease-out ${variantClasses[variant]} ${sizeClasses[size]} ${className}`
+  const classes = `inline-flex items-center justify-center font-body font-bold text-[15px] tracking-[0.02em] rounded-md transition-all duration-150 ${variantClasses[variant]} ${sizeClasses[size]} ${className}`
+  const style = { transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)" }
 
   if (href) {
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} className={classes} style={style}>
         {children}
       </Link>
     )
   }
 
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} className={classes} style={style}>
       {children}
     </button>
   )

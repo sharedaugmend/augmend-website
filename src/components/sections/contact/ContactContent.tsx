@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Mail, Phone } from "lucide-react"
+import { Mail } from "lucide-react"
 import Section from "@/components/layout/Section"
 import SectionLabel from "@/components/ui/SectionLabel"
 import ScrollReveal from "@/components/ui/ScrollReveal"
@@ -34,12 +34,12 @@ export default function ContactContent() {
         </nav>
 
         <ScrollReveal>
-          <SectionLabel>Contact</SectionLabel>
+          <SectionLabel>Get In Touch</SectionLabel>
           <h1 className="mt-4 max-w-3xl">
-            Schedule a Conversation
+            Get In Touch
           </h1>
           <p className="mt-4 max-w-2xl text-neutral-slate">
-            Not a sales call. A clinical conversation about your workflow.
+            A clinical conversation about your workflow, not a sales call.
           </p>
         </ScrollReveal>
       </Section>
@@ -142,9 +142,12 @@ export default function ContactContent() {
                     />
                   </div>
 
-                  <Button type="submit" variant="primary">
+                  <Button type="submit" variant="primary" className="w-full md:w-auto">
                     Send
                   </Button>
+                  <p className="mt-3 font-body text-xs text-neutral-slate">
+                    A clinical team member will follow up within one business day.
+                  </p>
                 </form>
               </ScrollReveal>
             )}
@@ -163,13 +166,6 @@ export default function ContactContent() {
                     >
                       <Mail className="h-5 w-5 text-brand-indigo shrink-0" strokeWidth={1.5} />
                       info@augmend.health
-                    </a>
-                    <a
-                      href="tel:+16179490128"
-                      className="flex items-center gap-3 font-body text-[15px] text-neutral-near-black hover:text-brand-indigo transition-colors"
-                    >
-                      <Phone className="h-5 w-5 text-brand-indigo shrink-0" strokeWidth={1.5} />
-                      (617) 949-0128
                     </a>
                   </div>
                 </div>

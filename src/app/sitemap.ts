@@ -5,17 +5,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const pages = [
     "",
-    "/for-clinics",
-    "/for-providers",
-    "/for-health-systems",
+    "/in-practice",
     "/platform/how-it-works",
+    "/evidence",
     "/company/our-story",
     "/company/team",
-    "/company/advisors",
-    "/evidence",
     "/contact",
     "/faq",
-    "/trust-security",
     "/blog",
     "/privacy",
     "/terms",
@@ -25,6 +21,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}${page}`,
     lastModified: new Date(),
     changeFrequency: page === "" ? "weekly" : "monthly",
-    priority: page === "" ? 1 : page.startsWith("/for-") ? 0.9 : 0.8,
+    priority: page === "" ? 1 : page === "/in-practice" ? 0.9 : 0.8,
   }))
 }
