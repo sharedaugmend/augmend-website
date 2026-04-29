@@ -77,6 +77,20 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
+        {/* Global duotone filter — applied via filter:url(#duotone-indigo-cream) */}
+        <svg
+          aria-hidden="true"
+          style={{ position: "absolute", width: 0, height: 0, overflow: "hidden" }}
+        >
+          <defs>
+            <filter id="duotone-indigo-cream">
+              <feColorMatrix
+                type="matrix"
+                values="0.12 0.11 0.59 0 0  0.11 0.10 0.59 0 0  0.60 0.58 0.93 0 0  0 0 0 1 0"
+              />
+            </filter>
+          </defs>
+        </svg>
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

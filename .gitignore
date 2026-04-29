@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local design reference materials (not used by the site)
+/docs/design-ref/
+/docs/*.zip

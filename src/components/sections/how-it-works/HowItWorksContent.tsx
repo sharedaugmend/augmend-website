@@ -3,31 +3,91 @@
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { RefreshCw, Settings2, ShieldCheck } from "lucide-react"
-import Section from "@/components/layout/Section"
+import { RefreshCw, Settings2, ShieldCheck, ArrowRight, ShieldAlert, Workflow } from "lucide-react"
 import SectionLabel from "@/components/ui/SectionLabel"
 import ScrollReveal from "@/components/ui/ScrollReveal"
-import Card from "@/components/ui/Card"
 import Button from "@/components/ui/Button"
-import PointCloudCluster from "@/components/ui/PointCloudCluster"
+import GlassCard from "@/components/ui/GlassCard"
+import PullQuote from "@/components/ui/PullQuote"
+import BlurredBackdrop from "@/components/ui/BlurredBackdrop"
+import ReportScrollthrough from "@/components/sections/how-it-works/ReportScrollthrough"
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/animations"
 
 const conversationFeatures = [
-  { icon: RefreshCw, title: "Adapts in real time", body: "For intakes, a thorough and complete history is collected. For follow-ups, newly expressed symptoms and concerns trigger structured depth collection with detailed follow-through. Stable symptoms previously mentioned receive brief confirmation." },
-  { icon: Settings2, title: "Configured by your clinic", body: "Your team selects the relevant clinical domains for your patient population and clinic needs. Chronic pain, behavioral health, neurology, oncology supportive care: the assessment architecture changes. The underlying conversational skills and safety system does not." },
-  { icon: ShieldCheck, title: "Continuous safety monitoring", body: "Every session includes structured safety guardrails that monitor for direct and passive expression of risk factors from first question to last. Risk indicators are flagged at the moment of disclosure and routed to the supervising clinician. Safety questions override session time limits." },
+  {
+    icon: RefreshCw,
+    title: "Adapts in real time",
+    body:
+      "For intake, a thorough and complete history is collected. For follow-ups, newly expressed symptoms and concerns trigger structured depth collection with detailed follow-through. Stable symptoms previously mentioned receive brief confirmation.",
+  },
+  {
+    icon: Settings2,
+    title: "Configured by your clinic",
+    body:
+      "Your team selects the relevant clinical domains for your patient population and clinic needs. Chronic pain, behavioral health, neurology, oncology supportive care: the assessment architecture changes. The underlying conversational skills and safety system does not.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Continuous safety monitoring",
+    body:
+      "Every session may include structured safety screening from the first question to the last. Risk indicators are flagged at the moment of disclosure and routed to the supervising clinician. Safety questions override session time limits.",
+  },
+  {
+    icon: ArrowRight,
+    title: "Cross-session continuity",
+    body:
+      "Follow-up sessions build on the prior visit, not on a blank slate. The system tracks what changed, what is stable, and what your team flagged for closer attention.",
+  },
 ]
 
-const sessionTypes = [
-  { title: "Intake Sessions (Sessions 1-3, 30-45 min)", body: "Covers configured clinical domains in breadth and depth. The system recommends transition to check-in mode once the clinical picture is sufficiently complete. Your clinical team confirms the transition." },
-  { title: "Check-In Sessions (Ongoing, 10-15 min)", body: "Changes-focused. Medication updates, symptom shifts, new concerns. The system re-opens a domain if something new appears. Patients are not asked to start over." },
-  { title: "Exercise Sessions (As needed, 10-15 min)", body: "Prescribed behavioral exercises, delivered in clinic and that run between appointments. Learnings are summarized for the provider before the next visit." },
+const exercises = [
+  {
+    title: "Relaxation",
+    duration: "5–10 min",
+    body:
+      "Guided breathing, somatic, and grounding exercises delivered in immersive VR. Used in clinic and prescribed for between visits.",
+  },
+  {
+    title: "Psychoeducation",
+    duration: "5–10 min",
+    body:
+      "Patients learn evidence-based concepts about their condition through narrative and immersive scene-work. Comprehension is checked, not assumed.",
+  },
+  {
+    title: "Behavioral activation",
+    duration: "15–20 min",
+    body:
+      "Short structured exercises that rehearse coping skills and target specific patient goals set by the provider.",
+  },
+  {
+    title: "Pain management",
+    duration: "15–20 min",
+    body:
+      "Distraction-based and reappraisal-based VR experiences that reduce acute pain perception during clinic visits or at home.",
+  },
 ]
 
 const reportTypes = [
-  { title: "Detailed Intake Report", body: "For initial intake and insurance re-authorization. Complete biopsychosocial picture across all assessed domains. Supports the documentation complexity that higher-level CPT coding requires." },
-  { title: "SOAP Note", body: "For check-ins and progress visits. Changes since last visit, medication updates, flagged items, current risk status." },
-  { title: "Billing-Ready Report", body: "Generated alongside every clinical report. Written in CPT-ready language, mapped to the codes the care supports. Your billing team receives documentation ready for processing under existing codes." },
+  {
+    title: "Complete Report",
+    body:
+      "Reviewed at a glance — the full clinical brief across all assessed domains, with confidence scoring, flagged items, and the supporting transcript surfaced inline.",
+  },
+  {
+    title: "Detailed Intake Report",
+    body:
+      "For initial intake and insurance re-authorization. Complete biopsychosocial picture across all assessed domains. Supports the documentation complexity that higher-level CPT coding requires.",
+  },
+  {
+    title: "Billing-Ready Report",
+    body:
+      "Generated alongside every clinical report. Written in CPT-ready language, mapped to the codes the care supports. Your billing team receives documentation ready for processing under existing codes.",
+  },
+  {
+    title: "Evidence-linked claims",
+    body:
+      "Every finding traces to the patient's own words. Open the source transcript or audio for any claim. Uncertain items are explicitly flagged for provider review.",
+  },
 ]
 
 const vrMetrics = [
@@ -39,235 +99,543 @@ const vrMetrics = [
   { domain: "Overall Experience", vr: "6.29", ai: "5.86", diff: "+7%" },
 ]
 
-const safetyCards = [
-  { title: "Continuous safety screening", body: "Every session includes structured safety screening from the first question to the last. The system does not clear patients, it flags indicators. Risk alerts route directly to the supervising clinician in real time." },
-  { title: "Evidence-linked claims", body: "Every finding in the clinical report is linked to the specific patient exchange that produced it. Providers can open the source transcript for any claim. Uncertain items are explicitly marked for provider review." },
-  { title: "Clinician-controlled at every step", body: "Sessions are launched by clinical staff, not patients. Domain configuration is controlled by the clinical team. Reports require explicit provider sign-off before finalization. No content enters the clinical record without provider review and approval." },
-]
-
 export default function HowItWorksContent() {
   return (
     <>
-      {/* Hero — cream bg with point cloud visual */}
-      <section className="relative overflow-hidden bg-surface-cream">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_45%]">
-          <div className="pt-28 pb-16 md:pt-32 md:pb-20 xl:pb-24 px-6 lg:pl-[max(1.5rem,calc((100vw-1280px)/2+1.5rem))] lg:pr-4">
-            <nav className="mb-8 font-body text-sm text-neutral-slate">
-              <Link href="/" className="hover:text-brand-indigo transition-colors">Home</Link><span className="mx-2">/</span><span className="text-neutral-near-black">How It Works</span>
-            </nav>
-            <ScrollReveal>
-              <SectionLabel>How It Works</SectionLabel>
-              <h1 className="mt-4 max-w-3xl">One platform. Designed to work across the full care journey.</h1>
-              <p className="mt-6 max-w-2xl text-neutral-slate">Every component is configured by your clinical team. Every decision stays with your providers.</p>
-              <div className="mt-8 flex flex-wrap gap-4">
-                <Button variant="primary" href="/in-practice" size="large">See It in Practice</Button>
-                <Button variant="secondary" href="/contact" size="large">Schedule a Conversation</Button>
+      {/* HERO — matches home hero treatment exactly: feathered image, frosted card with mask gradient, comfortable text width */}
+      <section
+        className="relative overflow-hidden flex items-center"
+        style={{
+          minHeight: "100vh",
+          background:
+            "linear-gradient(130deg, #070619 0%, #0c0a3e 55%, #181070 100%)",
+          paddingTop: 64,
+        }}
+      >
+        {/* Right-side nurse image, raised so face centers with the headline */}
+        <div
+          aria-hidden="true"
+          className="absolute right-0 top-0 bottom-0 pointer-events-none z-[1]"
+          style={{
+            width: "55%",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 14%, rgba(0,0,0,0.6) 36%, black 64%)",
+            maskImage:
+              "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 14%, rgba(0,0,0,0.6) 36%, black 64%)",
+          }}
+        >
+          <Image
+            src="/images/how-it-works/hero-woman.png"
+            alt=""
+            fill
+            sizes="55vw"
+            className="object-cover"
+            style={{
+              objectPosition: "32% 20%",
+              opacity: 0.78,
+              mixBlendMode: "luminosity",
+              filter: "hue-rotate(190deg) saturate(0.4) brightness(0.85)",
+            }}
+            priority
+          />
+        </div>
+
+        <div
+          className="relative z-[2] py-16 md:py-20 pointer-events-none"
+          style={{
+            marginLeft: "max(1.5rem, calc((100vw - 1280px)/2 + 1.5rem))",
+            paddingRight: "1.5rem",
+            width: "min(calc(100vw - 3rem), max(440px, 52vw))",
+            maxWidth: 720,
+          }}
+        >
+          <nav className="font-body text-sm text-white/60 mb-6 pointer-events-auto">
+            <Link href="/" className="hover:text-white transition-colors">
+              Home
+            </Link>
+            <span className="mx-2">/</span>
+            <span className="text-white">How It Works</span>
+          </nav>
+
+          <ScrollReveal>
+            <div
+              className="rounded-3xl relative"
+              style={{
+                background: "rgba(7, 6, 25, 0.42)",
+                backdropFilter: "blur(20px) saturate(130%)",
+                WebkitBackdropFilter: "blur(20px) saturate(130%)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+                boxShadow:
+                  "0 0 60px 30px rgba(7, 6, 25, 0.35), 0 30px 60px -20px rgba(0, 0, 0, 0.6)",
+                padding: "44px 56px",
+                WebkitMaskImage:
+                  "radial-gradient(ellipse at center, black 62%, rgba(0,0,0,0.85) 82%, rgba(0,0,0,0.5) 100%)",
+                maskImage:
+                  "radial-gradient(ellipse at center, black 62%, rgba(0,0,0,0.85) 82%, rgba(0,0,0,0.5) 100%)",
+              }}
+            >
+              <SectionLabel dark>How It Works</SectionLabel>
+              <h1
+                className="mt-4 font-display text-white"
+                style={{
+                  fontSize: "clamp(36px, 4.2vw, 54px)",
+                  fontWeight: 600,
+                  lineHeight: 1.08,
+                  letterSpacing: "-0.025em",
+                }}
+              >
+                One platform. Designed to work across the <em className="italic" style={{ fontWeight: 500 }}>full care journey.</em>
+              </h1>
+              <p
+                className="font-body mt-5"
+                style={{
+                  fontSize: 18,
+                  lineHeight: 1.6,
+                  color: "rgba(255, 255, 255, 0.78)",
+                }}
+              >
+                Every component is configured by your clinical team. Every decision stays with your providers.
+              </p>
+            </div>
+            <div className="relative z-[3] mt-6 flex flex-wrap gap-4 pointer-events-auto">
+              <Button variant="primary" href="/in-practice" size="large">
+                See It in Practice
+              </Button>
+              <Button variant="frosted" href="/contact" size="large">
+                Schedule a Conversation
+              </Button>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* THE CONVERSATION — cards behind the 4 points + vertical video on the right.
+          The video stretches to match the full height of the card stack. */}
+      <section className="relative overflow-hidden py-24 md:py-28 bg-surface-warm-white">
+        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-12 lg:gap-16 items-stretch">
+            <div className="flex flex-col">
+              <ScrollReveal>
+                <SectionLabel>The Conversation</SectionLabel>
+                <h2 className="mt-3 leading-[1.2]">
+                  Designed by medical experts for disclosure and information collection.
+                </h2>
+                <p className="mt-4 font-body font-bold text-neutral-slate">
+                  15–45 minutes, no provider time consumed
+                </p>
+              </ScrollReveal>
+
+              <motion.div
+                className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1"
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                variants={staggerParent}
+              >
+                {conversationFeatures.map((f) => (
+                  <motion.div key={f.title} variants={staggerChild}>
+                    <GlassCard tone="neutral" className="p-6 h-full">
+                      <f.icon className="h-6 w-6 text-brand-indigo mb-4" strokeWidth={1.5} />
+                      <h4 className="font-body font-bold text-[16px] text-neutral-near-black">
+                        {f.title}
+                      </h4>
+                      <p className="mt-2 font-body text-[14px] leading-relaxed text-neutral-slate">
+                        {f.body}
+                      </p>
+                    </GlassCard>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
+
+            <ScrollReveal delay={0.15} className="hidden lg:block">
+              <div className="rounded-2xl overflow-hidden h-full min-h-[640px] relative">
+                <video
+                  className="absolute inset-0 w-full h-full object-cover"
+                  src="/videos/conversation-robot-vertical.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  aria-hidden="true"
+                />
               </div>
             </ScrollReveal>
           </div>
-          <div className="relative hidden lg:block min-h-[450px]">
-            <PointCloudCluster className="absolute inset-0 w-full h-full" />
-          </div>
         </div>
       </section>
 
-      {/* The Conversation — dark bg with dots at low opacity */}
-      <section className="relative overflow-hidden py-16 md:py-20 xl:py-24 bg-brand-deep-space">
-        <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'url(/images/illustrations/dots-indigo-background.png)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
-        <div className="relative z-10 mx-auto max-w-[1280px] px-6">
-          <ScrollReveal>
-            <SectionLabel dark>The Conversation</SectionLabel>
-            <h2 className="mt-4 max-w-3xl text-white">Designed by medical experts for disclosure and information collection.</h2>
-            <p className="mt-4 font-body font-bold text-white/80">15-45 minutes, no provider time consumed</p>
-          </ScrollReveal>
-          <motion.div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8" initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerParent}>
-            {conversationFeatures.map((f) => (
-              <motion.div key={f.title} variants={staggerChild} className="flex items-start gap-4">
-                <f.icon className="h-6 w-6 text-accent-lime shrink-0 mt-1" strokeWidth={1.5} />
-                <div>
-                  <h4 className="text-white">{f.title}</h4>
-                  <p className="mt-2 text-white/70 text-base">{f.body}</p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Session Types — cream with subtle dots */}
-      <section className="relative overflow-hidden py-16 md:py-20 xl:py-24 bg-surface-cream">
-        <div className="absolute inset-0 opacity-[0.15]" style={{ backgroundImage: 'url(/images/illustrations/dots-cream-background.png)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
-        <div className="relative z-10 mx-auto max-w-[1280px] px-6">
+      {/* SESSION TYPES — Data Collection + Exercise groupings (VR Exercises folded in) */}
+      <section className="relative overflow-hidden py-24 md:py-28 bg-surface-cream">
+        <BlurredBackdrop src="/images/home/vr-chamber.png" tone="cream" imageOpacity={0.25} position="center 40%" />
+        <div className="relative mx-auto max-w-[1280px] px-6 md:px-12">
           <ScrollReveal>
             <SectionLabel>Session Types</SectionLabel>
-            <h2 className="mt-4">Intake. Check-in. Between visits. Each session has a job.</h2>
+            <h2 className="mt-3 leading-[1.2]">Each session has a job.</h2>
+            <p className="mt-4 max-w-[680px] text-neutral-slate">
+              AugMend sessions fall into two families: data-collection sessions that capture clinical context, and exercise sessions that put care into practice between visits.
+            </p>
           </ScrollReveal>
-          <motion.div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6" initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerParent}>
-            {sessionTypes.map((t) => (
+
+          {/* Data Collection group — image column matched to card stack height,
+              video replaces the static avatar image */}
+          <ScrollReveal>
+            <div className="mt-14 grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-10 lg:gap-16 items-stretch">
+              <div className="flex flex-col">
+                <div className="font-body font-bold text-[13px] uppercase tracking-[0.05em] text-brand-indigo border-b border-neutral-border pb-3 mb-6">
+                  Data Collection sessions
+                </div>
+                <div className="space-y-4 flex-1">
+                  {[
+                    { tag: "Sessions 1–3 · 30–45 min", title: "Intake Sessions", body: "Cover configured clinical domains in breadth and depth. The system recommends transition to follow-up mode once the clinical picture is sufficiently complete. Your clinical team confirms the transition." },
+                    { tag: "Ongoing · 10–15 min", title: "Follow-up Sessions", body: "Changes-focused. Medication updates, symptom shifts, new concerns. The system re-opens a domain if something new appears. Patients are not asked to start over." },
+                    { tag: "End of treatment · 30–45 min", title: "Exit Interview", body: "Captures the patient's experience of the care episode before they leave. Flags unresolved concerns before the next appointment window opens." },
+                  ].map((c) => (
+                    <GlassCard key={c.title} tone="indigo" accent="indigo" className="p-7">
+                      <div className="font-body font-bold text-[11px] uppercase tracking-[0.06em] text-neutral-slate mb-1.5">
+                        {c.tag}
+                      </div>
+                      <h4 className="font-body font-bold text-[17px] mb-1.5">{c.title}</h4>
+                      <p className="font-body text-[15px] leading-relaxed text-neutral-slate">
+                        {c.body}
+                      </p>
+                    </GlassCard>
+                  ))}
+                </div>
+              </div>
+              <GlassCard tone="neutral" className="overflow-hidden flex flex-col">
+                <div className="relative flex-1 min-h-[480px]">
+                  <video
+                    className="absolute inset-0 w-full h-full object-cover"
+                    src="/videos/avatar-data-collection.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    aria-hidden="true"
+                  />
+                </div>
+                <div className="p-6">
+                  <p className="font-body text-[13px] text-neutral-slate leading-relaxed">
+                    The non-human avatar conducts the conversation. Patients speak; the system listens, adapts, and structures.
+                  </p>
+                </div>
+              </GlassCard>
+            </div>
+          </ScrollReveal>
+
+          {/* Exercise group */}
+          <ScrollReveal>
+            <div className="mt-16 grid grid-cols-1 lg:grid-cols-[420px_1fr] gap-10 lg:gap-16 items-stretch">
+              <GlassCard tone="neutral" className="overflow-hidden order-2 lg:order-1 flex flex-col">
+                <div className="relative flex-1 min-h-[520px]">
+                  <Image
+                    src="/images/how-it-works/exercise-living-room-new.png"
+                    alt="A modern living room set up for an at-home VR exercise session"
+                    fill
+                    sizes="(min-width: 1024px) 420px, 100vw"
+                    className="object-cover"
+                    style={{ objectPosition: "50% 35%" }}
+                  />
+                </div>
+                <div className="p-6">
+                  <p className="font-body text-[13px] text-neutral-slate leading-relaxed">
+                    Provider prescribes; patient practices in clinic or at home. Engagement and progress flow back into the next clinical brief.
+                  </p>
+                </div>
+              </GlassCard>
+              <div className="order-1 lg:order-2 flex flex-col">
+                <div className="font-body font-bold text-[13px] uppercase tracking-[0.05em] border-b border-neutral-border pb-3 mb-6" style={{ color: "#4a6000" }}>
+                  Exercise sessions
+                </div>
+                <div className="space-y-4">
+                  {exercises.map((ex) => (
+                    <GlassCard key={ex.title} tone="lime" accent="lime" className="p-7">
+                      <div className="flex items-baseline justify-between gap-3 mb-1.5">
+                        <h4 className="font-body font-bold text-[17px]">{ex.title}</h4>
+                        <span className="font-body font-bold text-[11px] uppercase tracking-[0.06em] text-neutral-slate shrink-0">
+                          {ex.duration}
+                        </span>
+                      </div>
+                      <p className="font-body text-[15px] leading-relaxed text-neutral-slate">
+                        {ex.body}
+                      </p>
+                    </GlassCard>
+                  ))}
+                </div>
+                {/* Promoted governance note — eyebrow + slightly larger body so
+                    this load-bearing safety statement isn't lost as a footnote */}
+                <div
+                  className="mt-6 rounded-xl px-6 py-5"
+                  style={{
+                    background: "rgba(13, 11, 62, 0.04)",
+                    borderLeft: "3px solid #1F1C98",
+                  }}
+                >
+                  <div className="font-body font-bold text-[10.5px] uppercase tracking-[0.08em] text-brand-indigo mb-2">
+                    Clinical governance
+                  </div>
+                  <p className="font-body text-[14.5px] leading-[1.6] text-neutral-near-black">
+                    The provider makes every clinical prescription decision. Non-medical staff manage the headset; the <strong>clinician owns the plan</strong>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* THE OUTPUT — scroll-pinned showcase of the actual sample report */}
+      <ReportScrollthrough />
+
+      {/* OUTPUT TYPES — sits close to the scroll-through; tighter top padding */}
+      <section className="relative overflow-hidden pt-8 md:pt-12 pb-20 md:pb-24 bg-surface-warm-white">
+        <BlurredBackdrop src="/images/home/maria-portrait.png" tone="warm-white" imageOpacity={0.32} position="center 30%" />
+        <div className="relative mx-auto max-w-[1280px] px-6 md:px-12">
+          <ScrollReveal>
+            <SectionLabel>Output formats</SectionLabel>
+            <h2
+              className="mt-3 leading-[1.15] max-w-[760px]"
+              style={{ fontSize: "clamp(28px, 3vw, 38px)", fontWeight: 600 }}
+            >
+              Four report formats. Same source data.
+            </h2>
+            <p className="mt-4 max-w-[680px] text-neutral-slate">
+              Every session generates structured outputs from the same source — a clinical brief for review, billing-ready documentation mapped to CPT codes, and the source transcript behind every claim.
+            </p>
+          </ScrollReveal>
+
+          <motion.div
+            className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={staggerParent}
+          >
+            {reportTypes.map((t) => (
               <motion.div key={t.title} variants={staggerChild}>
-                <Card className="h-full border-t-2 border-t-brand-indigo">
-                  <h4 className="text-base">{t.title}</h4>
-                  <p className="mt-2 text-neutral-slate text-base">{t.body}</p>
-                </Card>
+                <GlassCard tone="indigo" accent="indigo" className="p-7 h-full">
+                  <h4 className="font-body font-bold text-[17px] mb-2">{t.title}</h4>
+                  <p className="font-body text-[15px] leading-relaxed text-neutral-slate">
+                    {t.body}
+                  </p>
+                </GlassCard>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* The Output — cream bg with subtle dots */}
-      <section className="relative overflow-hidden py-16 md:py-20 xl:py-24 bg-surface-cream">
-        <div className="absolute inset-0 opacity-[0.15]" style={{ backgroundImage: 'url(/images/illustrations/dots-cream-background.png)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
-        <div className="relative z-10 mx-auto max-w-[1280px] px-6">
-        <ScrollReveal>
-          <SectionLabel>The Output</SectionLabel>
-          <h2 className="mt-4">The right report format for the right information.</h2>
-          <p className="mt-4 max-w-2xl text-neutral-slate">Every session generates structured outputs from the same data: a clinical report or SOAP note for provider review, and billing-ready documentation mapped to the CPT codes the encounter supports.</p>
-        </ScrollReveal>
-        <div className="mt-10 grid grid-cols-1 lg:grid-cols-[55%_45%] gap-10 items-stretch">
-          <ScrollReveal>
-            <div className="space-y-6">
-              {reportTypes.map((t) => (
-                <div key={t.title} className="bg-surface-white/80 rounded-xl p-5 border border-neutral-border/50">
-                  <h4 className="text-base">{t.title}</h4>
-                  <p className="mt-2 text-neutral-slate text-base">{t.body}</p>
-                </div>
-              ))}
-              <div className="space-y-4 mt-6">
-                <div className="bg-surface-white/80 rounded-xl p-5 border border-neutral-border/50">
-                  <h4 className="text-base">Evidence-linked claims</h4>
-                  <p className="mt-2 text-neutral-slate text-base">Every finding traces to the patient&apos;s own words. Open the transcript or audio for any flagged item. Uncertain items are flagged. Trust confident summaries. Verify flagged ones.</p>
-                </div>
-                <div className="bg-surface-white/80 rounded-xl p-5 border border-neutral-border/50">
-                  <h4 className="text-base">Cross-session intelligence</h4>
-                  <p className="mt-2 text-neutral-slate text-base">The system tracks what has been covered, what changed, and what the provider directed, including between-visit check-ins and exercise engagement. Follow-ups build; they don&apos;t restart.</p>
-                </div>
+      {/* WHY VR — break-out image treatment: the photo extends beyond the
+          column on the right, breaking the grid line for visual interest */}
+      <section className="relative overflow-hidden py-24 md:py-28 bg-surface-white">
+        {/* Break-out image — anchored to the right edge of the viewport, not
+            constrained to the content column. */}
+        <div
+          aria-hidden="true"
+          className="hidden lg:block absolute top-0 bottom-0 right-0 pointer-events-none"
+          style={{ width: "44vw" }}
+        >
+          <div className="relative h-full overflow-hidden">
+            <Image
+              src="/images/home/hands-offer-headset.png"
+              alt=""
+              fill
+              sizes="44vw"
+              className="object-cover"
+              style={{ objectPosition: "30% center" }}
+            />
+            {/* Soft left-edge feather so the image dissolves into the page */}
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(to right, rgba(255,252,246,1) 0%, rgba(255,252,246,0.85) 8%, rgba(255,252,246,0) 28%)",
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="relative mx-auto max-w-[1280px] px-6 md:px-12">
+          <div className="lg:max-w-[58%]">
+            <ScrollReveal>
+              <SectionLabel>Why VR</SectionLabel>
+              <h2 className="mt-3 leading-[1.15]" style={{ fontSize: "clamp(30px, 3.4vw, 44px)", fontWeight: 600, letterSpacing: "-0.02em" }}>
+                Immersion changes what patients share.
+              </h2>
+              <div className="mt-5 space-y-4 text-neutral-slate">
+                <p>
+                  Standard clinical intake happens in environments shaped by time pressure, social judgment, and institutional formality. VR removes those barriers. In a controlled immersive environment, patients engage longer, disclose more, and report greater comfort sharing sensitive information.
+                </p>
+                <p>
+                  Data from our randomized controlled trial shows VR consistently outperforming web-based AI across engagement, disclosure comfort, and overall experience. VR responses were 30% longer. Patients elaborate more when the environment supports it.
+                </p>
               </div>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <div className="relative h-full min-h-[400px] rounded-2xl overflow-hidden">
-              <Image src="/images/illustrations/three-report-tiers.png" alt="Report preview: Detailed Intake, SOAP Note, Billing-Ready" fill className="object-contain object-top" />
-            </div>
-          </ScrollReveal>
-        </div>
-        </div>
-      </section>
+            </ScrollReveal>
 
-      {/* Why VR — white bg */}
-      <section className="relative overflow-hidden py-16 md:py-20 xl:py-24 bg-surface-white">
-        <div className="relative z-10 mx-auto max-w-[1280px] px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-10 items-start">
-            <div>
-              <ScrollReveal>
-                <SectionLabel>Why VR</SectionLabel>
-                <h2 className="mt-4">Immersion changes what patients share.</h2>
-                <div className="mt-6 space-y-4 text-neutral-slate text-base">
-                  <p>Standard clinical intake happens in environments shaped by time pressure, social judgment, and institutional formality. VR removes those barriers. In a controlled immersive environment, patients engage longer, disclose more, and report greater comfort sharing sensitive information.</p>
-                  <p>Data from our randomized controlled trial shows VR consistently outperforming web-based AI across engagement, disclosure comfort, and overall experience. VR responses were 30% longer. Patients elaborate more when the environment supports it.</p>
-                  <p>The same conversational AI runs on phone, tablet, and web. VR is the highest-fidelity option where deeper engagement matters most.</p>
-                </div>
-              </ScrollReveal>
-
-              {/* Stats under text, in reading flow */}
-              <ScrollReveal>
-                <div className="mt-8 overflow-x-auto">
-                  <table className="w-full bg-surface-white border border-neutral-border rounded-xl overflow-hidden text-sm">
-                    <thead>
-                      <tr className="bg-surface-cream">
-                        <th className="text-left px-4 py-3 font-body font-bold text-xs uppercase tracking-wider text-neutral-slate">Domain</th>
-                        <th className="text-right px-4 py-3 font-body font-bold text-xs uppercase tracking-wider text-neutral-slate">VR</th>
-                        <th className="text-right px-4 py-3 font-body font-bold text-xs uppercase tracking-wider text-neutral-slate">Web AI</th>
-                        <th className="text-right px-4 py-3 font-body font-bold text-xs uppercase tracking-wider text-brand-indigo">Diff</th>
+            <ScrollReveal>
+              <div className="mt-8 overflow-x-auto">
+                <table className="w-full bg-surface-white border border-neutral-border rounded-xl overflow-hidden text-sm">
+                  <thead>
+                    <tr className="bg-surface-cream">
+                      <th className="text-left px-4 py-3 font-body font-bold text-xs uppercase tracking-wider text-neutral-slate">
+                        Domain
+                      </th>
+                      <th className="text-right px-4 py-3 font-body font-bold text-xs uppercase tracking-wider text-neutral-slate">
+                        VR
+                      </th>
+                      <th className="text-right px-4 py-3 font-body font-bold text-xs uppercase tracking-wider text-neutral-slate">
+                        Web AI
+                      </th>
+                      <th className="text-right px-4 py-3 font-body font-bold text-xs uppercase tracking-wider text-brand-indigo">
+                        Diff
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {vrMetrics.map((m, i) => (
+                      <tr key={m.domain} className={i % 2 === 1 ? "bg-surface-cream/50" : ""}>
+                        <td className="px-4 py-2.5 font-body text-neutral-near-black text-sm">{m.domain}</td>
+                        <td className="px-4 py-2.5 font-body text-right text-neutral-slate text-sm tabular-nums">
+                          {m.vr}
+                        </td>
+                        <td className="px-4 py-2.5 font-body text-right text-neutral-slate text-sm tabular-nums">
+                          {m.ai}
+                        </td>
+                        <td className="px-4 py-2.5 font-body font-bold text-right text-brand-indigo text-sm tabular-nums">
+                          {m.diff}
+                        </td>
                       </tr>
-                    </thead>
-                    <tbody>
-                      {vrMetrics.map((m, i) => (
-                        <tr key={m.domain} className={i % 2 === 1 ? "bg-surface-cream/50" : ""}>
-                          <td className="px-4 py-2 font-body text-neutral-near-black text-sm">{m.domain}</td>
-                          <td className="px-4 py-2 font-body text-right text-neutral-slate text-sm">{m.vr}</td>
-                          <td className="px-4 py-2 font-body text-right text-neutral-slate text-sm">{m.ai}</td>
-                          <td className="px-4 py-2 font-body font-bold text-right text-brand-indigo text-sm">{m.diff}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                  <p className="mt-2 font-body text-[11px] text-neutral-mist">Data from our randomized controlled trial, n=45</p>
-                </div>
-              </ScrollReveal>
-
-              {/* Quote — emotional close, last element */}
-              <ScrollReveal>
-                <div className="mt-8 bg-brand-deep-space rounded-2xl p-6">
-                  <p className="font-display italic text-base text-white/90">"VR showed higher median ratings than desktop across several domains, with moderate-to-large effect sizes in Core and Overall Experience."</p>
-                  <p className="mt-2 font-body text-xs text-white/50">Murnane et al., Journal of Medical Extended Reality, 2026.</p>
-                </div>
-              </ScrollReveal>
-            </div>
-
-            {/* VR image — matched to text height, not cropped */}
-            <ScrollReveal delay={0.1} className="hidden lg:block">
-              <div className="rounded-2xl overflow-hidden">
-                <Image src="/images/illustrations/VR-experiences-adaptive-2.png" alt="VR clinical assessment session" width={500} height={375} className="w-full h-auto object-contain img-blend" />
+                    ))}
+                  </tbody>
+                </table>
+                <p className="mt-2 font-body text-[11px] text-neutral-slate">
+                  Data from our randomized controlled trial, n=45
+                </p>
               </div>
+            </ScrollReveal>
+
+            <ScrollReveal>
+              <PullQuote
+                className="mt-8"
+                cite="Murnane et al., Journal of Medical Extended Reality, 2026"
+              >
+                &ldquo;VR showed higher median ratings than desktop across several domains, with moderate-to-large effect sizes in Core and Overall Experience.&rdquo;
+              </PullQuote>
             </ScrollReveal>
           </div>
         </div>
       </section>
 
-      {/* The Avatar — cream dots bg, video cropped to match quote card height */}
-      <Section bg="cream" dots>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-start">
-          <ScrollReveal>
-            <div className="rounded-2xl overflow-hidden max-w-[380px]">
-              <video autoPlay muted loop playsInline className="w-full h-auto object-contain" poster="/images/illustrations/robot-avatar-blue.png">
-                <source src="/videos/robot-head-movements.mp4" type="video/mp4" />
-              </video>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal delay={0.1}>
-            <SectionLabel>The Interface</SectionLabel>
-            <h2 className="mt-4">Why a non-human avatar.</h2>
-            <div className="mt-6 space-y-4 text-neutral-slate text-base">
-              <p>Research in human-computer interaction shows that people disclose more to agents they perceive as non-human. The absence of a human face removes the fear of judgment, social desirability bias, and the self-editing that shapes every clinical encounter.</p>
-              <p>AugMend's conversational avatar is deliberately non-human. It creates psychological distance from the clinical relationship while maintaining the warmth and responsiveness of a guided conversation. Patients don't perform for it. They speak to it.</p>
-              <p>In our trial data, AI-mediated responses showed significantly higher emotional intensity (p &lt; .001) and greater emotional diversity (p = .04): patients are not just saying more, they're saying what they actually feel.</p>
-            </div>
-            <div className="mt-6 bg-brand-deep-space rounded-2xl p-6">
-              <p className="font-display italic text-base text-white/90">"People disclose more when they believe they're interacting with a non-human agent, experiencing less fear of judgment and greater willingness to share sensitive information."</p>
-              <p className="mt-2 font-body text-xs text-white/50">Lucas et al. (2014), Computers in Human Behavior, USC Institute for Creative Technologies</p>
-            </div>
-          </ScrollReveal>
-        </div>
-      </Section>
-
-      {/* Safety — all text white/cream on dark bg */}
-      <Section bg="deep-space">
-        <ScrollReveal>
-          <SectionLabel dark>Safety Design</SectionLabel>
-          <h2 className="mt-4 text-white max-w-3xl">The AI guides. The provider decides. Every time.</h2>
-          <p className="mt-4 max-w-2xl text-white/70 text-base">AugMend does not interpret clinical data, render diagnoses, or generate treatment recommendations. Every session runs under the supervision of a licensed clinician. Every output requires provider review before it enters the clinical record.</p>
-        </ScrollReveal>
-        <motion.div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6" initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerParent}>
-          {safetyCards.map((c) => (
-            <motion.div key={c.title} variants={staggerChild}>
-              <div className="bg-white/[0.06] rounded-2xl p-6 border-l-2 border-l-accent-lime h-full">
-                <h4 className="text-white">{c.title}</h4>
-                <p className="mt-2 text-white/70 text-base">{c.body}</p>
+      {/* WHY A NON-HUMAN AVATAR — video instead of image */}
+      <section className="relative overflow-hidden py-24 md:py-28 bg-surface-cream">
+        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <ScrollReveal>
+              <div
+                className="rounded-2xl overflow-hidden bg-white border border-neutral-border max-w-[460px] mx-auto"
+                style={{ aspectRatio: "1 / 1" }}
+              >
+                <video
+                  className="w-full h-full object-cover"
+                  src="/videos/non-human-avatar.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  aria-hidden="true"
+                />
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </Section>
+            </ScrollReveal>
+            <ScrollReveal delay={0.1}>
+              <SectionLabel>The Interface</SectionLabel>
+              <h2 className="mt-3 leading-[1.2]">Why a non-human avatar.</h2>
+              <div className="mt-5 space-y-4 text-neutral-slate">
+                <p>
+                  Research in human-computer interaction shows that people disclose more to agents they perceive as non-human. The absence of a human face removes the fear of judgment, social desirability bias, and the self-editing that shapes every clinical encounter.
+                </p>
+                <p>
+                  AugMend&rsquo;s conversational avatar is deliberately non-human. It creates psychological distance from the clinical relationship while keeping the warmth and responsiveness of a guided conversation. Patients don&rsquo;t perform for it. They speak to it.
+                </p>
+                <p>
+                  The environment and avatar are chosen deliberately by the clinical team, for each patient — to increase comfort, engagement, and disclosure.
+                </p>
+              </div>
+              <PullQuote
+                className="mt-7"
+                cite="Lucas et al. (2014), Computers in Human Behavior · USC ICT"
+              >
+                &ldquo;People disclose more when they believe they&rsquo;re interacting with a non-human agent, experiencing less fear of judgment and greater willingness to share sensitive information.&rdquo;
+              </PullQuote>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
 
-      {/* Single CTA — dark indigo */}
-      <section className="relative overflow-hidden py-16 md:py-20 xl:py-24 bg-brand-deep-space border-t border-white/[0.08]">
-        <div className="mx-auto max-w-[1280px] px-6 text-center">
+      {/* IN-PRACTICE CALLOUTS — replace Safety Design + Deployment & Integration sections */}
+      <section className="relative overflow-hidden py-24 md:py-28 bg-surface-warm-white border-t border-neutral-border">
+        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
           <ScrollReveal>
-            <h2 className="text-white">See how it fits into your clinic&apos;s workflow.</h2>
-            <div className="mt-6 flex flex-wrap justify-center gap-4">
-              <Button variant="lime" href="/in-practice" size="large">See It in Practice &rarr;</Button>
-              <Button variant="ghost" href="/contact" size="large">Schedule a Conversation</Button>
+            <SectionLabel>What&rsquo;s next</SectionLabel>
+            <h2 className="mt-3 leading-[1.2] max-w-[760px]">
+              Safety design and integration live where they belong: <em className="italic">in your clinic.</em>
+            </h2>
+          </ScrollReveal>
+
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Link href="/in-practice#safety" className="group block">
+              <GlassCard
+                tone="indigo"
+                accent="indigo"
+                className="p-8 h-full transition-all duration-200 group-hover:-translate-y-1"
+                style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 2px rgba(13,11,62,0.04), 0 14px 36px -10px rgba(31,28,152,0.12)" }}
+              >
+                <ShieldAlert className="h-7 w-7 text-brand-indigo mb-5" strokeWidth={1.5} />
+                <h3 className="font-body font-bold text-[20px] mb-2">Safety design</h3>
+                <p className="font-body text-[15px] leading-relaxed text-neutral-slate">
+                  Continuous safety screening, evidence-linked claims, and clinician-controlled sign-off — see how it operates inside your workflow without adding to provider burden.
+                </p>
+                <span className="mt-5 inline-flex items-center gap-2 font-body font-bold text-[14px] text-brand-indigo">
+                  See it in practice
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" strokeWidth={2} />
+                </span>
+              </GlassCard>
+            </Link>
+
+            <Link href="/in-practice#deployment" className="group block">
+              <GlassCard
+                tone="indigo"
+                accent="indigo"
+                className="p-8 h-full transition-all duration-200 group-hover:-translate-y-1"
+                style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6), 0 1px 2px rgba(13,11,62,0.04), 0 14px 36px -10px rgba(31,28,152,0.12)" }}
+              >
+                <Workflow className="h-7 w-7 text-brand-indigo mb-5" strokeWidth={1.5} />
+                <h3 className="font-body font-bold text-[20px] mb-2">Deployment & integration</h3>
+                <p className="font-body text-[15px] leading-relaxed text-neutral-slate">
+                  Want to see how to get it set up and integrated into your workflow? Most clinics go live in under four weeks. See the full deployment story on the In Practice page.
+                </p>
+                <span className="mt-5 inline-flex items-center gap-2 font-body font-bold text-[14px] text-brand-indigo">
+                  Integrate it into your workflow
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" strokeWidth={2} />
+                </span>
+              </GlassCard>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="relative overflow-hidden py-24 md:py-28 bg-brand-deep-space border-t border-white/[0.08]">
+        <div className="mx-auto max-w-[1280px] px-6 md:px-12 text-center">
+          <ScrollReveal>
+            <h2 className="text-white">See how it fits into your clinic&rsquo;s workflow.</h2>
+            <div className="mt-7 flex flex-wrap justify-center gap-4">
+              <Button variant="primary" href="/in-practice" size="large">
+                See It in Practice →
+              </Button>
+              <Button variant="frosted" href="/contact" size="large">
+                Schedule a Conversation
+              </Button>
             </div>
           </ScrollReveal>
         </div>

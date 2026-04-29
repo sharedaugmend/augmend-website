@@ -90,7 +90,8 @@ export default function ParticleFlow({ className }: { className?: string }) {
     const LINE_HEIGHT = 14
     const DOT_SIZE = 1.5
     const DOT_COUNT = 30000
-    const ERASER_SIZE = 6
+    const ERASER_SIZE = 8
+    const DEEP = "#0a082e"
 
     const init = () => {
       W = canvas.offsetWidth
@@ -183,8 +184,8 @@ export default function ParticleFlow({ className }: { className?: string }) {
         else if (dot.y > H + 5) dot.y -= H + 10
       }
 
-      // Step 1: Clear
-      ctx.fillStyle = '#1F1C98'
+      // Step 1: Clear with deep space blue
+      ctx.fillStyle = DEEP
       ctx.fillRect(0, 0, W, H)
 
       // Step 2: Scrolling text
@@ -210,8 +211,16 @@ export default function ParticleFlow({ className }: { className?: string }) {
 
       ctx.restore()
 
-      // Step 3: 6x6 fully opaque indigo erasers
-      ctx.fillStyle = '#1F1C98'
+      // Step 2b: Diffuse text into background toward the right so the
+      // doctor image on the right side has visual room to breathe.
+      const diffuse = ctx.createLinearGradient(W * 0.28, 0, W * 0.68, 0)
+      diffuse.addColorStop(0, "rgba(10,8,46,0)")
+      diffuse.addColorStop(1, "rgba(10,8,46,1)")
+      ctx.fillStyle = diffuse
+      ctx.fillRect(0, 0, W, H)
+
+      // Step 3: Deep-space erasers — each dot occludes text behind it
+      ctx.fillStyle = DEEP
       const half = ERASER_SIZE / 2
       for (let i = 0; i < dots.length; i++) {
         ctx.fillRect(dots[i].x - half, dots[i].y - half, ERASER_SIZE, ERASER_SIZE)
@@ -259,7 +268,7 @@ export default function ParticleFlow({ className }: { className?: string }) {
     <canvas
       ref={canvasRef}
       className={className}
-      style={{ background: '#1F1C98' }}
+      style={{ background: '#0a082e' }}
     />
   )
 }

@@ -264,10 +264,10 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Desktop CTA */}
+          {/* Desktop CTA — indigo fill on every page */}
           <div className="hidden lg:block">
             <Button
-              variant="lime"
+              variant="primary"
               href="/contact"
               className="!h-10 !px-6 !text-sm"
             >

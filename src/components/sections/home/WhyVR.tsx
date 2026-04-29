@@ -1,64 +1,130 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { Shield, Focus, MessageCircle, ArrowRight, Star, Globe } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
 import SectionLabel from "@/components/ui/SectionLabel"
-import ScrollReveal from "@/components/ui/ScrollReveal"
-import { staggerParent, staggerChild, viewportOnce } from "@/lib/animations"
+import Button from "@/components/ui/Button"
+import PullQuote from "@/components/ui/PullQuote"
 
-const benefits = [
-  { icon: Shield, title: "Privacy & Trust", body: "VR scored 22% higher than web-based AI on privacy and trust measures." },
-  { icon: Focus, title: "Focused Engagement", body: "Patients describe VR as calm, focused, and easier to concentrate in." },
-  { icon: MessageCircle, title: "Deeper Disclosure", body: "Medical disclosure comfort rated 33% higher in VR than web-based AI." },
-  { icon: ArrowRight, title: "Future Use", body: "7 of 8 patients preferred VR for future sessions (r = 0.81, p = .022)." },
-  { icon: Star, title: "Preferred Across Domains", body: "VR outperformed web-based AI in 7 of 8 measured experience domains." },
-  { icon: Globe, title: "Cultural Sensitivity", body: "VR rated higher for cultural competence and individual identity." },
-]
-
+/**
+ * Full-screen scroll-through video section. As the user scrolls through it,
+ * the video stays sticky behind a darkening overlay; the Why-VR copy fades
+ * in over the top.
+ */
 export default function WhyVR() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const [progress, setProgress] = useState(0) // 0 → 1 across the section
+
+  useEffect(() => {
+    const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+    if (reduce) {
+      setProgress(1)
+      return
+    }
+    function onScroll() {
+      const el = sectionRef.current
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+      const total = rect.height - window.innerHeight
+      if (total <= 0) {
+        setProgress(rect.top < 0 ? 1 : 0)
+        return
+      }
+      const scrolled = Math.min(Math.max(-rect.top, 0), total)
+      setProgress(scrolled / total)
+    }
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll)
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+    }
+  }, [])
+
+  // Overlay darkens as the reader scrolls, so the copy stays readable.
+  const overlayAlpha = 0.40 + progress * 0.40 // 0.40 → 0.80
+  // Copy fades in early and stays visible across the full pinned section
+  // (no late-stage fade-out — the header was disappearing before the section
+  // had finished scrolling on smaller laptops).
+  const copyOpacity = Math.min(1, Math.max(0, (progress - 0.05) * 2.4))
+  const copyTranslate = (1 - copyOpacity) * 20
+
   return (
-    <section className="relative overflow-hidden py-16 md:py-20 xl:py-24 bg-surface-white">
-      <div className="relative z-10 mx-auto max-w-[1280px] px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_35%] gap-10 lg:gap-14 items-start">
-          <div>
-            <ScrollReveal>
-              <SectionLabel>Why VR</SectionLabel>
-              <h2 className="mt-4">Immersion changes what patients are willing to share.</h2>
-              <p className="mt-6 text-neutral-slate">
-                AugMend works on phone, tablet, and VR headset but VR consistently outperforms every other modality across the dimensions that matter most to clinical data capture. These are findings from our randomized controlled trial.
+    <section
+      ref={sectionRef}
+      aria-label="Why VR"
+      className="relative"
+      style={{ height: "200vh" }}
+    >
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        {/* Looping background video */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/videos/hands-holding.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+        />
+        {/* Progressive dark overlay for readability */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-0 transition-colors"
+          style={{
+            background: `linear-gradient(180deg, rgba(13,11,62,${overlayAlpha * 0.6}) 0%, rgba(13,11,62,${overlayAlpha}) 50%, rgba(13,11,62,${overlayAlpha * 0.85}) 100%)`,
+          }}
+        />
+
+        {/* Foreground copy. Padding tightens at smaller heights so the header
+            doesn't get clipped on a 13-inch laptop. */}
+        <div className="relative z-10 h-full flex items-center py-16 md:py-20">
+          <div className="mx-auto max-w-[1280px] w-full px-6 md:px-12">
+            <div
+              className="max-w-[640px]"
+              style={{
+                opacity: copyOpacity,
+                transform: `translateY(${copyTranslate}px)`,
+                transition: "opacity 250ms linear, transform 250ms linear",
+              }}
+            >
+              <SectionLabel dark>Why VR</SectionLabel>
+              <h2
+                className="mt-3 leading-[1.15] text-white"
+                style={{
+                  fontSize: "clamp(30px, 3.4vw, 44px)",
+                  fontWeight: 600,
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                Immersion changes what patients are willing to share.
+              </h2>
+              <p
+                className="mt-4"
+                style={{ color: "rgba(255,255,255,0.82)", fontSize: 16, lineHeight: 1.6 }}
+              >
+                VR creates a space where patients feel genuinely heard — not observed. The non-human avatar removes the social performance that shapes what patients say face-to-face. Study after study confirms: patients disclose more, more honestly, in VR than in standard clinical intake.
               </p>
-            </ScrollReveal>
-
-            <motion.div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5" initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerParent}>
-              {benefits.map((b) => (
-                <motion.div key={b.title} variants={staggerChild} className="flex items-start gap-3">
-                  <b.icon className="h-5 w-5 text-brand-indigo shrink-0 mt-0.5" strokeWidth={1.5} />
-                  <div>
-                    <p className="font-body font-bold text-[13px] text-neutral-near-black">{b.title}</p>
-                    <p className="mt-0.5 font-body text-[12px] text-neutral-slate leading-relaxed">{b.body}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            <ScrollReveal>
-              <blockquote className="mt-8">
-                <p className="font-display italic text-lg text-neutral-near-black leading-relaxed">
-                  &ldquo;For the first time I felt like someone was actually taking the time to listen to my issues and needs.&rdquo;
-                </p>
-                <cite className="mt-2 block font-body text-xs not-italic text-neutral-slate">Trial participant, Boston</cite>
-              </blockquote>
-            </ScrollReveal>
-          </div>
-
-          {/* VR video — matched to text height */}
-          <ScrollReveal delay={0.1} className="hidden lg:block">
-            <div className="rounded-2xl overflow-hidden">
-              <video autoPlay muted loop playsInline aria-hidden="true" className="w-full h-auto object-contain" poster="/images/illustrations/VR-experiences-adaptive-3.png">
-                <source src="/videos/Vertical-VR-scene.mp4" type="video/mp4" />
-              </video>
+              <p
+                className="mt-3"
+                style={{ color: "rgba(255,255,255,0.78)", fontSize: 15.5, lineHeight: 1.6 }}
+              >
+                VR is not a screen. It uses metaphor, spatial presence, and embodied interaction — tools that human cognition has evolved to respond to. The environment and avatar are chosen deliberately by the clinical team, for each patient.
+              </p>
+              <PullQuote
+                className="mt-6"
+                maxWidth={560}
+                cite="Lucas et al., Johns Hopkins Bloomberg School of Public Health, 2014"
+              >
+                &ldquo;Patients disclose significantly more through AI-based conversational systems than through standard self-assessment instruments.&rdquo;
+              </PullQuote>
+              <div className="mt-6">
+                <Button variant="ghost" href="/evidence">
+                  Read the Evidence →
+                </Button>
+              </div>
             </div>
-          </ScrollReveal>
+          </div>
         </div>
       </div>
     </section>

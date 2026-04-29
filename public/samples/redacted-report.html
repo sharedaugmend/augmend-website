@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AugMend Health · Admin Portal — John F. · Initial Assessment (SAMPLE)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brand-indigo:#1F1C98;
+    --deep-space:#0D0B3E;
+    --soft-indigo:#433D81;
+    --lime-signal:#B8D94E;
+    --lime-deep:#9FBC3D;
+    --bright-orange:#E8843A;
+    --pale-pink:#F2DDD8;
+    --cream:#EFE9DA;
+    --cream-deep:#E5DECC;
+    --off-white:#FAFAF7;
+    --paper:#F4EFE2;
+    --near-black:#1A1A1A;
+    --slate:#5A5A6E;
+    --slate-soft:#7A7888;
+    --clinical-teal:#2E8B8B;
+    --olive:#7C8C5C;
+    --olive-deep:#5F6E45;
+    --mustard:#B89A4F;
+    --mustard-deep:#8E7634;
+    --mustard-bg:#F5EBC8;
+    --peach:#F5E4D7;
+    --peach-stroke:#E0A37D;
+
+    --rule:#D8D2C2;
+    --rule-soft:#E5DFCF;
+    --rule-strong:#BDB6A4;
+    --body-ink:#1B1A4A;
+    --muted-ink:#5C5B7A;
+    --label-ink:#6E6B85;
+
+    --status-low:#C8932B;
+    --status-mod:#D97706;
+    --status-high:#B91C1C;
+    --status-good:#5F8C3F;
+
+    --font-display:'Source Serif 4',Georgia,serif;
+    --font-body:'Atkinson Hyperlegible',system-ui,-apple-system,Arial,sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--cream)}
+  body{
+    font-family:var(--font-body);
+    font-size:14px;
+    color:var(--body-ink);
+    line-height:1.55;
+    min-height:100vh;
+  }
+  a{color:inherit}
+
+  .app{display:grid;grid-template-columns:64px 1fr;min-height:100vh}
+
+  .rail{background:var(--cream-deep);border-right:1px solid var(--rule);padding:14px 0;display:flex;flex-direction:column;align-items:center;gap:18px}
+  .rail .ico{width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:6px;color:var(--slate)}
+  .rail .ico.active{background:var(--cream);color:var(--deep-space)}
+  .rail .ico svg{width:18px;height:18px}
+  .rail .help{margin-top:auto;color:var(--slate)}
+
+  .main{display:flex;flex-direction:column}
+
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 32px;border-bottom:1px solid transparent}
+  .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-body);font-weight:700;color:var(--deep-space);font-size:15px}
+  .brand .logo{
+    width:26px;height:26px;border-radius:50%;
+    background:linear-gradient(135deg,var(--brand-indigo),var(--deep-space));
+    display:inline-block;position:relative;
+  }
+  .brand .logo::before,.brand .logo::after{
+    content:"";position:absolute;top:50%;left:50%;
+    width:10px;height:10px;border-radius:50%;background:var(--cream);
+    transform:translate(-50%,-50%);
+  }
+  .brand .logo::after{box-shadow:6px 0 0 var(--cream),-6px 0 0 var(--cream);background:transparent}
+  .brand .sep{color:var(--slate-soft);margin:0 4px}
+  .brand .ctx{font-weight:400;color:var(--slate)}
+  .top-actions{display:flex;align-items:center;gap:18px;color:var(--slate)}
+  .top-actions .badge{position:relative;width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+  .top-actions .badge .count{position:absolute;top:-4px;right:-6px;background:#C9342A;color:#fff;font-size:9.5px;font-weight:700;border-radius:9px;padding:1px 5px;line-height:1.1}
+  .top-actions .user{font-weight:700;color:var(--deep-space)}
+
+  .head{display:flex;align-items:center;justify-content:space-between;padding:10px 32px 4px}
+  .crumbs{font-size:13.5px;color:var(--slate);font-weight:500}
+  .crumbs .sep{margin:0 6px;color:var(--slate-soft)}
+  .crumbs .now{color:var(--deep-space);font-weight:600}
+  .head-actions{display:flex;align-items:center;gap:22px;font-size:13.5px;color:var(--slate)}
+  .head-actions .signoff{
+    background:var(--lime-signal);color:var(--deep-space);
+    padding:7px 14px;border-radius:7px;font-weight:700;letter-spacing:0.01em;
+    border:1px solid var(--lime-deep);
+    box-shadow:0 1px 0 rgba(13,11,62,0.06);
+  }
+  .head-actions .tab{padding:4px 0;border-bottom:1px solid transparent}
+  .head-actions .tab.on{color:var(--deep-space);font-weight:600;border-bottom-color:var(--deep-space)}
+
+  .draft-strip{
+    background:var(--peach);
+    border-left:4px solid var(--peach-stroke);
+    color:#A85B2A;
+    padding:11px 22px 11px 28px;
+    margin:8px 32px 0;
+    border-radius:2px;
+    font-size:13.5px;
+    font-weight:500;
+  }
+
+  .sample-tag{
+    position:absolute;top:-26px;right:0;
+    color:#B91C1C;font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;
+  }
+  .sample-tag .sub{color:#9C6F6F;font-weight:400;letter-spacing:0.04em;text-transform:none;margin-left:6px;font-size:10px}
+
+  .content-wrap{padding:24px 32px 60px;position:relative}
+  .content{
+    max-width:880px;
+    margin:32px 0 0 18%;
+    position:relative;
+  }
+  @media (max-width:1280px){.content{margin-left:8%}}
+  @media (max-width:980px){.content{margin-left:0}}
+
+  .title-block{margin-bottom:28px;position:relative}
+  .title-block h1{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:46px;
+    letter-spacing:-0.012em;
+    color:var(--body-ink);
+    line-height:1.05;
+    margin-bottom:6px;
+    display:inline;
+  }
+  .title-block .pill-meta{
+    display:inline-block;margin-left:14px;vertical-align:middle;
+    color:var(--slate);font-size:14px;font-weight:500;
+  }
+  .title-block .pill-meta .pill{margin-left:8px}
+  .title-block .timestamp{
+    margin-top:10px;color:var(--slate);font-size:14px;
+  }
+
+  .sec{margin-top:36px}
+  .sec h2{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:28px;
+    letter-spacing:-0.01em;
+    color:var(--body-ink);
+    line-height:1.15;
+    margin-bottom:16px;
+  }
+  .sec h3{
+    font-family:var(--font-display);
+    font-weight:600;
+    font-size:20px;
+    letter-spacing:-0.005em;
+    color:var(--body-ink);
+    margin-top:22px;
+    margin-bottom:10px;
+  }
+  .sec p,.sec li{font-size:15px;line-height:1.7;color:var(--body-ink)}
+
+  .summary-list{list-style:none;padding:0;margin:6px 0 18px}
+  .summary-list > li{
+    position:relative;padding-left:22px;margin:14px 0;
+    font-size:17px;line-height:1.6;color:var(--body-ink);
+  }
+  .summary-list > li::before{
+    content:"";position:absolute;left:4px;top:12px;
+    width:5px;height:5px;border-radius:50%;background:var(--body-ink);
+  }
+  sup.cite{
+    font-family:var(--font-body);
+    font-size:0.62em;
+    color:var(--olive-deep);
+    font-weight:700;
+    margin-left:1px;
+    text-decoration:underline;
+    text-decoration-style:dotted;
+    text-decoration-color:var(--olive);
+    text-underline-offset:2px;
+    cursor:help;
+  }
+  .summary-list > li mark{
+    background:rgba(184,154,79,0.18);
+    color:inherit;padding:1px 0;border-radius:1px;
+  }
+
+  .src-evidence{
+    background:#FFFFFF;
+    border:1px solid var(--rule-soft);
+    border-left:4px solid var(--olive);
+    border-radius:4px;
+    padding:18px 22px;
+    margin:12px 0 22px 22px;
+    box-shadow:0 1px 0 rgba(95,110,69,0.04);
+    max-width:720px;
+    position:relative;
+  }
+  .src-evidence .label{
+    font-size:11.5px;color:var(--label-ink);
+    font-weight:600;letter-spacing:0.05em;
+    margin-bottom:4px;
+  }
+  .src-evidence .role{
+    font-size:11.5px;color:var(--label-ink);
+    font-weight:600;letter-spacing:0.04em;
+    margin-top:14px;margin-bottom:2px;
+  }
+  .src-evidence .qa{font-size:14.5px;color:var(--body-ink);line-height:1.55}
+  .src-evidence .qa.q{color:var(--muted-ink)}
+  .src-evidence .actions{display:flex;align-items:center;gap:14px;margin-top:18px}
+  .src-evidence .play{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--deep-space);color:#fff;
+    padding:8px 14px 8px 12px;border-radius:24px;
+    font-size:13px;font-weight:600;letter-spacing:0.02em;
+    border:1px solid var(--deep-space);
+  }
+  .src-evidence .play::before{
+    content:"";display:inline-block;
+    width:0;height:0;
+    border-top:5px solid transparent;border-bottom:5px solid transparent;
+    border-left:8px solid var(--lime-signal);
+  }
+  .src-evidence .close-x{
+    display:inline-flex;align-items:center;gap:8px;
+    background:transparent;border:1px solid var(--rule-strong);
+    padding:7px 14px;border-radius:24px;color:var(--slate);
+    font-size:13px;font-weight:500;
+  }
+  .src-evidence .close-x::before{content:"×";font-size:14px;line-height:1;color:var(--slate)}
+  .src-evidence .full-tx{font-size:13px;color:var(--olive-deep);text-decoration:underline;text-underline-offset:2px;font-weight:500}
+
+  .risk-box{
+    border-left:4px solid var(--mustard);
+    background:transparent;
+    padding:8px 24px 4px 22px;
+    margin:18px 0 12px;
+    max-width:780px;
+  }
+  .risk-box .row-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .risk-box h3{font-family:var(--font-display);font-weight:600;font-size:22px;color:var(--body-ink);margin:0}
+  .risk-box .lvl{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;color:var(--mustard-deep);font-weight:600}
+  .risk-box .lvl::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--mustard);display:inline-block}
+  .risk-box .grid{display:grid;grid-template-columns:140px 1fr;row-gap:8px;column-gap:24px;margin-bottom:14px}
+  .risk-box .lab{font-size:14px;color:var(--label-ink);font-weight:500}
+  .risk-box .val{font-size:15px;color:var(--body-ink);line-height:1.55}
+  .risk-box .val em{font-style:italic;color:var(--muted-ink)}
+  .risk-box .narr{font-size:14.5px;color:var(--body-ink);line-height:1.6;padding-top:6px}
+
+  .needs-panel{
+    border:1px solid var(--rule);
+    background:#FBF8EE;
+    border-radius:4px;
+    padding:18px 22px;
+    margin:18px 0;
+    max-width:780px;
+  }
+  .needs-panel h3{
+    font-family:var(--font-body);
+    font-weight:700;font-size:11.5px;
+    color:var(--label-ink);letter-spacing:0.08em;
+    text-transform:uppercase;margin:0 0 10px;
+  }
+  .needs-panel ol{padding-left:20px;margin:0}
+  .needs-panel ol li{font-size:14.5px;color:var(--body-ink);line-height:1.6;margin:6px 0}
+  .needs-panel ol li strong{color:var(--deep-space);font-weight:700}
+
+  .ind-strip{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:14px;
+    margin:18px 0;
+  }
+  .ind-strip .ind{
+    background:#FFFFFF;border:1px solid var(--rule);
+    border-radius:4px;padding:12px 14px;
+  }
+  .ind-strip .ind .k{font-size:11px;color:var(--label-ink);font-weight:600;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:5px}
+  .ind-strip .ind .v{font-family:var(--font-display);font-size:22px;font-weight:600;color:var(--body-ink);line-height:1}
+  .ind-strip .ind .s{font-size:12px;color:var(--slate);margin-top:3px}
+  .ind-strip .ind.warn .v{color:var(--status-high)}
+  .ind-strip .ind.flag .v{color:var(--mustard-deep)}
+  .ind-strip .ind.ok .v{color:var(--status-good)}
+
+  .sect-rule{
+    border:none;border-top:1px solid var(--rule);
+    margin:34px 0 0;max-width:880px;
+  }
+
+  .dl{display:grid;grid-template-columns:max-content 1fr;column-gap:22px;row-gap:9px;margin:6px 0 16px}
+  .dl dt{
+    font-size:13px;color:var(--label-ink);font-weight:600;
+    letter-spacing:0.02em;line-height:1.5;
+  }
+  .dl dd{font-size:14.5px;color:var(--body-ink);line-height:1.6}
+
+  .tag{
+    display:inline-block;padding:1px 7px;border-radius:3px;
+    font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
+    vertical-align:1px;margin-left:4px;
+  }
+  .tag.low{background:rgba(95,140,63,0.14);color:var(--status-good)}
+  .tag.mod{background:rgba(184,154,79,0.18);color:var(--mustard-deep)}
+  .tag.high{background:rgba(185,28,28,0.10);color:var(--status-high)}
+  .tag.flag{background:rgba(184,154,79,0.18);color:var(--mustard-deep)}
+  .tag.ok{background:rgba(95,140,63,0.14);color:var(--status-good)}
+
+  .callout{
+    background:#FBF8EE;border:1px solid var(--rule-soft);
+    border-left:3px solid var(--olive);
+    padding:12px 16px;border-radius:3px;font-size:14px;
+    margin:10px 0 14px;color:var(--body-ink);line-height:1.55;
+    max-width:760px;
+  }
+  .callout strong{color:var(--olive-deep);font-weight:700;letter-spacing:0.02em}
+
+  .domains-toc{
+    background:#FBF8EE;border:1px solid var(--rule-soft);
+    border-radius:4px;padding:16px 20px;margin:18px 0;
+    max-width:780px;
+  }
+  .domains-toc .lab{font-size:11px;color:var(--label-ink);font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px}
+  .domains-toc ol{column-count:2;column-gap:30px;padding-left:18px;margin:0}
+  .domains-toc li{font-size:13.5px;color:var(--body-ink);line-height:1.7;break-inside:avoid;margin:0}
+  .domains-toc li a{color:var(--deep-space);text-decoration:none;border-bottom:1px solid transparent}
+
+  .domain h2{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+  .domain h2 .kicker{
+    font-family:var(--font-body);
+    font-size:11.5px;font-weight:700;letter-spacing:0.12em;
+    color:var(--olive-deep);text-transform:uppercase;
+    border:1px solid var(--olive);padding:2px 8px;border-radius:3px;
+    line-height:1.5;
+  }
+  .domain h2 .title{font-family:var(--font-display);font-weight:600;font-size:30px;letter-spacing:-0.012em;color:var(--body-ink)}
+  .domain h2 .meta{font-family:var(--font-body);font-size:13px;color:var(--slate);font-weight:500;margin-left:auto}
+
+  .pull-quote{
+    font-family:var(--font-display);
+    font-style:italic;font-weight:500;font-size:18px;
+    line-height:1.5;color:var(--body-ink);
+    border-left:2px solid var(--olive);
+    padding:6px 0 6px 18px;
+    margin:12px 0 16px 4px;
+    max-width:680px;
+  }
+  .pull-quote .attrib{
+    display:block;font-style:normal;font-family:var(--font-body);
+    font-size:12px;color:var(--label-ink);
+    letter-spacing:0.05em;text-transform:uppercase;
+    margin-top:5px;font-weight:600;
+  }
+
+  .chip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0 18px}
+  .chip-grid .chip{
+    background:#FFFFFF;border:1px solid var(--rule);border-radius:4px;
+    padding:10px 12px;
+  }
+  .chip-grid .chip .k{font-size:11px;color:var(--label-ink);font-weight:600;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:3px}
+  .chip-grid .chip .v{font-family:var(--font-display);font-size:18px;font-weight:600;color:var(--body-ink);line-height:1.1}
+  .chip-grid .chip .s{font-size:11.5px;color:var(--slate);margin-top:2px}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside class="rail" aria-label="Admin navigation">
+    <div class="ico active" title="Dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+    </div>
+    <div class="ico" title="Notifications">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+    </div>
+    <div class="ico" title="Reports">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="13" y2="17"/></svg>
+    </div>
+    <div class="ico" title="Settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c.36.13.65.39.85.71"/></svg>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <div class="topbar">
+      <div class="brand">
+        <span class="logo"></span>
+        <span>AugMend Health</span>
+        <span class="sep">·</span>
+        <span class="ctx">Admin Portal</span>
+      </div>
+      <div class="top-actions">
+        <span class="badge" title="Tasks">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+          <span class="count">1</span>
+        </span>
+        <span class="badge" title="Notifications">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+          <span class="count">3</span>
+        </span>
+        <span class="user">mrobinavitch ▾</span>
+      </div>
+    </div>
+
+    <div class="head">
+      <div class="crumbs">
+        <span>Dashboard</span><span class="sep">›</span><span>John F.</span><span class="sep">›</span><span class="now">Initial Assessment</span>
+      </div>
+      <div class="head-actions">
+        <span class="signoff">Sign off</span>
+        <span class="tab on">Report</span>
+        <span class="tab">Transcript</span>
+        <span class="tab">Overflow (4)</span>
+      </div>
+    </div>
+
+    <div class="draft-strip">Draft — your review required</div>
+
+    <div class="content-wrap">
+      <article class="content">
+
+        <span class="sample-tag">SAMPLE REPORT<span class="sub">Property of AugMend Health · illustrative output, not a real patient encounter</span></span>
+
+        <header class="title-block">
+          <h1>John F.</h1>
+          <span class="pill-meta">Initial Assessment <span class="pill">·</span> Sessions 2A &amp; 3A</span>
+          <div class="timestamp">Wednesday, August 27, 2025 · Awaiting sign-off</div>
+        </header>
+
+        <section class="sec" id="rapid-review">
+          <h2>Rapid review</h2>
+
+          <ul class="summary-list">
+            <li><strong>74-year-old employed male</strong> with bilateral knee osteoarthritis (R&nbsp;&gt;&nbsp;L) and right-knee instability on stair descent<sup class="cite">1</sup>; pain 2–3/10 baseline rising to <strong>7–8/10</strong> at worst<sup class="cite">2</sup>, sharp and stabbing<sup class="cite">3</sup>, intermittent and progressively worsening over years<sup class="cite">4</sup>.</li>
+            <li><strong>Active fall-risk concern</strong> on stair descent with load-carrying — patient explicitly endorses the knee &ldquo;may give out&rdquo;<sup class="cite">5</sup>; pattern is progressive, not acute. Lifestyle modification refused on principle<sup class="cite">6</sup>.</li>
+            <li>Sleep insufficiency (~6&nbsp;h/night) attributed to <strong>frequent work travel</strong>, not pain<sup class="cite">7</sup>; <strong>no psychiatric risk indicators</strong>: PHQ-8 0% (5), AUDIT-C low-moderate (4/12, 33%), DAST-10 1/10, no suicidal/homicidal ideation<sup class="cite">8</sup>.</li>
+            <li>Strong protective profile: dense social network (wife, sister, multiple long-term friends), <strong>life-satisfaction 9–10/10</strong>, intact treatment understanding, ibuprofen 600&nbsp;mg providing partial relief<sup class="cite">9</sup>.</li>
+            <li>Patient expresses a <strong>clinically actionable value-action tension</strong>: he understands the risk, prefers maintaining lifestyle over modification, and asks for help managing pain without giving up valued activities<sup class="cite">10</sup>.</li>
+          </ul>
+
+          <div class="src-evidence">
+            <div class="label">Source evidence</div>
+
+            <div class="role">Assistant</div>
+            <div class="qa q">What's been most concerning to you about your knee over these past months?</div>
+
+            <div class="role">Patient</div>
+            <div class="qa">&ldquo;I'm concerned that one of my, my knee, particularly my right knee may give out... it's been steadily getting worse — I'm worried I'll be heading downstairs carrying something and it just gives.&rdquo;</div>
+
+            <div class="actions">
+              <span class="play">Play audio</span>
+              <span class="full-tx">See full transcript ›</span>
+              <span class="close-x" style="margin-left:auto">Close</span>
+            </div>
+          </div>
+
+          <div class="risk-box">
+            <div class="row-top">
+              <h3>Risk assessment</h3>
+              <span class="lvl">T1 Low — Functional Safety · Monitor</span>
+            </div>
+            <div class="grid">
+              <div class="lab">Primary indicator</div>
+              <div class="val"><strong>Fall risk on stair descent</strong> with progressive right-knee instability under load-carrying<sup class="cite">5</sup></div>
+              <div class="lab">Contributing</div>
+              <div class="val">Sleep insufficiency (~6&nbsp;h/night) reducing physiologic reserve<sup class="cite">7</sup>; lifestyle-modification resistance<sup class="cite">6</sup></div>
+              <div class="lab">Psychiatric</div>
+              <div class="val"><em>No</em> suicidal or homicidal ideation; <em>no</em> pain catastrophizing (PCS 0%); <em>no</em> severe anxiety (GAD-7 10%)<sup class="cite">8</sup></div>
+              <div class="lab">Protective</div>
+              <div class="val">Dense social network · life-satisfaction 9–10/10 · active coping &amp; positive reframing<sup class="cite">9</sup> · medication adherence and treatment understanding intact</div>
+            </div>
+            <div class="narr">
+              Patient denies suicidal ideation, denies pain catastrophizing, and screens negative for substance misuse. T1 reflects a <strong>functional-physical</strong> risk — the right knee may give out under load — coupled with a <strong>value-action tension</strong> around lifestyle modification that warrants follow-up rather than escalation.
+            </div>
+          </div>
+
+          <div class="needs-panel">
+            <h3>Summary of patient needs</h3>
+            <ol>
+              <li><strong>Orthopedic evaluation</strong> for progressive right-knee OA with fall-risk semiology (patient-acknowledged).</li>
+              <li><strong>Pain-management plan</strong> compatible with frequent work travel — escalation beyond ibuprofen 600&nbsp;mg when partial relief insufficient.</li>
+              <li><strong>Shared decision-making</strong> around lifestyle modification: address the value-action tension without coercive framing.</li>
+              <li><strong>Sleep evaluation</strong> in the context of work travel; consider whether 6&nbsp;h/night reflects schedule or unrecognized pathology.</li>
+              <li><strong>Continuity</strong> with patient's strong informal supports — engage spouse if/when treatment plans change.</li>
+            </ol>
+          </div>
+
+          <div class="ind-strip">
+            <div class="ind warn"><div class="k">Pain (worst)</div><div class="v">8 / 10</div><div class="s">VAS · narrative</div></div>
+            <div class="ind flag"><div class="k">Sleep</div><div class="v">~6 h</div><div class="s">work-travel attributed</div></div>
+            <div class="ind ok"><div class="k">PHQ-8</div><div class="v">0%</div><div class="s">no depression signal</div></div>
+            <div class="ind ok"><div class="k">Life-satisfaction</div><div class="v">9–10</div><div class="s">/10 self-report</div></div>
+          </div>
+
+          <div class="domains-toc">
+            <div class="lab">Domain detail follows</div>
+            <ol>
+              <li><a href="#d1">Key Information &amp; Presenting Concern</a></li>
+              <li><a href="#d2">Medical History</a></li>
+              <li><a href="#d3">Current Medications &amp; Allergies</a></li>
+              <li><a href="#d4">Mental Health &amp; Substance Use Screening</a></li>
+              <li><a href="#d5">Functional Status</a></li>
+              <li><a href="#d6">Social Determinants &amp; Psychosocial Context</a></li>
+              <li><a href="#d7">Family History</a></li>
+              <li><a href="#d8">Risk &amp; Safety Screening</a></li>
+              <li><a href="#d9">Prior Treatment &amp; Response</a></li>
+              <li><a href="#d10">Patient Goals &amp; Readiness</a></li>
+              <li><a href="#d11">Review of Systems</a></li>
+            </ol>
+          </div>
+        </section>
+
+        <hr class="sect-rule">
+
+        <section class="sec domain" id="d1">
+          <h2>
+            <span class="kicker">Domain 01</span>
+            <span class="title">Key Information &amp; Presenting Concern</span>
+            <span class="meta">2 sessions · Aug 25, Aug 27, 2025</span>
+          </h2>
+
+          <p>Patient is a 74-year-old married, employed male evaluated across two CAS sessions for <strong>bilateral knee osteoarthritis</strong> with progressive right-knee involvement and patient-reported instability under load-carrying on stair descent.</p>
+
+          <div class="pull-quote">
+            &ldquo;It's been steadily getting worse — I'm concerned my right knee may give out.&rdquo;
+            <span class="attrib">Patient · Session 2A · Chief complaint<sup class="cite">5</sup></span>
+          </div>
+
+          <h3>Onset, course, and trigger to seek care</h3>
+          <dl class="dl">
+            <dt>Onset</dt><dd>Years (described as ongoing process)<sup class="cite">11</sup></dd>
+            <dt>Trajectory</dt><dd>Progressively worsening; intermittent with high day-to-day variability<sup class="cite">4</sup></dd>
+            <dt>Trigger to present</dt><dd>Right-knee instability under load on stair descent with frequent business travel<sup class="cite">5</sup></dd>
+            <dt>Patient framing</dt><dd>Attributes exacerbation to prior hip replacement on contralateral side<sup class="cite">12</sup></dd>
+          </dl>
+
+          <h3>Pain profile</h3>
+          <dl class="dl">
+            <dt>Location</dt><dd>Bilateral knees; right &gt; left<sup class="cite">13</sup></dd>
+            <dt>Quality</dt><dd>Sharp, stabbing<sup class="cite">3</sup></dd>
+            <dt>Intensity</dt><dd>Session 1: 2–3/10 baseline · 7–8/10 worst. Session 2: 3–4/10 baseline · one day reached 7/10<sup class="cite">2</sup></dd>
+            <dt>Pattern</dt><dd>Intermittent; high intra-day and day-to-day variability<sup class="cite">4</sup></dd>
+            <dt>Aggravators</dt><dd>Walking · going downstairs · sit-to-stand transitions · carrying heavy loads · weather changes · prolonged inactivity<sup class="cite">14</sup></dd>
+            <dt>Alleviators</dt><dd>Sleep · ibuprofen 600&nbsp;mg · physical therapy · acetaminophen · slow initial walking after standing · ongoing activity<sup class="cite">15</sup></dd>
+          </dl>
+        </section>
+
+        <hr class="sect-rule">
+
+        <section class="sec domain" id="d2">
+          <h2>
+            <span class="kicker">Domain 02</span>
+            <span class="title">Medical History</span>
+          </h2>
+
+          <h3>Active &amp; current diagnoses</h3>
+          <dl class="dl">
+            <dt>Primary</dt><dd>Osteoarthritis, bilateral knees · right knee more symptomatic <span class="tag mod">Active</span></dd>
+            <dt>Comorbid</dt><dd>Obesity (patient attributes contribution to knee aggravation)<sup class="cite">16</sup></dd>
+            <dt>Surgical</dt><dd>History of <strong>hip replacement</strong> (date / side not captured this encounter) <span class="tag flag">Verify</span></dd>
+          </dl>
+
+          <div class="callout">
+            <strong>Missing information.</strong> Onset date of OA diagnosis · indication and date for prior hip replacement · history of intra-articular knee procedures — none documented this encounter; recommend verification at first in-person follow-up.
+          </div>
+        </section>
+
+        <hr class="sect-rule">
+
+        <section class="sec domain" id="d4">
+          <h2>
+            <span class="kicker">Domain 04</span>
+            <span class="title">Mental Health &amp; Substance Use Screening</span>
+          </h2>
+
+          <div class="chip-grid">
+            <div class="chip"><div class="k">PHQ-8</div><div class="v">0% (5)</div><div class="s">Minimal · no signal</div></div>
+            <div class="chip"><div class="k">GAD-7</div><div class="v">10% (PCL-5 4%)</div><div class="s">Below threshold</div></div>
+            <div class="chip"><div class="k">PCS</div><div class="v">0%</div><div class="s">No catastrophizing</div></div>
+            <div class="chip"><div class="k">AUDIT-C</div><div class="v">4 / 12 (33%)</div><div class="s">Low-moderate range</div></div>
+            <div class="chip"><div class="k">DAST-10</div><div class="v">1 / 10 (10%)</div><div class="s">Minimal concern</div></div>
+            <div class="chip"><div class="k">Suicidality</div><div class="v">None</div><div class="s">Patient denies</div></div>
+          </div>
+
+          <h3>Mood, anxiety, sleep</h3>
+          <p>Patient denies depressed mood, anhedonia, hopelessness, and pain catastrophizing across both sessions. Anxiety screening below clinical threshold. <strong>Psychosocial functioning</strong> reported as notably intact: PHQ-8 0%, PCS 0%, PCL-5 4%, life-satisfaction 9–10/10, dense social support<sup class="cite">8</sup>.</p>
+
+          <div class="callout">
+            <strong>Clinical note.</strong> Substance-use screening is age-appropriate and does not currently signal escalation; alcohol-pain link is patient-recognized and should be folded into shared decision-making rather than re-litigated as a behavior change campaign.
+          </div>
+        </section>
+
+        <hr class="sect-rule">
+
+        <section class="sec domain" id="d5">
+          <h2>
+            <span class="kicker">Domain 05</span>
+            <span class="title">Functional Status</span>
+          </h2>
+
+          <p>Day-to-day functioning is largely preserved with two domains showing measurable knee-pain interference (recreation and exercise). Patient continues full-time employment with <strong>frequent business travel</strong>, manages personal medication and self-care independently.</p>
+
+          <dl class="dl">
+            <dt>Work / income</dt><dd>Employed full-time; frequent travel for work; <span class="tag ok">No impact</span> from pain<sup class="cite">21</sup></dd>
+            <dt>Daily activities</dt><dd>Minimal pain interference; ADLs preserved <span class="tag ok">Minimal</span></dd>
+            <dt>Sleep</dt><dd>~6&nbsp;h/night, attributed to work travel rather than pain<sup class="cite">22</sup></dd>
+            <dt>Recreation</dt><dd>Moderate pain interference reported<sup class="cite">24</sup> <span class="tag mod">Moderate</span></dd>
+            <dt>Exercise</dt><dd>Self-modifications during prolonged sitting before loading<sup class="cite">25</sup> <span class="tag mod">Self-edits</span></dd>
+            <dt>Self-care</dt><dd>Independent — manages medications appropriately<sup class="cite">27</sup></dd>
+          </dl>
+        </section>
+
+        <hr class="sect-rule">
+
+        <section class="sec domain" id="d8">
+          <h2>
+            <span class="kicker">Domain 08</span>
+            <span class="title">Risk &amp; Safety Screening</span>
+          </h2>
+
+          <div class="risk-box">
+            <div class="row-top">
+              <h3>Tier 1 · Functional safety</h3>
+              <span class="lvl">Low — Monitor</span>
+            </div>
+            <div class="grid">
+              <div class="lab">Trigger 1 · Fall risk</div>
+              <div class="val">Right-knee instability during stair descent worsened by load-carrying — clinically significant fall hazard in 74-year-old<sup class="cite">5</sup></div>
+              <div class="lab">Trigger 2 · Trajectory</div>
+              <div class="val">Progressively worsening; patient acknowledges need for professional evaluation<sup class="cite">4</sup></div>
+              <div class="lab">Trigger 3 · Sleep insufficiency</div>
+              <div class="val">~6&nbsp;h/night attributed to work travel — chronic partial sleep deprivation<sup class="cite">7</sup></div>
+              <div class="lab">Absent indicators</div>
+              <div class="val">Suicidal ideation · self-harm · psychosis · pain catastrophizing (PCS 0%) · severe anxiety · substance misuse</div>
+            </div>
+            <div class="narr">
+              Risk classifications are programmatic, not clinical diagnosis. Reviewing provider may reclassify on examination.
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+
+  </main>
+</div>
+</body>
+</html>

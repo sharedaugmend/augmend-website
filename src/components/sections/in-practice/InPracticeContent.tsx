@@ -3,282 +3,749 @@
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Smartphone, Clock, ShieldCheck, TrendingUp, Cable, Layers, Inbox, Key, ArrowLeftRight } from "lucide-react"
-import Section from "@/components/layout/Section"
+import {
+  ClipboardCheck,
+  HeadphonesIcon,
+  FileText,
+  Eye,
+  Stethoscope,
+  CheckCircle2,
+  ShieldCheck,
+  Clock4,
+  HeartPulse,
+  Brain,
+  TrendingUp,
+  Building2,
+  CalendarClock,
+  Receipt,
+  Database,
+  Lock,
+} from "lucide-react"
 import SectionLabel from "@/components/ui/SectionLabel"
 import ScrollReveal from "@/components/ui/ScrollReveal"
-import Card from "@/components/ui/Card"
-import StatCard from "@/components/ui/StatCard"
 import Button from "@/components/ui/Button"
-import WorkflowLoop from "@/components/ui/WorkflowLoop"
+import GlassCard from "@/components/ui/GlassCard"
+import BlurredBackdrop from "@/components/ui/BlurredBackdrop"
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/animations"
 
-const workflowSteps = [
-  { number: "01", title: "Configure and launch", body: "Your clinical team configures the domain set and session parameters. Sessions are launched per patient. Non-clinical staff set up the device, the patient completes the session independently." },
-  { number: "02", title: "Review the pre-encounter brief", body: "Before each visit, the provider receives a structured summary: current session findings, risk flags, standardized score trends, and flagged items. Under a minute." },
-  { number: "03", title: "Review, edit, and sign off", body: "After the visit, the provider reviews the full clinical report. Low-confidence claims are flagged. In-session notes can be reconciled: the system marks what was addressed and adjusts the next session plan accordingly." },
-  { number: "04", title: "Billing documentation, ready to process", body: "The billing-ready report is generated from the same session data. Your billing team receives documentation ready for processing under existing codes from the first session." },
+type Owner = "patient" | "system" | "provider"
+
+const journey: {
+  num: string
+  owner: Owner
+  stage: string
+  purpose: string
+  detail: string
+  image?: string
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>
+}[] = [
+  {
+    num: "01",
+    owner: "patient",
+    stage: "Before visit",
+    purpose: "Pre-session survey, digital consent, OTP issuance.",
+    detail:
+      "The clinician authors the session plan ahead of the appointment. Patient receives the consent flow and a one-time access code in advance.",
+    image: "/images/in-practice/consent.png",
+    icon: ClipboardCheck,
+  },
+  {
+    num: "02",
+    owner: "patient",
+    stage: "Arrival & setup",
+    purpose: "Patient checks in at clinic. Admin hands off the headset and runs a pre-check.",
+    detail:
+      "Non-clinical staff complete a 90-second pre-flight: hardware fit, audio levels, and session ID. The patient is in immersion before the room is even ready.",
+    image: "/images/in-practice/setup.png",
+    icon: HeadphonesIcon,
+  },
+  {
+    num: "03",
+    owner: "patient",
+    stage: "VR intake session",
+    purpose: "Patient converses with the avatar across 11 clinical domains; VR exercise if prescribed.",
+    detail:
+      "The non-human avatar conducts a structured biopsychosocial conversation. Adaptive depth-collection on new disclosures. Continuous safety screening behind the scenes.",
+    image: "/images/home/avatar-robot-2.png",
+    icon: Brain,
+  },
+  {
+    num: "04",
+    owner: "system",
+    stage: "Post-VR & report generation",
+    purpose: "Transcript processed; clinical report, 15-second pre-visit summary, and flags generated.",
+    detail:
+      "Every claim is linked back to the originating exchange in the transcript. Low-confidence items are explicitly flagged for provider review.",
+    image: "/images/illustrations/data-compounds-chart.png",
+    icon: FileText,
+  },
+  {
+    num: "05",
+    owner: "provider",
+    stage: "Provider pre-visit review",
+    purpose: "Clinician reads the 15-second summary and drills into any flagged low-confidence claims.",
+    detail:
+      "Two-minute structured brief surfaced to the provider's existing EHR view. Walk into the room with the full clinical picture already in mind.",
+    image: "/images/in-practice/provider-review.png",
+    icon: Eye,
+  },
+  {
+    num: "06",
+    owner: "provider",
+    stage: "In-room visit",
+    purpose: "Clinician anchors the visit on the report, clarifies with the patient, annotates inline.",
+    detail:
+      "The conversation is no longer information-gathering — it is shared decision-making. Annotations attach directly to the brief.",
+    image: "/images/in-practice/in-room.png",
+    icon: Stethoscope,
+  },
+  {
+    num: "07",
+    owner: "provider",
+    stage: "Post-visit sign-off",
+    purpose: "Clinician finalizes, signs off; report locks and EHR copy-paste path activates.",
+    detail:
+      "Billing-ready documentation is pre-populated and mapped to existing CPT codes. Provider review takes minutes, not the rest of the day.",
+    image: "/images/in-practice/sign-off.png",
+    icon: CheckCircle2,
+  },
 ]
 
-const deployFeatures = [
-  { icon: Smartphone, text: "Phone, tablet, or VR headset, same outputs, any setting" },
-  { icon: Clock, text: "15-45 minute self-guided sessions, no provider time consumed" },
-  { icon: ShieldCheck, text: "Continuous AI safety monitoring with clinician-in-the-loop" },
-  { icon: TrendingUp, text: "Longitudinal tracking, data compounds across visits" },
-  { icon: Cable, text: "EHR integration available, in-basket, SSO, or full integration" },
-  { icon: Layers, text: "Works alongside your existing digital health tools" },
+const ownerStyle: Record<
+  Owner,
+  { label: string; color: string; bg: string; bar: string; chipBg: string }
+> = {
+  patient: {
+    label: "Patient",
+    color: "#4a6000",
+    bg: "rgba(234,244,200,0.4)",
+    bar: "#B8D94E",
+    chipBg: "rgba(184,217,78,0.2)",
+  },
+  system: {
+    label: "System",
+    color: "#9a4d12",
+    bg: "rgba(253,232,216,0.5)",
+    bar: "#E8843A",
+    chipBg: "rgba(232,132,58,0.16)",
+  },
+  provider: {
+    label: "Provider",
+    color: "#1F1C98",
+    bg: "rgba(228,237,248,0.4)",
+    bar: "#1F1C98",
+    chipBg: "rgba(31,28,152,0.1)",
+  },
+}
+
+const providerBenefits = [
+  {
+    icon: Clock4,
+    title: "More face time, less keyboard time",
+    body:
+      "15+ minutes back per encounter. The brief replaces the unstructured interview. The visit becomes diagnosis and shared decision-making.",
+  },
+  {
+    icon: HeartPulse,
+    title: "Decision confidence",
+    body:
+      "Every claim traces to the source transcript. Flagged items are explicit. Providers know what is solid and what to verify with the patient.",
+  },
+  {
+    icon: Brain,
+    title: "Cognitive load offloaded",
+    body:
+      "12+ clinical domains pre-organized — meds, history, function, SDOH, safety, prior treatment. The provider walks in with the picture, not a blank page.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Burnout pressure relieved",
+    body:
+      "Documentation drops from hours to minutes per encounter. The afternoon ends with the patients, not with the EHR.",
+  },
+]
+
+const leaderBenefits = [
+  {
+    icon: Receipt,
+    title: "$83+ per session, day one",
+    body:
+      "Generated under existing CPT codes. No new billing infrastructure. Revenue realized from the first completed session.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Higher-level E/M support",
+    body:
+      "Structured biopsychosocial complexity is the basis for higher-level coding. The complexity is now documented, evidenced, and provider-signed.",
+  },
+  {
+    icon: CalendarClock,
+    title: "Four steps to live",
+    body:
+      "Contract → hardware → trained staff → first patient session. Pace varies by clinic; most reach steady-state shortly after their first sessions.",
+  },
+  {
+    icon: Building2,
+    title: "Quality metrics improve alongside revenue",
+    body:
+      "Structured SDOH, PROMs, and intake data — already the data quality programs require, generated as a byproduct of the workflow.",
+  },
+]
+
+const safetyCards = [
+  {
+    title: "Continuous safety screening",
+    body:
+      "Every session may include structured safety screening from the first question to the last — clinician-tailored. Risk indicators route to the supervising clinician at the moment of disclosure.",
+  },
+  {
+    title: "Evidence-linked claims",
+    body:
+      "Every finding traces to the source transcript and audio. Providers can open the originating exchange for any claim. Uncertain items are explicitly flagged for review.",
+  },
+  {
+    title: "Clinician-controlled, effortlessly",
+    body:
+      "The clinical team owns the plan. Sessions launch under remote supervision of a licensed clinician. Sign-off is required before anything enters the record. Configurable in minutes, not added to provider workflow.",
+  },
+]
+
+const integrationBadges = [
+  "Epic",
+  "Athenahealth",
+  "Cerner / Oracle Health",
+  "eClinicalWorks",
+  "MEDITECH",
+  "FHIR-compliant APIs",
+]
+
+const complianceBadges = [
+  { label: "HIPAA compliant", icon: Lock },
+  { label: "SOC 2 Type II", icon: ShieldCheck },
+  { label: "End-to-end encryption", icon: Database },
+  { label: "BAA available", icon: FileText },
+]
+
+const timeline = [
+  { day: "Step 1", body: "Contract signed. Hardware ships." },
+  { day: "Step 2", body: "Staff trained. System configured. EHR connected." },
+  { day: "Step 3", body: "First patient sessions. First reports. First revenue." },
+  { day: "Step 4", body: "Full workflow running. All session types active." },
 ]
 
 export default function InPracticeContent() {
   return (
     <>
-      {/* Hero — image on RIGHT edge-to-edge, text on LEFT */}
-      <section className="relative overflow-hidden bg-surface-cream">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_40%]">
-          <div className="pt-28 pb-16 md:pt-32 md:pb-24 xl:pb-32 px-6 lg:pl-[max(1.5rem,calc((100vw-1280px)/2+1.5rem))] lg:pr-10">
-            <nav className="mb-8 font-body text-sm text-neutral-slate">
-              <Link href="/" className="hover:text-brand-indigo transition-colors">Home</Link>
-              <span className="mx-2">/</span>
-              <span className="text-neutral-near-black">In Practice</span>
-            </nav>
-            <ScrollReveal>
-              <SectionLabel>How It Works In Practice</SectionLabel>
-              <h1 className="mt-4 max-w-xl">For patients, providers, and practice leaders: one platform that serves all three.</h1>
-            </ScrollReveal>
-          </div>
-          <div className="relative hidden lg:block min-h-[450px]">
-            <Image src="/images/illustrations/the-shift-woman-dots.png" alt="Patient data visualization" fill className="object-cover object-center" />
-          </div>
+      {/* PAGE HERO */}
+      {/* HERO — matches home/HIW pattern */}
+      <section
+        className="relative overflow-hidden flex items-center"
+        style={{
+          minHeight: "70vh",
+          paddingTop: 64,
+          background:
+            "linear-gradient(130deg, #070619 0%, #0c0a3e 55%, #181070 100%)",
+        }}
+      >
+        <div
+          aria-hidden="true"
+          className="absolute right-0 top-0 bottom-0 pointer-events-none z-[1]"
+          style={{
+            width: "55%",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 14%, rgba(0,0,0,0.6) 36%, black 64%)",
+            maskImage:
+              "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 14%, rgba(0,0,0,0.6) 36%, black 64%)",
+          }}
+        >
+          <Image
+            src="/images/home/doctor-patient-scene.png"
+            alt=""
+            fill
+            sizes="55vw"
+            priority
+            className="object-cover"
+            style={{
+              objectPosition: "32% 22%",
+              opacity: 0.78,
+              mixBlendMode: "luminosity",
+              filter: "hue-rotate(190deg) saturate(0.4) brightness(0.85)",
+            }}
+          />
         </div>
-      </section>
 
-      {/* Audience tabs */}
-      <div className="sticky top-16 z-30 bg-surface-white/90 backdrop-blur-lg border-b border-neutral-border">
-        <div className="mx-auto max-w-[1280px] px-6 flex gap-1">
-          {[
-            { label: "For Patients", id: "patients" },
-            { label: "For Providers", id: "providers" },
-            { label: "For Practice Leaders", id: "leaders" },
-          ].map((tab) => (
-            <a key={tab.id} href={`#${tab.id}`} className="px-4 py-3 font-body font-bold text-sm text-neutral-slate hover:text-brand-indigo transition-colors border-b-2 border-transparent hover:border-brand-indigo">
-              {tab.label}
-            </a>
-          ))}
-        </div>
-      </div>
-
-      {/* ============ FOR PATIENTS ============ */}
-      <section className="relative overflow-hidden bg-surface-cream" id="patients">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_40%]">
-          <div className="py-16 md:py-20 xl:py-24 px-6 lg:pl-[max(1.5rem,calc((100vw-1280px)/2+1.5rem))] lg:pr-10">
-            <ScrollReveal>
-              <SectionLabel>For Patients</SectionLabel>
-              <h2 className="mt-4">A conversation designed for disclosure by medical professionals, with safety at the forefront.</h2>
-              <p className="mt-6 text-neutral-slate">
-                Patients complete self-guided AI sessions independently before visits, between visits, or during dedicated in-clinic time. The conversation adapts to what the patient discloses, goes deeper where conditions warrant, and carries forward everything said in prior sessions.
+        <div
+          className="relative z-[2] py-16 md:py-20 pointer-events-none"
+          style={{
+            marginLeft: "max(1.5rem, calc((100vw - 1280px)/2 + 1.5rem))",
+            paddingRight: "1.5rem",
+            width: "min(calc(100vw - 3rem), max(440px, 52vw))",
+            maxWidth: 720,
+          }}
+        >
+          <nav className="font-body text-sm mb-6 pointer-events-auto" style={{ color: "rgba(255,255,255,0.5)" }}>
+            <Link href="/" className="hover:text-white transition-colors">
+              Home
+            </Link>
+            <span className="mx-2">/</span>
+            <span className="text-white">In Practice</span>
+          </nav>
+          <ScrollReveal>
+            <div
+              className="rounded-3xl relative"
+              style={{
+                background: "rgba(7, 6, 25, 0.42)",
+                backdropFilter: "blur(20px) saturate(130%)",
+                WebkitBackdropFilter: "blur(20px) saturate(130%)",
+                border: "1px solid rgba(255, 255, 255, 0.08)",
+                boxShadow:
+                  "0 0 60px 30px rgba(7, 6, 25, 0.35), 0 30px 60px -20px rgba(0, 0, 0, 0.6)",
+                padding: "44px 56px",
+                WebkitMaskImage:
+                  "radial-gradient(ellipse at center, black 62%, rgba(0,0,0,0.85) 82%, rgba(0,0,0,0.5) 100%)",
+                maskImage:
+                  "radial-gradient(ellipse at center, black 62%, rgba(0,0,0,0.85) 82%, rgba(0,0,0,0.5) 100%)",
+              }}
+            >
+              <SectionLabel dark>In Practice</SectionLabel>
+              <h1
+                className="mt-4 font-display text-white"
+                style={{
+                  fontSize: "clamp(34px, 4vw, 50px)",
+                  fontWeight: 600,
+                  lineHeight: 1.08,
+                  letterSpacing: "-0.025em",
+                }}
+              >
+                An integrated software solution for <em className="italic" style={{ fontWeight: 500 }}>patients, providers, and practice leaders.</em>
+              </h1>
+              <p
+                className="font-body mt-5"
+                style={{ fontSize: 18, lineHeight: 1.6, color: "rgba(255, 255, 255, 0.78)" }}
+              >
+                AugMend fits inside the workflows clinics already have. No new staff. No new billing systems. A structured session before every encounter — and a report waiting when the provider walks in.
               </p>
-              <p className="mt-4 text-neutral-slate">
-                Sensitive information is shared in a non-judgmental environment. Between visits, patients complete provider-prescribed behavioral exercises for managing pain, stress, and emotional regulation personalized to what they disclosed.
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal>
-              <div className="mt-8 bg-brand-deep-space rounded-2xl p-6">
-                <p className="font-display italic text-base text-white/90">
-                  &ldquo;I&apos;ve not yet seen a clinical immersive experience this enjoyable, professional, or advanced. [...] There was great care taken to work with clinicians to create these experiences.&rdquo;
-                </p>
-                <p className="mt-2 font-body text-xs text-white/50">Beth Savoldelli, XR Impact Network</p>
-              </div>
-            </ScrollReveal>
-          </div>
-
-          <div className="relative hidden lg:block min-h-[500px]">
-            <Image src="/images/illustrations/Person's Profile Mar 27.png" alt="Patient profile visualization" fill className="object-cover object-center" />
-          </div>
-        </div>
-      </section>
-
-      {/* ============ FOR PROVIDERS ============ */}
-      <Section bg="white" dots id="providers">
-        <ScrollReveal>
-          <SectionLabel>Provider Workflow</SectionLabel>
-          <h2 className="mt-4 max-w-3xl">Every clinical decision stays with the provider.</h2>
-          <p className="mt-6 max-w-2xl text-neutral-slate">We put providers at the center to meet their needs by collecting and presenting information that supports decision making and care delivery.</p>
-        </ScrollReveal>
-
-        <motion.div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8" initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerParent}>
-          {workflowSteps.map((s) => (
-            <motion.div key={s.number} variants={staggerChild}>
-              <Card className="h-full">
-                <span className="font-display font-bold text-3xl text-brand-indigo/20">{s.number}</span>
-                <h4 className="mt-2">{s.title}</h4>
-                <p className="mt-2 text-neutral-slate text-[15px]">{s.body}</p>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* What you receive — NO duplicate report image, cards only */}
-        <ScrollReveal>
-          <h3 className="mt-16 font-body font-bold text-[22px]">What you receive</h3>
-        </ScrollReveal>
-
-        <motion.div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerParent}>
-          <motion.div variants={staggerChild}>
-            <Card className="h-full border-t-2 border-t-brand-indigo">
-              <h4>Detailed Intake Report</h4>
-              <p className="mt-2 text-neutral-slate text-[15px]">Complete biopsychosocial picture for new patients. Supports documentation complexity for higher-level CPT coding.</p>
-            </Card>
-          </motion.div>
-          <motion.div variants={staggerChild}>
-            <Card className="h-full border-t-2 border-t-brand-indigo">
-              <h4>SOAP Note</h4>
-              <p className="mt-2 text-neutral-slate text-[15px]">For follow-ups. Changes since last visit, medication updates, flagged items, risk status. Provider selects format per encounter.</p>
-            </Card>
-          </motion.div>
-          <motion.div variants={staggerChild}>
-            <Card className="h-full border-t-2 border-t-brand-indigo">
-              <h4>Billing-Ready Report</h4>
-              <p className="mt-2 text-neutral-slate text-[15px]">CPT-ready language, mapped to codes the care supports. Your billing team receives documentation ready for processing.</p>
-            </Card>
-          </motion.div>
-        </motion.div>
-
-        <motion.div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6" initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerParent}>
-          <motion.div variants={staggerChild}>
-            <Card className="h-full">
-              <h4 className="text-base">Evidence-linked claims</h4>
-              <p className="mt-2 text-neutral-slate text-[15px]">Every finding traces to the patient's own words. Uncertain items are flagged. Trust confident summaries. Verify flagged ones.</p>
-            </Card>
-          </motion.div>
-          <motion.div variants={staggerChild}>
-            <Card className="h-full">
-              <h4 className="text-base">Cross-session intelligence</h4>
-              <p className="mt-2 text-neutral-slate text-[15px]">The system tracks what has been covered, what changed, and what the provider directed. Follow-ups build; they don't restart.</p>
-            </Card>
-          </motion.div>
-          <motion.div variants={staggerChild}>
-            <Card className="h-full">
-              <h4 className="text-base">Confidence markers</h4>
-              <p className="mt-2 text-neutral-slate text-[15px]">Low-confidence claims are flagged for review. Patient quotes available for sensitive items. The provider has the final say.</p>
-            </Card>
-          </motion.div>
-        </motion.div>
-      </Section>
-
-      {/* ============ FOR PRACTICE LEADERS ============ */}
-      {/* Economics — two-column: text left, stats right */}
-      <Section bg="cream" dots id="leaders">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] gap-10 items-start">
-          <div>
-            <ScrollReveal>
-              <SectionLabel>For Practice Leaders</SectionLabel>
-              <h2 className="mt-4">Your clinic is not under-delivering care. It is under-documenting the complexity your providers already manage.</h2>
-              <p className="mt-6 text-neutral-slate">Every visit where biopsychosocial complexity goes unrecorded is a visit billed below the care actually delivered. AugMend closes that gap from the first session.</p>
-            </ScrollReveal>
-
-            <ScrollReveal>
-              <h3 className="mt-10 font-body font-bold text-[22px]">The economics</h3>
-              <p className="mt-4 text-neutral-slate">Every session generates reimbursable documentation under CPT codes your billing team already uses. Multiple revenue pathways from a single patient interaction: E/M uplift, behavioral health assessment, chronic care management, all billable by appropriate professionals. No new billing infrastructure. No new codes.</p>
-            </ScrollReveal>
-          </div>
-
-          {/* Stat cards — stacked on right */}
-          <ScrollReveal delay={0.1}>
-            <div className="space-y-6">
-              <StatCard value="Multiple" label="Reimbursement pathways per session" description="E/M uplift, behavioral health codes, and chronic care documentation, stacked from one interaction" accent="indigo" />
-              <StatCard value="Day 1" label="Revenue recovery begins" description="Bills under existing CPT codes from the first session" accent="lime" />
-              <StatCard value="$0" label="New billing infrastructure required" description="Your codes. Your payers. Your existing revenue cycle." accent="orange" />
+            </div>
+            <div className="relative z-[3] mt-6 flex flex-wrap gap-4 pointer-events-auto">
+              <Button variant="primary" href="/contact" size="large">
+                Start a Pilot →
+              </Button>
+              <Button variant="frosted" href="/platform/how-it-works" size="large">
+                See How It Works
+              </Button>
             </div>
           </ScrollReveal>
         </div>
-      </Section>
+      </section>
 
-      {/* Deployment — dark bg */}
-      <section className="relative overflow-hidden py-16 md:py-20 xl:py-24 bg-brand-deep-space">
-        <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'url(/images/illustrations/dots-indigo-background.png)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
-        <div className="relative z-10 mx-auto max-w-[1280px] px-6">
+      {/* THE 7-STEP WORKFLOW — compact glass cards, colored owner tags do
+          the visual work. Subtle blurred photographic backdrop, no
+          decorative side images. */}
+      <section
+        id="journey"
+        className="relative overflow-hidden py-20 md:py-24 bg-surface-cream"
+      >
+        <BlurredBackdrop
+          src="/images/home/doctor-patient-scene.png"
+          tone="cream"
+          imageOpacity={0.22}
+          position="center 30%"
+        />
+
+        <div className="relative mx-auto max-w-[1280px] px-6 md:px-12">
           <ScrollReveal>
-            <SectionLabel dark>Deployment</SectionLabel>
-            <h2 className="mt-4 max-w-3xl text-white">Non-clinical staff run it. Providers review it. Revenue follows.</h2>
-            <p className="mt-6 max-w-2xl text-white/70">No additional clinical FTEs required. Non-clinical staff initiate patient sessions, set up the device, onboard the patient, and step away. The patient completes the session independently.</p>
+            <SectionLabel>The Workflow</SectionLabel>
+            <h2 className="mt-3 leading-[1.2] max-w-[760px]">
+              One pilot. Seven stages. From the patient&rsquo;s pre-visit consent to the clinician&rsquo;s sign-off.
+            </h2>
+            <p className="mt-4 max-w-[680px] text-neutral-slate">
+              The journey runs from the patient through the system into the provider. Each stage names its owner, its purpose, and how long it takes.
+            </p>
           </ScrollReveal>
-          <motion.div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6" initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerParent}>
-            {deployFeatures.map((f) => (
-              <motion.div key={f.text} variants={staggerChild} className="flex items-start gap-4">
-                <f.icon className="h-6 w-6 text-accent-lime shrink-0 mt-0.5" strokeWidth={1.5} />
-                <p className="font-body text-white">{f.text}</p>
+
+          {/* Vertical timeline — flowing gradient connector traces the
+              patient → system → provider color story. Cards are tighter so all
+              7 stages read in one sweep. */}
+          <motion.ol
+            className="mt-12 relative"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={staggerParent}
+          >
+            <div
+              aria-hidden="true"
+              className="absolute left-[15px] md:left-[19px] top-2 bottom-2 w-[2px] rounded-full"
+              style={{
+                background:
+                  "linear-gradient(to bottom, #B8D94E 0%, #B8D94E 28%, #E8843A 42%, #E8843A 50%, #1F1C98 64%, #1F1C98 100%)",
+                opacity: 0.35,
+              }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute left-[10px] md:left-[14px] top-2 bottom-2 w-[12px] rounded-full"
+              style={{
+                background:
+                  "linear-gradient(to bottom, rgba(184,217,78,0.18) 0%, rgba(232,132,58,0.18) 50%, rgba(31,28,152,0.18) 100%)",
+                filter: "blur(8px)",
+              }}
+            />
+            {journey.map((step) => {
+              const s = ownerStyle[step.owner]
+              const Icon = step.icon
+              const tone =
+                step.owner === "patient" ? "lime" : step.owner === "system" ? "orange" : "indigo"
+              const accent = tone
+              return (
+                <motion.li
+                  key={step.num}
+                  variants={staggerChild}
+                  className="relative pl-12 md:pl-16 mb-3 last:mb-0"
+                >
+                  <div
+                    className="absolute left-0 top-3 flex items-center justify-center rounded-full font-body font-bold text-[12px] tabular-nums z-[2]"
+                    style={{
+                      width: 32,
+                      height: 32,
+                      background: s.bar,
+                      color: step.owner === "patient" ? "#1A1A1A" : "#fff",
+                      boxShadow: `0 4px 12px ${
+                        step.owner === "patient"
+                          ? "rgba(74,96,0,0.22)"
+                          : step.owner === "system"
+                            ? "rgba(232,132,58,0.28)"
+                            : "rgba(31,28,152,0.28)"
+                      }`,
+                      border: "2px solid #FAF8F5",
+                    }}
+                  >
+                    {step.num}
+                  </div>
+
+                  <GlassCard
+                    tone={tone}
+                    accent={accent}
+                    className="p-5 md:p-6 transition-transform duration-200 hover:-translate-y-0.5"
+                  >
+                    <div className="flex items-center flex-wrap gap-3 mb-2">
+                      <span
+                        className="inline-flex items-center gap-1.5 font-body font-bold text-[10.5px] uppercase tracking-[0.06em] px-2.5 py-1 rounded-full"
+                        style={{ background: s.chipBg, color: s.color }}
+                      >
+                        <Icon className="h-3 w-3" strokeWidth={2} />
+                        {s.label}
+                      </span>
+                      <span className="font-body font-bold text-[11.5px] uppercase tracking-[0.05em] text-neutral-slate">
+                        {step.stage}
+                      </span>
+                    </div>
+                    <h4 className="font-body font-bold text-[16px] mb-1">{step.purpose}</h4>
+                    <p className="font-body text-[14px] leading-[1.55] text-neutral-slate">
+                      {step.detail}
+                    </p>
+                  </GlassCard>
+                </motion.li>
+              )
+            })}
+          </motion.ol>
+        </div>
+      </section>
+
+      {/* FOR PATIENTS — patient-side outcomes (moved here from home so the
+          home page leads with clarity and the depth lives where readers
+          come for it). */}
+      <section id="patients" className="relative overflow-hidden py-24 md:py-28 bg-surface-warm-white">
+        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
+          <ScrollReveal>
+            <SectionLabel>For Patients</SectionLabel>
+            <h2 className="mt-3 leading-[1.2] max-w-[680px]">
+              When patients use AugMend, they share more, more honestly.
+            </h2>
+            <p className="mt-4 max-w-[680px] text-neutral-slate">
+              The same conversation a patient finds hard to have face-to-face becomes possible in immersion. The numbers below come from our randomized controlled trial.
+            </p>
+          </ScrollReveal>
+          <ScrollReveal>
+            <div className="mt-12 flex flex-col md:flex-row items-stretch md:items-start divide-y md:divide-y-0">
+              {[
+                {
+                  value: "100%",
+                  label: "Patient preference for VR-based assessment.",
+                  sub: "Across the Boston RCT, every participant preferred VR-based sessions over standard intake when offered both.",
+                },
+                {
+                  value: "β=10.40",
+                  label: "More words disclosed per response.",
+                  sub: "Patients say more, more honestly — surfacing clinical information that standard intake consistently misses.",
+                },
+                {
+                  value: "Day 1",
+                  label: "Provider sees the full picture.",
+                  sub: "The first session gives the care team context that previously took months of clinical relationship to build.",
+                },
+              ].map((s, i) => (
+                <div
+                  key={s.value}
+                  className="flex-1 flex flex-col items-center text-center px-6 md:px-8 py-4"
+                  style={{
+                    borderLeft: i > 0 ? "1px solid rgba(31,28,152,0.10)" : undefined,
+                  }}
+                >
+                  <div
+                    className="font-display tabular-nums"
+                    style={{
+                      fontSize: "clamp(40px, 5vw, 64px)",
+                      fontWeight: 600,
+                      letterSpacing: "-0.035em",
+                      lineHeight: 1,
+                      color: "#1F1C98",
+                    }}
+                  >
+                    {s.value}
+                  </div>
+                  <p
+                    className="mt-4 font-body text-neutral-near-black"
+                    style={{ fontSize: 15, fontWeight: 500, maxWidth: 240 }}
+                  >
+                    {s.label}
+                  </p>
+                  <p
+                    className="mt-2 font-body text-neutral-slate"
+                    style={{ fontSize: 13, lineHeight: 1.55, maxWidth: 240 }}
+                  >
+                    {s.sub}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* FOR PROVIDERS — clinical-care benefits */}
+      <section id="providers" className="relative overflow-hidden py-24 md:py-28 bg-surface-cream">
+        <BlurredBackdrop src="/images/home/provider-cinematic.png" tone="cream" imageOpacity={0.22} position="center 25%" />
+        <div className="relative mx-auto max-w-[1280px] px-6 md:px-12">
+          <ScrollReveal>
+            <SectionLabel>For Providers</SectionLabel>
+            <h2 className="mt-3 leading-[1.2] max-w-[680px]">
+              Restructure what happens before you walk in the room.
+            </h2>
+            <p className="mt-4 max-w-[680px] text-neutral-slate">
+              The provider workflow stays the same — minus the parts that drained it. Diagnosis and shared decision-making, with the documentation already in hand.
+            </p>
+          </ScrollReveal>
+          <motion.div
+            className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-5"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={staggerParent}
+          >
+            {providerBenefits.map((b) => (
+              <motion.div key={b.title} variants={staggerChild}>
+                <GlassCard tone="indigo" accent="indigo" className="p-7 h-full">
+                  <b.icon className="h-7 w-7 text-brand-indigo mb-4" strokeWidth={1.5} />
+                  <h4 className="font-body font-bold text-[17px] mb-2">{b.title}</h4>
+                  <p className="font-body text-[15px] leading-relaxed text-neutral-slate">{b.body}</p>
+                </GlassCard>
               </motion.div>
             ))}
           </motion.div>
-
-          {/* Workflow loop diagram */}
-          <ScrollReveal>
-            <div className="mt-12">
-              <WorkflowLoop variant="dark" />
-            </div>
-          </ScrollReveal>
         </div>
       </section>
 
-      {/* Trust & Data Safety — white bg */}
-      <section className="relative overflow-hidden py-16 md:py-20 xl:py-24 bg-surface-white">
-        <div className="relative z-10 mx-auto max-w-[1280px] px-6">
+      {/* FOR PRACTICE LEADERS — operational + economic benefits, visually distinct from providers */}
+      <section id="practice-leaders" className="relative overflow-hidden py-24 md:py-28 bg-surface-warm-white">
+        <BlurredBackdrop src="/images/home/doctor-portrait-cinematic.png" tone="warm-white" imageOpacity={0.30} position="center 30%" />
+        <div className="relative mx-auto max-w-[1280px] px-6 md:px-12">
           <ScrollReveal>
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-center">
-              <div>
-                <SectionLabel>Trust and Data Safety</SectionLabel>
-                <p className="mt-4 max-w-2xl text-neutral-slate">
-                  AugMend is designed for clinical environments where data governance matters. Our AI is designed with medical providers prioritizing safety with independent models tailored for that purpose.
-                </p>
-                <p className="mt-3 font-body text-sm text-neutral-slate">HIPAA compliant. SOC 2 for integrations. End-to-end encryption. BAAs with all partners. AWS infrastructure.</p>
-              </div>
-              <div className="flex-shrink-0">
-                <Image src="/images/logos/HIPAA-compliant-logo.png" alt="HIPAA Compliant" width={120} height={120} className="h-24 w-auto object-contain" />
-              </div>
-            </div>
+            <SectionLabel>For Practice Leaders</SectionLabel>
+            <h2 className="mt-3 leading-[1.2] max-w-[680px]">
+              Revenue from day one, with the billing infrastructure you already have.
+            </h2>
+            <p className="mt-4 max-w-[680px] text-neutral-slate">
+              No new staff. No new billing systems. AugMend slots into the existing workflow and starts producing structured documentation — and structured revenue — from the first session.
+            </p>
           </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Integration — dark bg */}
-      <section className="relative overflow-hidden py-16 md:py-20 xl:py-24 bg-brand-deep-space">
-        <div className="absolute inset-0 opacity-40" style={{ backgroundImage: 'url(/images/illustrations/dots-indigo-background.png)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
-        <div className="relative z-10 mx-auto max-w-[1280px] px-6">
-          <ScrollReveal>
-            <SectionLabel dark>Integration</SectionLabel>
-            <h2 className="mt-4 max-w-3xl text-white">Connects to the systems you already use.</h2>
-            <p className="mt-6 max-w-2xl text-white/70">AugMend integrates into your existing clinical infrastructure. Three integration tiers depending on your environment:</p>
-          </ScrollReveal>
-
-          <motion.div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8" initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerParent}>
-            <motion.div variants={staggerChild}>
-              <div className="bg-white/[0.07] rounded-xl p-6 border border-white/[0.06] h-full text-center">
-                <Inbox className="h-8 w-8 text-accent-lime mx-auto" strokeWidth={1.5} />
-                <h4 className="mt-3 text-white">In-basket delivery</h4>
-                <p className="mt-2 text-white/70 text-[15px]">Reports delivered directly to the provider&apos;s EHR inbox. No workflow change required.</p>
-              </div>
-            </motion.div>
-            <motion.div variants={staggerChild}>
-              <div className="bg-white/[0.07] rounded-xl p-6 border border-white/[0.06] h-full text-center">
-                <Key className="h-8 w-8 text-accent-lime mx-auto" strokeWidth={1.5} />
-                <h4 className="mt-3 text-white">SSO authentication</h4>
-                <p className="mt-2 text-white/70 text-[15px]">Single sign-on for provider and staff access. Unified login, no separate credentials.</p>
-              </div>
-            </motion.div>
-            <motion.div variants={staggerChild}>
-              <div className="bg-white/[0.07] rounded-xl p-6 border border-white/[0.06] h-full text-center">
-                <ArrowLeftRight className="h-8 w-8 text-accent-lime mx-auto" strokeWidth={1.5} />
-                <h4 className="mt-3 text-white">Full EHR integration</h4>
-                <p className="mt-2 text-white/70 text-[15px]">Bidirectional data exchange. Patient records, session data, and documentation flow into and out of your system of record.</p>
-              </div>
-            </motion.div>
+          <motion.div
+            className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-5"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={staggerParent}
+          >
+            {leaderBenefits.map((b, i) => (
+              <motion.div key={b.title} variants={staggerChild}>
+                <GlassCard
+                  tone={i === 0 ? "orange" : "neutral"}
+                  accent={i === 0 ? "orange" : "indigo"}
+                  className="p-7 h-full"
+                >
+                  <b.icon
+                    className="h-7 w-7 mb-4"
+                    strokeWidth={1.5}
+                    style={{ color: i === 0 ? "#E8843A" : "#1F1C98" }}
+                  />
+                  <h4 className="font-body font-bold text-[17px] mb-2">{b.title}</h4>
+                  <p className="font-body text-[15px] leading-relaxed text-neutral-slate">{b.body}</p>
+                </GlassCard>
+              </motion.div>
+            ))}
           </motion.div>
+        </div>
+      </section>
 
+      {/* SAFETY DESIGN — moved here from How It Works */}
+      <section
+        id="safety"
+        className="relative overflow-hidden py-24 md:py-28 bg-brand-deep-space"
+      >
+        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
           <ScrollReveal>
-            <div className="mt-8 text-center">
-              <Link href="/platform/how-it-works" className="font-body font-bold text-accent-lime hover:underline text-lg">Learn how the technology works &rarr;</Link>
-            </div>
+            <SectionLabel dark>Safety Design</SectionLabel>
+            <h2 className="mt-3 leading-[1.2] text-white max-w-[680px]">
+              The AI guides. The provider decides. <em className="italic">Every time.</em>
+            </h2>
+            <p className="mt-4 max-w-[680px]" style={{ color: "rgba(255,255,255,0.7)" }}>
+              AugMend does not interpret clinical data, render diagnoses, or generate treatment recommendations. Every session runs under the remote supervision of a licensed clinician. Every output requires provider review before it enters the clinical record.
+            </p>
+          </ScrollReveal>
+          <motion.div
+            className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-5"
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            variants={staggerParent}
+          >
+            {safetyCards.map((c) => (
+              <motion.div key={c.title} variants={staggerChild}>
+                <GlassCard tone="dark" accent="lime" className="p-7 h-full">
+                  <h4 className="font-body font-bold text-[17px] text-white mb-2">{c.title}</h4>
+                  <p
+                    className="font-body text-[15px] leading-relaxed"
+                    style={{ color: "rgba(255,255,255,0.72)" }}
+                  >
+                    {c.body}
+                  </p>
+                </GlassCard>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* DEPLOYMENT & INTEGRATION — expanded */}
+      <section id="deployment" className="relative overflow-hidden py-24 md:py-28 bg-surface-warm-white">
+        <div className="mx-auto max-w-[1280px] px-6 md:px-12">
+          <ScrollReveal>
+            <SectionLabel>Deployment & Integration</SectionLabel>
+            <h2 className="mt-3 leading-[1.2] max-w-[680px]">
+              Turn it on and it just works.
+            </h2>
+            <p className="mt-4 max-w-[680px] text-neutral-slate">
+              AugMend integrates with major EHRs over FHIR-compliant APIs. Patient data stays inside your existing infrastructure. HIPAA-compliant from day one. The deployment runs in four steps — pace varies clinic to clinic.
+            </p>
+          </ScrollReveal>
+
+          <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+            {/* Left: badges */}
+            <ScrollReveal>
+              <h3 className="font-body font-bold text-[16px] mb-4 text-neutral-near-black">
+                EHR connectivity
+              </h3>
+              <div className="flex flex-wrap gap-3 mb-8">
+                {integrationBadges.map((b) => (
+                  <span
+                    key={b}
+                    className="inline-flex items-center gap-2 font-body font-bold text-[13px] px-4 py-2.5 rounded-lg"
+                    style={{
+                      background: "rgba(31,28,152,0.06)",
+                      border: "1px solid rgba(31,28,152,0.12)",
+                      color: "#1F1C98",
+                    }}
+                  >
+                    {b}
+                  </span>
+                ))}
+              </div>
+
+              <h3 className="font-body font-bold text-[16px] mb-4 text-neutral-near-black">
+                Compliance & security
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {complianceBadges.map((c) => (
+                  <span
+                    key={c.label}
+                    className="inline-flex items-center gap-2 font-body font-bold text-[13px] px-4 py-2.5 rounded-lg"
+                    style={{
+                      background: "rgba(26,107,26,0.05)",
+                      border: "1px solid rgba(26,107,26,0.2)",
+                      color: "#1a6b1a",
+                    }}
+                  >
+                    <c.icon className="h-4 w-4" strokeWidth={2} />
+                    {c.label}
+                  </span>
+                ))}
+              </div>
+
+              <p className="mt-6 font-body text-[14px] text-neutral-slate leading-relaxed max-w-[520px]">
+                Hardware is managed by non-clinical staff. AugMend provides the setup guide, the training, and the technical support. The clinical team configures sessions and signs reports — nothing else.
+              </p>
+            </ScrollReveal>
+
+            {/* Right: timeline */}
+            <ScrollReveal delay={0.1}>
+              <div className="rounded-2xl bg-white border border-neutral-border p-10">
+                <p className="font-display text-[22px] font-normal text-neutral-near-black leading-[1.3] mb-7">
+                  From contract to first<br />patient session.
+                </p>
+                <ol className="flex flex-col gap-0">
+                  {timeline.map((t, i) => (
+                    <li
+                      key={t.day}
+                      className={`flex gap-4 py-4 items-center ${i < timeline.length - 1 ? "border-b border-neutral-border" : ""}`}
+                    >
+                      <span
+                        className="font-display font-semibold text-brand-indigo flex-shrink-0"
+                        style={{ fontSize: 20, width: 80 }}
+                      >
+                        {t.day}
+                      </span>
+                      <span className="font-body text-[15px] text-neutral-slate">{t.body}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section
+        className="relative overflow-hidden py-24 md:py-28"
+        style={{ background: "linear-gradient(135deg, #0D0B3E 0%, #1F1C98 100%)" }}
+      >
+        <div className="mx-auto max-w-[1280px] px-6 md:px-12 text-center">
+          <ScrollReveal>
+            <h2
+              className="text-white mb-4"
+              style={{ fontSize: 40 }}
+            >
+              Start a structured pilot.
+            </h2>
+            <p
+              className="font-body mx-auto max-w-[600px] mb-9 text-[18px]"
+              style={{ color: "rgba(255,255,255,0.7)" }}
+            >
+              We work with specialty care practices. The deployment runs in four steps — pace varies clinic to clinic.
+            </p>
+            <Button variant="primary" href="/contact" size="large">
+              Schedule a Conversation →
+            </Button>
           </ScrollReveal>
         </div>
       </section>

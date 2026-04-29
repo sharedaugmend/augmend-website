@@ -1,74 +1,102 @@
 "use client"
 
-import Image from "next/image"
-import Link from "next/link"
-import { motion } from "framer-motion"
 import SectionLabel from "@/components/ui/SectionLabel"
 import ScrollReveal from "@/components/ui/ScrollReveal"
-import { staggerParent, staggerChild, viewportOnce } from "@/lib/animations"
+import Button from "@/components/ui/Button"
+
+/**
+ * Provider-facing stats only on the home page. Patient stats live on
+ * /in-practice — landing page leads with clarity, depth lives in the
+ * detailed pages.
+ */
+const providerStats: { value: string; tone: "indigo" | "orange"; label: string; sub: string }[] = [
+  {
+    value: "$83+",
+    tone: "orange",
+    label: "Per session in billable codes, day one.",
+    sub: "Under existing CPT codes. Low up-front integration costs.",
+  },
+  {
+    value: "12+",
+    tone: "indigo",
+    label: "Clinical domains captured per session.",
+    sub: "Biopsychosocial, SDOH, history, safety — in a single structured report.",
+  },
+  {
+    value: "15+",
+    tone: "indigo",
+    label: "Minutes saved per encounter.",
+    sub: "The provider walks in with the brief. Documentation drops to minutes.",
+  },
+]
 
 export default function TheProof() {
   return (
-    <section id="results" className="relative overflow-hidden bg-brand-deep-space py-16 md:py-20 xl:py-24">
-      <Image src="/images/illustrations/dots-deepspace-background.png" alt="" fill className="absolute inset-0 object-cover z-0 opacity-20 pointer-events-none" aria-hidden />
-      <div className="relative z-10 mx-auto max-w-[1280px] px-6">
+    <section id="results" className="relative pt-20 pb-24 md:pb-28 bg-surface-warm-white">
+      <div className="relative mx-auto max-w-[1280px] px-6 md:px-12">
         <ScrollReveal>
-          <SectionLabel dark>The Results</SectionLabel>
-          <h2 className="mt-4 text-white">What changes when patients use AugMend.</h2>
+          <SectionLabel>The Results</SectionLabel>
+          <h2
+            className="mt-3 max-w-[760px]"
+            style={{
+              fontSize: "clamp(32px, 3.6vw, 48px)",
+              fontWeight: 600,
+              lineHeight: 1.12,
+              letterSpacing: "-0.015em",
+            }}
+          >
+            What changes when clinics use AugMend.
+          </h2>
+          <p className="mt-4 max-w-[680px] text-neutral-slate text-[17px] leading-[1.65]">
+            Provider time back, complete clinical picture, billing-ready from day one. Practice-leader ROI and patient outcomes detailed on the In Practice page.
+          </p>
         </ScrollReveal>
 
-        <motion.div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch" initial="hidden" whileInView="visible" viewport={viewportOnce} variants={staggerParent}>
-          {/* Card 1: More Information */}
-          <motion.div variants={staggerChild} className="flex">
-            <div className="bg-white/[0.06] rounded-2xl p-8 flex flex-col flex-1">
-              <p className="font-body font-bold text-xs uppercase tracking-[0.05em] text-white/60">More Information Captured</p>
-              <div className="mt-4 border-l-2 border-l-accent-lime pl-4">
-                <div className="font-display font-bold text-3xl text-white">&beta; = 10.40</div>
-                <div className="mt-1 font-body font-bold text-xs uppercase tracking-[0.05em] text-white/60">Additional words per response compared to standard assessment</div>
+        {/* Single horizontal row, no card boxes — MindScript inspiration */}
+        <ScrollReveal>
+          <div className="mt-14 flex flex-col md:flex-row items-stretch md:items-start divide-y md:divide-y-0">
+            {providerStats.map((s, i) => (
+              <div
+                key={s.value}
+                className="flex-1 flex flex-col items-center text-center px-6 md:px-8 py-4"
+                style={{
+                  borderLeft: i > 0 ? "1px solid rgba(31,28,152,0.10)" : undefined,
+                }}
+              >
+                <div
+                  className="font-display tabular-nums"
+                  style={{
+                    fontSize: "clamp(48px, 6vw, 80px)",
+                    fontWeight: 600,
+                    letterSpacing: "-0.04em",
+                    lineHeight: 1,
+                    color: s.tone === "orange" ? "#E8843A" : "#1F1C98",
+                  }}
+                >
+                  {s.value}
+                </div>
+                <p
+                  className="mt-4 font-body text-neutral-near-black"
+                  style={{ fontSize: 15, fontWeight: 500, maxWidth: 240 }}
+                >
+                  {s.label}
+                </p>
+                <p
+                  className="mt-2 font-body text-neutral-slate"
+                  style={{ fontSize: 13, lineHeight: 1.55, maxWidth: 240 }}
+                >
+                  {s.sub}
+                </p>
               </div>
-              <p className="mt-4 text-white/70 text-[15px] flex-1">
-                Patients disclose significantly more through AugMend's conversational AI than through standard web-based tools. VR delivery deepens this further: VR responses were 30% longer than web-based AI (44 vs 34 words per response) with 12% longer session durations.
-              </p>
-              <p className="mt-4 font-body text-xs text-white/60">Ko et al., Johns Hopkins Bloomberg School of Public Health, 2026</p>
-            </div>
-          </motion.div>
-
-          {/* Card 2: Richer Clinical Picture */}
-          <motion.div variants={staggerChild} className="flex">
-            <div className="bg-white/[0.06] rounded-2xl p-8 flex flex-col flex-1">
-              <p className="font-body font-bold text-xs uppercase tracking-[0.05em] text-white/60">Richer Clinical Picture</p>
-              <div className="mt-4 border-l-2 border-l-accent-lime pl-4">
-                <div className="font-display font-bold text-3xl text-white">5&times;</div>
-                <div className="mt-1 font-body font-bold text-xs uppercase tracking-[0.05em] text-white/60">Emotional amplification ratio in VR sessions</div>
-              </div>
-              <p className="mt-4 text-white/70 text-[15px] flex-1">
-                VR patients expressed five times the emotional intensity of the question itself. That means the system surfaces psychosocial depth such as fear, frustration, grief, or hope that a scored questionnaire cannot capture. Responses also showed significantly greater emotional diversity across clinical categories.
-              </p>
-              <p className="mt-4 font-body text-xs text-white/60">Data from our randomized controlled trial</p>
-            </div>
-          </motion.div>
-
-          {/* Card 3: Patients Choose It */}
-          <motion.div variants={staggerChild} className="flex">
-            <div className="bg-white/[0.06] rounded-2xl p-8 flex flex-col flex-1">
-              <p className="font-body font-bold text-xs uppercase tracking-[0.05em] text-white/60">Patients Choose It</p>
-              <div className="mt-4 border-l-2 border-l-accent-lime pl-4">
-                <div className="font-display font-bold text-3xl text-white">87%</div>
-                <div className="mt-1 font-body font-bold text-xs uppercase tracking-[0.05em] text-white/60">Patients preferred VR for future use over web-based AI</div>
-              </div>
-              <p className="mt-4 text-white/70 text-[15px] flex-1">
-                VR outperformed standard desktop questionnaires with large effect sizes in core experience (r = 0.44), overall experience (r = 0.45), and engagement (r = 0.55). Cybersickness did not diminish patient impressions: those who experienced mild cybersickness still rated VR positively.
-              </p>
-              <p className="mt-4 font-body text-xs text-white/60">Data from our randomized controlled trial</p>
-            </div>
-          </motion.div>
-        </motion.div>
+            ))}
+          </div>
+        </ScrollReveal>
 
         <ScrollReveal>
-          <div className="mt-12 text-center">
-            <Link href="/evidence" className="font-body font-bold text-sm text-accent-lime hover:underline">
-              See full evidence and publications &rarr;
-            </Link>
+          <div className="mt-12 flex justify-center">
+            <Button variant="primary" href="/in-practice">
+              See it in practice →
+            </Button>
           </div>
         </ScrollReveal>
       </div>

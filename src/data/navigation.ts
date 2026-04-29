@@ -14,22 +14,13 @@ export interface NavItem {
   dropdown?: NavDropdownGroup[]
 }
 
+// Per design ref: Company is a single link that lands on Our Story.
+// Team is reachable via the "Meet the Full Team" CTA on Our Story, not the navbar.
 export const mainNav: NavItem[] = [
   { label: "How It Works", href: "/platform/how-it-works" },
   { label: "In Practice", href: "/in-practice" },
   { label: "Evidence", href: "/evidence" },
-  {
-    label: "Company",
-    href: "/company/our-story",
-    dropdown: [
-      {
-        links: [
-          { label: "Our Story", href: "/company/our-story" },
-          { label: "Team", href: "/company/team" },
-        ],
-      },
-    ],
-  },
+  { label: "Company", href: "/company/our-story" },
 ]
 
 export interface FooterColumn {

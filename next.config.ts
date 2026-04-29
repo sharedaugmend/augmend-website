@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
       { source: "/platform/for-providers", destination: "/in-practice", permanent: true },
       { source: "/platform/for-health-systems", destination: "/in-practice", permanent: true },
       { source: "/trust-security", destination: "/in-practice", permanent: false },
-      { source: "/company/advisors", destination: "/company/team#advisory-board", permanent: true },
+      { source: "/company/advisors", destination: "/company/team#advisors", permanent: true },
     ];
   },
 };
