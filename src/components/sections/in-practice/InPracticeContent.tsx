@@ -45,7 +45,7 @@ const journey: {
     stage: "Before visit",
     purpose: "Pre-session survey, digital consent, OTP issuance.",
     detail:
-      "The clinician authors the session plan ahead of the appointment. Patient receives the consent flow and a one-time access code in advance.",
+      "The clinician authors the session plan of the appointment. Patient receives the consent flow and a one-time access code in advance.",
     image: "/images/in-practice/consent.png",
     icon: ClipboardCheck,
   },
@@ -75,7 +75,7 @@ const journey: {
     stage: "Post-VR & report generation",
     purpose: "Transcript processed; clinical report, 15-second pre-visit summary, and flags generated.",
     detail:
-      "Every claim is linked back to the originating exchange in the transcript. Low-confidence items are explicitly flagged for provider review.",
+      "Every claim is linked back to the originating exchange in the transcript.",
     image: "/images/illustrations/data-compounds-chart.png",
     icon: FileText,
   },
@@ -83,7 +83,7 @@ const journey: {
     num: "05",
     owner: "provider",
     stage: "Provider pre-visit review",
-    purpose: "Clinician reads the 15-second summary and drills into any flagged low-confidence claims.",
+    purpose: "Clinician reads the 15-second summary",
     detail:
       "Two-minute structured brief surfaced to the provider's existing EHR view. Walk into the room with the full clinical picture already in mind.",
     image: "/images/in-practice/provider-review.png",
@@ -95,7 +95,7 @@ const journey: {
     stage: "In-room visit",
     purpose: "Clinician anchors the visit on the report, clarifies with the patient, annotates inline.",
     detail:
-      "The conversation is no longer information-gathering — it is shared decision-making. Annotations attach directly to the brief.",
+      "The conversation is no longer information-gathering — it is shared decision-making. Annotations attach directly to the report.",
     image: "/images/in-practice/in-room.png",
     icon: Stethoscope,
   },
@@ -143,19 +143,19 @@ const providerBenefits = [
     icon: Clock4,
     title: "More face time, less keyboard time",
     body:
-      "15+ minutes back per encounter. The brief replaces the unstructured interview. The visit becomes diagnosis and shared decision-making.",
+      "15+ minutes back per encounter. The brief replaces the unstructured interview. The face-to-face visit becomes diagnosis and shared decision-making.",
   },
   {
     icon: HeartPulse,
     title: "Decision confidence",
     body:
-      "Every claim traces to the source transcript. Flagged items are explicit. Providers know what is solid and what to verify with the patient.",
+      "Every claim trace to the source transcript. Flagged items are explicit. Providers know what is solid and what to verify with the patient.",
   },
   {
     icon: Brain,
     title: "Cognitive load offloaded",
     body:
-      "12+ clinical domains pre-organized — meds, history, function, SDOH, safety, prior treatment. The provider walks in with the picture, not a blank page.",
+      "12+ clinical domains pre-organized: meds, history, function, SDOH, safety, prior treatment. The provider walks in with the picture, not a blank page.",
   },
   {
     icon: ShieldCheck,
@@ -176,7 +176,7 @@ const leaderBenefits = [
     icon: TrendingUp,
     title: "Higher-level E/M support",
     body:
-      "Structured biopsychosocial complexity is the basis for higher-level coding. The complexity is now documented, evidenced, and provider-signed.",
+      "Structured biopsychosocial complexity is the basis for higher-level coding. The complexity is now documented, evidenced, and provider signed.",
   },
   {
     icon: CalendarClock,
@@ -188,7 +188,7 @@ const leaderBenefits = [
     icon: Building2,
     title: "Quality metrics improve alongside revenue",
     body:
-      "Structured SDOH, PROMs, and intake data — already the data quality programs require, generated as a byproduct of the workflow.",
+      "Structured SDOH, PROMs, and intake data. The type of data high quality care already requires, generated as a byproduct of our solution.",
   },
 ]
 
@@ -196,12 +196,12 @@ const safetyCards = [
   {
     title: "Continuous safety screening",
     body:
-      "Every session may include structured safety screening from the first question to the last — clinician-tailored. Risk indicators route to the supervising clinician at the moment of disclosure.",
+      "Every session may include structured safety screening from the first question to the last, tailored to provider preferences. Risk indicators route to the supervising clinician at the time of disclosure.",
   },
   {
     title: "Evidence-linked claims",
     body:
-      "Every finding traces to the source transcript and audio. Providers can open the originating exchange for any claim. Uncertain items are explicitly flagged for review.",
+      "Every finding trace to the source transcript and audio. Providers can open the originating exchange for any claim. Uncertain items are explicitly flagged for review.",
   },
   {
     title: "Clinician-controlled, effortlessly",
@@ -211,10 +211,7 @@ const safetyCards = [
 ]
 
 const integrationBadges = [
-  "Epic",
-  "Athenahealth",
-  "Cerner / Oracle Health",
-  "eClinicalWorks",
+  "Redox Integrations",
   "MEDITECH",
   "FHIR-compliant APIs",
 ]
@@ -227,7 +224,7 @@ const complianceBadges = [
 ]
 
 const timeline = [
-  { day: "Step 1", body: "Contract signed. Hardware ships." },
+  { day: "Step 1", body: "Contract signed. Hardware purchased." },
   { day: "Step 2", body: "Staff trained. System configured. EHR connected." },
   { day: "Step 3", body: "First patient sessions. First reports. First revenue." },
   { day: "Step 4", body: "Full workflow running. All session types active." },
@@ -323,7 +320,7 @@ export default function InPracticeContent() {
                 className="font-body mt-5"
                 style={{ fontSize: 18, lineHeight: 1.6, color: "rgba(255, 255, 255, 0.78)" }}
               >
-                AugMend fits inside the workflows clinics already have. No new staff. No new billing systems. A structured session before every encounter — and a report waiting when the provider walks in.
+                AugMend fits inside the workflows clinics already have. No new staff. No new billing systems. A structured session before the face-to-face patient-provider encounter. A report is waiting when the provider first walks in. A report can be addended by the provider after the visit and is ready to submit for billing.
               </p>
             </div>
             <div className="relative z-[3] mt-6 flex flex-wrap gap-4 pointer-events-auto">
@@ -373,36 +370,48 @@ export default function InPracticeContent() {
             viewport={viewportOnce}
             variants={staggerParent}
           >
-            <div
-              aria-hidden="true"
-              className="absolute left-[15px] md:left-[19px] top-2 bottom-2 w-[2px] rounded-full"
-              style={{
-                background:
-                  "linear-gradient(to bottom, #B8D94E 0%, #B8D94E 28%, #E8843A 42%, #E8843A 50%, #1F1C98 64%, #1F1C98 100%)",
-                opacity: 0.35,
-              }}
-            />
-            <div
-              aria-hidden="true"
-              className="absolute left-[10px] md:left-[14px] top-2 bottom-2 w-[12px] rounded-full"
-              style={{
-                background:
-                  "linear-gradient(to bottom, rgba(184,217,78,0.18) 0%, rgba(232,132,58,0.18) 50%, rgba(31,28,152,0.18) 100%)",
-                filter: "blur(8px)",
-              }}
-            />
-            {journey.map((step) => {
+            {journey.map((step, i) => {
               const s = ownerStyle[step.owner]
               const Icon = step.icon
               const tone =
                 step.owner === "patient" ? "lime" : step.owner === "system" ? "orange" : "indigo"
               const accent = tone
+              const isLast = i === journey.length - 1
               return (
                 <motion.li
                   key={step.num}
                   variants={staggerChild}
                   className="relative pl-12 md:pl-16 mb-3 last:mb-0"
                 >
+                  {/* Connector — runs from this circle's center down to the
+                      next circle's center. Skipped on the last step so the
+                      line doesn't extend past the 07 circle. */}
+                  {!isLast && (
+                    <>
+                      <div
+                        aria-hidden="true"
+                        className="absolute w-[2px] rounded-full z-[0]"
+                        style={{
+                          left: 15,
+                          top: 28,
+                          bottom: -24,
+                          background:
+                            "linear-gradient(to bottom, rgba(31,28,152,0.35), rgba(31,28,152,0.35))",
+                        }}
+                      />
+                      <div
+                        aria-hidden="true"
+                        className="absolute w-[12px] rounded-full z-[0]"
+                        style={{
+                          left: 10,
+                          top: 28,
+                          bottom: -24,
+                          background: "rgba(31,28,152,0.18)",
+                          filter: "blur(8px)",
+                        }}
+                      />
+                    </>
+                  )}
                   <div
                     className="absolute left-0 top-3 flex items-center justify-center rounded-full font-body font-bold text-[12px] tabular-nums z-[2]"
                     style={{
@@ -472,12 +481,12 @@ export default function InPracticeContent() {
                 {
                   value: "100%",
                   label: "Patient preference for VR-based assessment.",
-                  sub: "Across the Boston RCT, every participant preferred VR-based sessions over standard intake when offered both.",
+                  sub: "Across the Boston RCT, every participant preferred VR-based sessions over standard intakes when offered both.",
                 },
                 {
                   value: "β=10.40",
                   label: "More words disclosed per response.",
-                  sub: "Patients say more, more honestly — surfacing clinical information that standard intake consistently misses.",
+                  sub: "Patients say more, more honestly surfacing clinical information that standard intakes consistently misses.",
                 },
                 {
                   value: "Day 1",
@@ -533,7 +542,7 @@ export default function InPracticeContent() {
               Restructure what happens before you walk in the room.
             </h2>
             <p className="mt-4 max-w-[680px] text-neutral-slate">
-              The provider workflow stays the same — minus the parts that drained it. Diagnosis and shared decision-making, with the documentation already in hand.
+              The provider workflow stays the same minus the parts that drained it. Diagnosis and shared decision-making, with the documentation already in hand.
             </p>
           </ScrollReveal>
           <motion.div
@@ -642,10 +651,10 @@ export default function InPracticeContent() {
           <ScrollReveal>
             <SectionLabel>Deployment & Integration</SectionLabel>
             <h2 className="mt-3 leading-[1.2] max-w-[680px]">
-              Turn it on and it just works.
+              We integrate with your existing tools.
             </h2>
             <p className="mt-4 max-w-[680px] text-neutral-slate">
-              AugMend integrates with major EHRs over FHIR-compliant APIs. Patient data stays inside your existing infrastructure. HIPAA-compliant from day one. The deployment runs in four steps — pace varies clinic to clinic.
+              AugMend can integrate with major EHRs over FHIR-compliant APIs as well as scribes or other existing tools. Patient data stays inside your existing infrastructure. HIPAA-compliant from day one and SOC 2 Type II available. The deployment runs in four steps; pace varies clinic to clinic.
             </p>
           </ScrollReveal>
 

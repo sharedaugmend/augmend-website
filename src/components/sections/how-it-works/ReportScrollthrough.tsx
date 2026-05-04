@@ -70,7 +70,7 @@ const callouts: InsightCallout[] = [
     at: 0.88,
     label: "Built for review",
     value: "Two-minute brief",
-    body: "Five-bullet rapid review at the top, eleven domains expanding inline below — provider reads what they need, when they need it.",
+    body: "Five-bullet rapid review at the top, eleven domains expanding inline below, provider reads what they need, when they need it.",
     tone: "indigo",
   },
 ]
@@ -164,7 +164,7 @@ export default function ReportScrollthrough() {
                     className="ml-3 font-body text-[10px] tracking-[0.04em]"
                     style={{ color: "#5A5A6E" }}
                   >
-                    augmend.health · admin · john f. · initial assessment
+                    augmend.health · admin · john p. · initial assessment
                   </span>
                 </div>
 
@@ -242,7 +242,7 @@ export default function ReportScrollthrough() {
                 className="mt-3 font-body text-neutral-slate"
                 style={{ fontSize: 15.5, lineHeight: 1.6 }}
               >
-                Every session generates structured outputs from the same data: a clinical brief for review, billing-ready documentation, and the source transcript behind every claim. Scroll to see what your team reads on day one.
+                Every session generates structured outputs from the same data: a clinical report for review, billing-ready documentation, and the source transcript behind every claim. For example, scroll to see what your team reads on day one.
               </p>
 
               {/* Insight crossfade — only the active callout is visible.

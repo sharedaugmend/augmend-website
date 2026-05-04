@@ -18,13 +18,13 @@ const conversationFeatures = [
     icon: RefreshCw,
     title: "Adapts in real time",
     body:
-      "For intake, a thorough and complete history is collected. For follow-ups, newly expressed symptoms and concerns trigger structured depth collection with detailed follow-through. Stable symptoms previously mentioned receive brief confirmation.",
+      "For intake, a thorough and complete history is collected. For follow-ups, newly expressed symptoms and concerns trigger structured depth collection with detailed follow-through. Stable symptoms previously mentioned receive report confirmation.",
   },
   {
     icon: Settings2,
     title: "Configured by your clinic",
     body:
-      "Your team selects the relevant clinical domains for your patient population and clinic needs. Chronic pain, behavioral health, neurology, oncology supportive care: the assessment architecture changes. The underlying conversational skills and safety system does not.",
+      "Your team selects the relevant clinical domains for your patient population and clinic needs. Chronic pain, behavioral health, neurology, maternity, oncology supportive care: the assessment architecture changes. The underlying conversational skills and safety system do not.",
   },
   {
     icon: ShieldCheck,
@@ -40,56 +40,6 @@ const conversationFeatures = [
   },
 ]
 
-const exercises = [
-  {
-    title: "Relaxation",
-    duration: "5–10 min",
-    body:
-      "Guided breathing, somatic, and grounding exercises delivered in immersive VR. Used in clinic and prescribed for between visits.",
-  },
-  {
-    title: "Psychoeducation",
-    duration: "5–10 min",
-    body:
-      "Patients learn evidence-based concepts about their condition through narrative and immersive scene-work. Comprehension is checked, not assumed.",
-  },
-  {
-    title: "Behavioral activation",
-    duration: "15–20 min",
-    body:
-      "Short structured exercises that rehearse coping skills and target specific patient goals set by the provider.",
-  },
-  {
-    title: "Pain management",
-    duration: "15–20 min",
-    body:
-      "Distraction-based and reappraisal-based VR experiences that reduce acute pain perception during clinic visits or at home.",
-  },
-]
-
-const reportTypes = [
-  {
-    title: "Complete Report",
-    body:
-      "Reviewed at a glance — the full clinical brief across all assessed domains, with confidence scoring, flagged items, and the supporting transcript surfaced inline.",
-  },
-  {
-    title: "Detailed Intake Report",
-    body:
-      "For initial intake and insurance re-authorization. Complete biopsychosocial picture across all assessed domains. Supports the documentation complexity that higher-level CPT coding requires.",
-  },
-  {
-    title: "Billing-Ready Report",
-    body:
-      "Generated alongside every clinical report. Written in CPT-ready language, mapped to the codes the care supports. Your billing team receives documentation ready for processing under existing codes.",
-  },
-  {
-    title: "Evidence-linked claims",
-    body:
-      "Every finding traces to the patient's own words. Open the source transcript or audio for any claim. Uncertain items are explicitly flagged for provider review.",
-  },
-]
-
 const vrMetrics = [
   { domain: "Privacy & Trust", vr: "6.0", ai: "4.9", diff: "+22%" },
   { domain: "Medical Disclosure Comfort", vr: "6.67", ai: "5.0", diff: "+33%" },
@@ -97,6 +47,33 @@ const vrMetrics = [
   { domain: "Core Experience", vr: "6.42", ai: "4.92", diff: "+30%" },
   { domain: "Cultural Competence", vr: "6.5", ai: "6.25", diff: "+4%" },
   { domain: "Overall Experience", vr: "6.29", ai: "5.86", diff: "+7%" },
+]
+
+const exercises = [
+  {
+    title: "Relaxation",
+    duration: "5–10 min",
+    body:
+      "Guided breathing, somatic, and grounding exercises delivered in immersive VR.",
+  },
+  {
+    title: "Psychoeducation",
+    duration: "5–10 min",
+    body:
+      "Patients learn evidence-based concepts about their condition. Comprehension is checked.",
+  },
+  {
+    title: "Behavioral activation",
+    duration: "15–20 min",
+    body:
+      "Short structured exercises that rehearse coping skills and target specific patient goals.",
+  },
+  {
+    title: "Pain management",
+    duration: "15–20 min",
+    body:
+      "Distraction-based and reappraisal-based VR experiences that reduce acute pain perception.",
+  },
 ]
 
 export default function HowItWorksContent() {
@@ -194,7 +171,7 @@ export default function HowItWorksContent() {
                   color: "rgba(255, 255, 255, 0.78)",
                 }}
               >
-                Every component is configured by your clinical team. Every decision stays with your providers.
+                Every component is designed by practicing medical professionals. Every decision controlled by providers.
               </p>
             </div>
             <div className="relative z-[3] mt-6 flex flex-wrap gap-4 pointer-events-auto">
@@ -273,7 +250,7 @@ export default function HowItWorksContent() {
             <SectionLabel>Session Types</SectionLabel>
             <h2 className="mt-3 leading-[1.2]">Each session has a job.</h2>
             <p className="mt-4 max-w-[680px] text-neutral-slate">
-              AugMend sessions fall into two families: data-collection sessions that capture clinical context, and exercise sessions that put care into practice between visits.
+              AugMend sessions fall into two families: data-collection sessions that capture patient reported data, and exercise sessions that put care into practice.
             </p>
           </ScrollReveal>
 
@@ -287,9 +264,9 @@ export default function HowItWorksContent() {
                 </div>
                 <div className="space-y-4 flex-1">
                   {[
-                    { tag: "Sessions 1–3 · 30–45 min", title: "Intake Sessions", body: "Cover configured clinical domains in breadth and depth. The system recommends transition to follow-up mode once the clinical picture is sufficiently complete. Your clinical team confirms the transition." },
-                    { tag: "Ongoing · 10–15 min", title: "Follow-up Sessions", body: "Changes-focused. Medication updates, symptom shifts, new concerns. The system re-opens a domain if something new appears. Patients are not asked to start over." },
-                    { tag: "End of treatment · 30–45 min", title: "Exit Interview", body: "Captures the patient's experience of the care episode before they leave. Flags unresolved concerns before the next appointment window opens." },
+                    { tag: "Sessions 1–3 · 30–45 min", title: "Intake Sessions", body: "Cover configured clinical domains in breadth and depth." },
+                    { tag: "Ongoing · 10–15 min", title: "Follow-up Sessions", body: "Changes-focused. Medication updates, symptom shifts, new concerns." },
+                    { tag: "End of treatment · 30–45 min", title: "Exit Interview", body: "Captures the patient's experience of the care episode before they leave." },
                   ].map((c) => (
                     <GlassCard key={c.title} tone="indigo" accent="indigo" className="p-7">
                       <div className="font-body font-bold text-[11px] uppercase tracking-[0.06em] text-neutral-slate mb-1.5">
@@ -340,7 +317,7 @@ export default function HowItWorksContent() {
                 </div>
                 <div className="p-6">
                   <p className="font-body text-[13px] text-neutral-slate leading-relaxed">
-                    Provider prescribes; patient practices in clinic or at home. Engagement and progress flow back into the next clinical brief.
+                    Provider prescribes; patient practice.
                   </p>
                 </div>
               </GlassCard>
@@ -387,44 +364,6 @@ export default function HowItWorksContent() {
 
       {/* THE OUTPUT — scroll-pinned showcase of the actual sample report */}
       <ReportScrollthrough />
-
-      {/* OUTPUT TYPES — sits close to the scroll-through; tighter top padding */}
-      <section className="relative overflow-hidden pt-8 md:pt-12 pb-20 md:pb-24 bg-surface-warm-white">
-        <BlurredBackdrop src="/images/home/maria-portrait.png" tone="warm-white" imageOpacity={0.32} position="center 30%" />
-        <div className="relative mx-auto max-w-[1280px] px-6 md:px-12">
-          <ScrollReveal>
-            <SectionLabel>Output formats</SectionLabel>
-            <h2
-              className="mt-3 leading-[1.15] max-w-[760px]"
-              style={{ fontSize: "clamp(28px, 3vw, 38px)", fontWeight: 600 }}
-            >
-              Four report formats. Same source data.
-            </h2>
-            <p className="mt-4 max-w-[680px] text-neutral-slate">
-              Every session generates structured outputs from the same source — a clinical brief for review, billing-ready documentation mapped to CPT codes, and the source transcript behind every claim.
-            </p>
-          </ScrollReveal>
-
-          <motion.div
-            className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4"
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            variants={staggerParent}
-          >
-            {reportTypes.map((t) => (
-              <motion.div key={t.title} variants={staggerChild}>
-                <GlassCard tone="indigo" accent="indigo" className="p-7 h-full">
-                  <h4 className="font-body font-bold text-[17px] mb-2">{t.title}</h4>
-                  <p className="font-body text-[15px] leading-relaxed text-neutral-slate">
-                    {t.body}
-                  </p>
-                </GlassCard>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
 
       {/* WHY VR — break-out image treatment: the photo extends beyond the
           column on the right, breaking the grid line for visual interest */}
@@ -593,7 +532,7 @@ export default function HowItWorksContent() {
                 <ShieldAlert className="h-7 w-7 text-brand-indigo mb-5" strokeWidth={1.5} />
                 <h3 className="font-body font-bold text-[20px] mb-2">Safety design</h3>
                 <p className="font-body text-[15px] leading-relaxed text-neutral-slate">
-                  Continuous safety screening, evidence-linked claims, and clinician-controlled sign-off — see how it operates inside your workflow without adding to provider burden.
+                  Continuous safety screening, evidence-linked claims, and clinician-controlled sign-off. See how it operates inside your workflow without adding to provider burden.
                 </p>
                 <span className="mt-5 inline-flex items-center gap-2 font-body font-bold text-[14px] text-brand-indigo">
                   See it in practice

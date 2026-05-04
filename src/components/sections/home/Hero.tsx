@@ -104,7 +104,7 @@ export default function Hero() {
               color: "rgba(255, 255, 255, 0.78)",
             }}
           >
-            Capture the full biopsychosocial context of patients with complex chronic conditions before visits to enhance care quality and reimbursement compliance.
+            Capture the full biopsychosocial patient self-reported experience of complex chronic conditions before face-to-face visits with providers to enhance care quality, speed of care, and reimbursement compliance.
           </p>
         </div>
 

@@ -6,11 +6,11 @@ import Footer from "@/components/layout/Footer"
 export const metadata: Metadata = {
   metadataBase: new URL("https://augmend.health"),
   title: {
-    default: "AugMend Health — Clinical Data Infrastructure for Specialty Care",
+    default: "AugMend Health — Clinical Data Collection Services for Specialty Care",
     template: "%s — AugMend Health",
   },
   description:
-    "AugMend captures the biopsychosocial complexity specialty clinics miss, structures it for clinical use, and generates billing documentation from the first session.",
+    "AugMend captures the biopsychosocial data specialty clinics miss, structures it for clinical use, and generates billing documentation.",
   openGraph: {
     siteName: "AugMend Health",
     type: "website",
@@ -29,7 +29,7 @@ const jsonLd = {
       name: "AugMend Health",
       url: "https://augmend.health",
       description:
-        "Clinical data infrastructure for specialty care. AugMend captures biopsychosocial complexity, structures it for clinical use, and generates billing documentation.",
+        "Clinical data collection services for specialty care. AugMend captures biopsychosocial data, structures it for clinical use, and generates billing documentation.",
       foundingDate: "2023",
       founders: [
         { "@type": "Person", name: "Sacha Moreau" },
@@ -40,7 +40,7 @@ const jsonLd = {
       contactPoint: {
         "@type": "ContactPoint",
         email: "info@augmend.health",
-        telephone: "+1-617-949-0128",
+        telephone: "+1-617-693-5727",
         contactType: "sales",
       },
     },

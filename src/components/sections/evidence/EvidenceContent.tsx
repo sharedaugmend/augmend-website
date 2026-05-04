@@ -449,10 +449,10 @@ export default function EvidenceContent() {
           <p className="mt-8 font-body text-[14px] text-neutral-slate">
             Additional third-party citations available on request. Contact{" "}
             <a
-              href="mailto:research@augmend.health"
+              href="mailto:info@augmend.health"
               className="text-brand-indigo underline"
             >
-              research@augmend.health
+              info@augmend.health
             </a>
             .
           </p>

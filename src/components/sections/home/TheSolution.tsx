@@ -34,10 +34,10 @@ export default function TheSolution() {
               letterSpacing: "-0.015em",
             }}
           >
-            A clinical context layer that gives providers the <em className="italic" style={{ fontWeight: 500 }}>whole compounding patient picture.</em>
+            A clinical context layer that gives providers the <em className="italic" style={{ fontWeight: 500 }}>whole patient picture.</em>
           </h2>
           <p className="mt-5 text-neutral-slate text-[17px] leading-[1.65] max-w-[760px]">
-            Two AI systems work across the care journey to capture clinical context otherwise missed in visits. Patients go deeper where it matters and the system remembers everything across sessions. Providers walk in informed, the care team carries less data-capture burden, and clinics meet revenue cycle objectives.
+            The software uses two AI systems that work across the care journey to capture clinical context otherwise missed in visits. Patients go deeper where it matters, and the system remembers everything across sessions. Providers walk in informed; the care team carries less data-capture burden, and clinics better meet revenue cycle objectives.
           </p>
         </ScrollReveal>
 
@@ -58,7 +58,7 @@ export default function TheSolution() {
                 Self-guided VR sessions, run by non-medical staff.
               </h3>
               <p className="font-body text-[16px] leading-[1.65] text-neutral-slate">
-                A non-human AI avatar in a calming VR environment conducts structured intake, follow-up visits, and therapeutic exercises. Patients share more — and the system remembers across sessions.
+                A non-human AI avatar in a calming VR environment conducts structured intake, follow-up visits, and prescribed exercises. Patients share more — and the system remembers.
               </p>
             </div>
           </ScrollReveal>
@@ -99,10 +99,10 @@ export default function TheSolution() {
                 className="font-display text-neutral-near-black mb-4"
                 style={{ fontSize: "clamp(24px, 2.4vw, 30px)", fontWeight: 500, lineHeight: 1.22 }}
               >
-                Clinical brief and billing-ready report, before the visit.
+                Clinical brief and billing-ready report, before the face-to-face visit with a provider.
               </h3>
               <p className="font-body text-[16px] leading-[1.65] text-neutral-slate">
-                A structured clinical brief, billing-ready documentation, and cross-session insights — reviewed in under two minutes before the appointment. Every claim links back to the patient&rsquo;s own words.
+                A structured clinical brief, billing-ready documentation, and cross-session insights — reviewed quickly before the appointment. Every claim links back to the patient&rsquo;s own words.
               </p>
             </div>
           </ScrollReveal>

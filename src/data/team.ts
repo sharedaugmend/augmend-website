@@ -22,8 +22,8 @@ export const team: TeamMember[] = [
   },
   {
     name: "Thomas J. Schneider",
-    title: "Co-Founder, COO & General Counsel",
-    credentials: "DPhil, Oxford · Harvard Law",
+    title: "Co-Founder, CEO & General Counsel",
+    credentials: "DPhil, Oxford · Harvard Law. DLaws, Deakin",
     bio: "Business restructuring and healthcare operations.",
     image: "/images/team/ThomasSchneider.png",
     linkedin: "https://linkedin.com/in/thomas-schneider-094623246",
@@ -54,10 +54,10 @@ export const team: TeamMember[] = [
     name: "Mark Ruchman, MD",
     title: "VP Medical Affairs",
     credentials: "Yale Medical School",
-    bio: "Former CMO of Versant Health (MetLife / Fortune 500). 45+ years as clinician and healthcare administrator. Leads AugMend's clinical validation, institutional relationships, and provider engagement strategy.",
+    bio: "Clinical validation and provider engagement.",
     image: "/images/team/MarkRuchman.png",
     linkedin: "https://linkedin.com/in/mark-ruchman",
-    section: "extended",
+    section: "leadership",
     order: 5,
   },
 ]

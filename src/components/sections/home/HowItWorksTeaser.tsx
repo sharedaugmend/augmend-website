@@ -18,9 +18,9 @@ const pillars = [
     label: "Intakes",
     tone: "indigo" as const,
     accent: "indigo" as const,
-    title: "Structured biopsychosocial conversations, before the visit.",
+    title: "Structured biopsychosocial conversations, before the face-to-face visit.",
     body:
-      "Non-clinical staff launch the session. The AI avatar conducts the intake across the clinical domains your team configured. The provider walks in with a structured brief — ready to act on, not to compile.",
+      "Non-clinical staff launch and manage the session. The AI avatar conducts the intake across the clinical domains determined by providers. The provider walks in face-to-face visits with patients with a structured report ready to act on, not to compile.",
   },
   {
     label: "Exercises",
@@ -28,7 +28,7 @@ const pillars = [
     accent: "lime" as const,
     title: "Prescribed VR exercises, informed by the patient's own data.",
     body:
-      "Relaxation, pain management, psychoeducation. Provider prescribes; patient practices in clinic or at home. Engagement and progress flow back into the next clinical brief.",
+      "Relaxation, pain management, anxiety, psychoeducation. Provider prescribes; patient practices. Engagement and progress flow back into the next clinical brief.",
   },
 ]
 
@@ -67,7 +67,7 @@ export default function HowItWorksTeaser() {
             Two things AugMend does best: <em className="italic" style={{ fontWeight: 500 }}>intakes and exercises.</em>
           </h2>
           <p className="mt-4 max-w-[680px] text-neutral-slate text-[17px] leading-[1.65]">
-            Each session has a specific job in the patient&rsquo;s care journey. Follow-on sessions track what changes between visits and close out the care episode.
+            We did not redesign the care journey. We did not ask clinics to swap their EHR or change the tools their providers were used to working with. AugMend fits into the existing infrastructure as a thin software layer, one that augments capability rather than displacing it. Each session has a specific job in the patient&rsquo;s care journey. Follow-on sessions track what changes between visits and close out the care cycle.
           </p>
         </ScrollReveal>
 

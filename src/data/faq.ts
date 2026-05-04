@@ -49,7 +49,7 @@ export const faq: FaqEntry[] = [
   },
   {
     question: "What's the ROI?",
-    answer: "$30/session cost, $90+ billable = +$60 net per patient. Hardware: $2,500 one-time. At typical utilization: $370K+ annual recovery. We structure 90-day pilots to prove ROI within 30 days.",
+    answer: "$30-40/session cost, $90+ billable = +$60 net per patient. Hardware: $2,500 one-time. At typical utilization: $370K+ annual recovery. We structure 90-day pilots to prove ROI within 30 days.",
     category: "billing-economics",
   },
   {

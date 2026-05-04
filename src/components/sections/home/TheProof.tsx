@@ -20,13 +20,13 @@ const providerStats: { value: string; tone: "indigo" | "orange"; label: string; 
     value: "12+",
     tone: "indigo",
     label: "Clinical domains captured per session.",
-    sub: "Biopsychosocial, SDOH, history, safety — in a single structured report.",
+    sub: "Biopsychosocial, SDOH, history, safety in a single structured report.",
   },
   {
     value: "15+",
     tone: "indigo",
     label: "Minutes saved per encounter.",
-    sub: "The provider walks in with the brief. Documentation drops to minutes.",
+    sub: "The provider walks in with full information. Documentation and administrative time drop.",
   },
 ]
 
@@ -48,7 +48,7 @@ export default function TheProof() {
             What changes when clinics use AugMend.
           </h2>
           <p className="mt-4 max-w-[680px] text-neutral-slate text-[17px] leading-[1.65]">
-            Provider time back, complete clinical picture, billing-ready from day one. Practice-leader ROI and patient outcomes detailed on the In Practice page.
+            More provider availability, less administrative time lost, a complete clinical picture, billing-ready information from day one. Practice-leader ROI and patient outcomes detailed on the In Practice page.
           </p>
         </ScrollReveal>
 

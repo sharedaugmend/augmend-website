@@ -122,7 +122,7 @@ export const advisors: Advisor[] = [
     board: "business",
   },
   {
-    name: "Roger Ferguson Jr., PhD",
+    name: "Roger Ferguson Jr., PhD, JD",
     affiliation: "Alphabet / MSK / Former Federal Reserve",
     domain: "Institutional governance",
     bio: "Former Vice Chairman of the Federal Reserve and former CEO of TIAA. Board member at Alphabet and Memorial Sloan Kettering. Fellow at the Council on Foreign Relations and the American Academy of Arts & Sciences.",

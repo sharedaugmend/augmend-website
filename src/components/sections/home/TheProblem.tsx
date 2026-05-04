@@ -22,14 +22,14 @@ const stats = [
     value: "~2 hrs",
     label: "Of EHR and clerical work for every 1 hour of patient face time.",
     detail:
-      "The documentation burden consumes provider capacity that should be spent on clinical decision-making and patient care.",
+      "The documentation burden consumes provider capacity that could be spent on patient care.",
     ref: "[2]",
   },
   {
     value: "86,000",
     label: "Projected physician shortage by 2036.",
     detail:
-      "Fewer providers serving more patients with increasingly complex needs. The capacity gap is structural and widening.",
+      "Fewer providers serving more patients with complex needs. The capacity gap is widening.",
     ref: "[3]",
   },
   {
@@ -212,12 +212,17 @@ function WhatGetsLeftOut() {
 
         <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 w-full py-8 md:py-10">
           <ScrollReveal>
-            <p
-              className="font-body font-bold text-[12px] uppercase tracking-[0.05em] mb-6"
-              style={{ color: "rgba(255,255,255,0.62)" }}
+            <h2
+              className="font-display text-white mb-8 md:mb-10 max-w-[820px]"
+              style={{
+                fontSize: "clamp(30px, 3.6vw, 48px)",
+                fontWeight: 600,
+                lineHeight: 1.12,
+                letterSpacing: "-0.015em",
+              }}
             >
-              What gets left out of every standard intake
-            </p>
+              What gets left out of <em className="italic" style={{ fontWeight: 500 }}>every visit.</em>
+            </h2>
           </ScrollReveal>
 
           <div className="grid grid-cols-1 xl:grid-cols-[1fr_400px] gap-10 xl:gap-14 items-stretch">
@@ -403,13 +408,13 @@ export default function TheProblem() {
                     letterSpacing: "-0.015em",
                   }}
                 >
-                  Doctors used to have time to <em className="italic" style={{ fontWeight: 500 }}>hear the full story.</em>
+                  Doctors do not have time to <em className="italic" style={{ fontWeight: 500 }}>hear the full story.</em>
                 </h2>
                 <p className="mt-5 text-neutral-slate text-[17px] leading-[1.65]">
-                  Today, providers spend more time on documentation than on the conversations that drive diagnosis. Patients hold back. Critical clinical information never surfaces. Clinics leave revenue on the table for work they have already done.
+                  Providers spend more time on documentation than on the conversations that drive diagnostic and treatment accuracy. Patients hold back. Critical clinical information never surfaces. Clinics leave revenue on the table for work they have already done. Providers spend multiple sessions to work through the differential when a complete picture sooner can reduce the time to effective treatment.
                 </p>
                 <p className="mt-4 text-neutral-slate text-[17px] leading-[1.65]">
-                  The gap is not a failure of care. It is a failure of infrastructure.
+                  The gap is not a failure of care. It is a system failure.
                 </p>
               </ScrollReveal>
 

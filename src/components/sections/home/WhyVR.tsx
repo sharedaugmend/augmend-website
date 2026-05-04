@@ -97,19 +97,19 @@ export default function WhyVR() {
                   letterSpacing: "-0.02em",
                 }}
               >
-                Immersion changes what patients are willing to share.
+                Immersion in VR environments changes what patients are willing to share.
               </h2>
               <p
                 className="mt-4"
                 style={{ color: "rgba(255,255,255,0.82)", fontSize: 16, lineHeight: 1.6 }}
               >
-                VR creates a space where patients feel genuinely heard — not observed. The non-human avatar removes the social performance that shapes what patients say face-to-face. Study after study confirms: patients disclose more, more honestly, in VR than in standard clinical intake.
+                VR creates a space where patients feel genuinely heard, not observed or judged. The non-human avatar removes the social performance that shapes what patients say face-to-face. Study after study confirms that patients disclose more, more honestly, in VR than in standard patient data collection processes.
               </p>
               <p
                 className="mt-3"
                 style={{ color: "rgba(255,255,255,0.78)", fontSize: 15.5, lineHeight: 1.6 }}
               >
-                VR is not a screen. It uses metaphor, spatial presence, and embodied interaction — tools that human cognition has evolved to respond to. The environment and avatar are chosen deliberately by the clinical team, for each patient.
+                VR is not a screen. It uses metaphor, spatial presence, and embodied interaction, tools that human cognition has evolved to respond to. The environment and avatar are designed by practicing medical professionals.
               </p>
               <PullQuote
                 className="mt-6"

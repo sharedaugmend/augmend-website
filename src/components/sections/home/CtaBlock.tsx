@@ -44,7 +44,7 @@ export default function CtaBlock() {
 
             {submitted ? (
               <p className="font-display text-[22px] text-white">
-                Thank you — we&rsquo;ll be in touch shortly.
+                Thank you, we&rsquo;ll be in touch shortly.
               </p>
             ) : (
               <form onSubmit={onSubmit} className="flex flex-col items-center gap-4">
