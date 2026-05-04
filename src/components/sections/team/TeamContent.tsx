@@ -291,8 +291,8 @@ export default function TeamContent() {
       <section className="relative overflow-hidden py-24 md:py-28 bg-surface-warm-white">
         <div className="mx-auto max-w-[1280px] px-6 md:px-12">
           <ScrollReveal>
-            <SectionLabel>Leadership</SectionLabel>
-            <h2 className="mt-3 leading-[1.2]">Founders & leadership.</h2>
+            <SectionLabel>Team</SectionLabel>
+            <h2 className="mt-3 leading-[1.2]">Founders, leadership and team.</h2>
           </ScrollReveal>
           <motion.div
             className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5"
