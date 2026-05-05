@@ -96,6 +96,7 @@ export const team: TeamMember[] = [
     credentials: "BFA, SCAD",
     bio: "Immersive 3D environments and VR art direction.",
     image: "/images/team/ChanapaGiftKerdlapee.png",
+    linkedin: "https://www.linkedin.com/in/chanapakerd/",
     section: "leadership",
     order: 9,
   },
