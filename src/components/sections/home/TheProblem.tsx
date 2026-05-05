@@ -119,11 +119,47 @@ type Stage = 0 | 1 | 2 | 3 | 4 | 5
  * so the chart and the patient profile fill out together — like a clinical
  * brief is being assembled in real time.
  */
+function pickBarSize(width: number): { w: number; h: number } {
+  if (width < 480) return { w: 60, h: 300 }
+  if (width < 640) return { w: 72, h: 340 }
+  if (width < 1024) return { w: 96, h: 400 }
+  return { w: 140, h: 460 }
+}
+
 function WhatGetsLeftOut() {
   const sectionRef = useRef<HTMLDivElement>(null)
   const [stage, setStage] = useState<Stage>(0)
+  // SSR-safe: initial values match the server (desktop assumption); the
+  // useEffect below corrects them after hydration. Initializing from
+  // `window` would cause a hydration mismatch.
+  const [bar, setBar] = useState<{ w: number; h: number }>({ w: 140, h: 460 })
+  const [isPinned, setIsPinned] = useState<boolean>(true)
+  // While not pinned, treat the stage as fully revealed without writing state.
+  const displayStage: Stage = isPinned ? stage : 5
 
   useEffect(() => {
+    // After hydration completes we can safely read window — and since the
+    // initial state already matches the server-rendered HTML, this update
+    // will not trigger a hydration mismatch.
+    setBar(pickBarSize(window.innerWidth))
+    setIsPinned(window.matchMedia("(min-width: 1280px)").matches)
+
+    const mql = window.matchMedia("(min-width: 1280px)")
+    const onMqlChange = () => setIsPinned(mql.matches)
+    mql.addEventListener("change", onMqlChange)
+
+    function onResize() {
+      setBar(pickBarSize(window.innerWidth))
+    }
+    window.addEventListener("resize", onResize)
+    return () => {
+      mql.removeEventListener("change", onMqlChange)
+      window.removeEventListener("resize", onResize)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isPinned) return
     const el = sectionRef.current
     if (!el) return
 
@@ -150,7 +186,7 @@ function WhatGetsLeftOut() {
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
-  }, [])
+  }, [isPinned])
 
   // Bar fills + accent ratios per stage:
   // 0  : nothing
@@ -159,10 +195,10 @@ function WhatGetsLeftOut() {
   // 3  : "AugMend captures" (70%, ~50% lime accent — the new info AugMend surfaces)
   // 4  : "AugMend + care team" (90%, ~65% lime accent — additional info from care team)
   // 5  : hold — everything settled
-  const disclose = stage >= 1 ? 0.3 : 0
-  const experience = stage >= 2 ? 1.0 : 0
-  const aug = stage >= 3 ? 0.7 : 0
-  const augTeam = stage >= 4 ? 0.9 : 0
+  const disclose = displayStage >= 1 ? 0.3 : 0
+  const experience = displayStage >= 2 ? 1.0 : 0
+  const aug = displayStage >= 3 ? 0.7 : 0
+  const augTeam = displayStage >= 4 ? 0.9 : 0
 
   // Patient-detail reveal — each step adds one new line.
   const patientLines = [
@@ -179,12 +215,15 @@ function WhatGetsLeftOut() {
       accent: true,
     },
   ]
-  const visibleLines = Math.min(stage, patientLines.length)
+  const visibleLines = Math.min(displayStage, patientLines.length)
 
   return (
-    <section ref={sectionRef} className="relative" style={{ height: "320vh" }}>
+    <section
+      ref={sectionRef}
+      className="relative xl:h-[320vh]"
+    >
       <div
-        className="sticky top-0 h-screen flex items-center overflow-hidden"
+        className="relative xl:sticky xl:top-0 xl:h-screen flex items-center overflow-hidden py-16 xl:py-0"
         style={{
           background:
             "radial-gradient(ellipse at 30% 20%, #1a1660 0%, #0f0c46 45%, #070625 100%)",
@@ -211,75 +250,79 @@ function WhatGetsLeftOut() {
         />
 
         <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 w-full py-8 md:py-10">
-          <ScrollReveal>
-            <h2
-              className="font-display text-white mb-8 md:mb-10 max-w-[820px]"
-              style={{
-                fontSize: "clamp(30px, 3.6vw, 48px)",
-                fontWeight: 600,
-                lineHeight: 1.12,
-                letterSpacing: "-0.015em",
-              }}
-            >
-              What gets left out of <em className="italic" style={{ fontWeight: 500 }}>every visit.</em>
-            </h2>
-          </ScrollReveal>
+          <div className="grid grid-cols-1 xl:grid-cols-[1fr_400px] gap-8 sm:gap-10 xl:gap-14 items-stretch">
+            {/* LEFT — title sits at the top of the column so it top-aligns
+                with the right-side image card. Bars fill the rest below. */}
+            <div className="flex flex-col">
+              <ScrollReveal>
+                <h2
+                  className="font-display text-white mb-6 sm:mb-8 md:mb-10 max-w-[820px]"
+                  style={{
+                    fontSize: "clamp(28px, 3.6vw, 48px)",
+                    fontWeight: 600,
+                    lineHeight: 1.12,
+                    letterSpacing: "-0.015em",
+                  }}
+                >
+                  What gets left out of <em className="italic" style={{ fontWeight: 500 }}>every visit.</em>
+                </h2>
+              </ScrollReveal>
 
-          <div className="grid grid-cols-1 xl:grid-cols-[1fr_400px] gap-10 xl:gap-14 items-stretch">
-            {/* Bar chart with floating-dot bars — same height as patient card */}
-            <div className="flex items-end gap-4 md:gap-6 justify-between">
-              <FloatingDotBar
-                variant="dark"
-                fill={disclose}
-                accentRatio={0}
-                height={460}
-                width={140}
-                label={
-                  <>
-                    What patients<br />disclose
-                  </>
-                }
-                ariaLabel="What patients disclose: 30%"
-              />
-              <FloatingDotBar
-                variant="dark"
-                fill={aug}
-                accentRatio={aug ? 0.5 : 0}
-                height={460}
-                width={140}
-                label={
-                  <>
-                    AugMend<br />captures
-                  </>
-                }
-                ariaLabel="AugMend captures: 70%"
-              />
-              <FloatingDotBar
-                variant="dark"
-                fill={augTeam}
-                accentRatio={augTeam ? 0.65 : 0}
-                height={460}
-                width={140}
-                label={
-                  <>
-                    AugMend +<br />care team
-                  </>
-                }
-                ariaLabel="AugMend with care team: 90%"
-              />
-              <FloatingDotBar
-                variant="dark"
-                fill={experience}
-                accentRatio={0}
-                height={460}
-                width={140}
-                label={
-                  <>
-                    What patients<br />experience
-                  </>
-                }
-                ariaLabel="What patients experience: 100%"
-              />
+              {/* Bar chart with floating-dot bars — fills remaining column height */}
+              <div className="flex items-end gap-2 sm:gap-4 md:gap-6 justify-between flex-1">
+                <FloatingDotBar
+                  variant="dark"
+                  fill={disclose}
+                  accentRatio={0}
+                  height={bar.h}
+                  width={bar.w}
+                  label={
+                    <>
+                      What patients<br />disclose
+                    </>
+                  }
+                  ariaLabel="What patients disclose: 30%"
+                />
+                <FloatingDotBar
+                  variant="dark"
+                  fill={aug}
+                  accentRatio={aug ? 0.5 : 0}
+                  height={bar.h}
+                  width={bar.w}
+                  label={
+                    <>
+                      AugMend<br />captures
+                    </>
+                  }
+                  ariaLabel="AugMend captures: 70%"
+                />
+                <FloatingDotBar
+                  variant="dark"
+                  fill={augTeam}
+                  accentRatio={augTeam ? 0.65 : 0}
+                  height={bar.h}
+                  width={bar.w}
+                  label={
+                    <>
+                      AugMend +<br />care team
+                    </>
+                  }
+                  ariaLabel="AugMend with care team: 90%"
+                />
+                <FloatingDotBar
+                  variant="dark"
+                  fill={experience}
+                  accentRatio={0}
+                  height={bar.h}
+                  width={bar.w}
+                  label={
+                    <>
+                      What patients<br />experience
+                    </>
+                  }
+                  ariaLabel="What patients experience: 100%"
+                />
+              </div>
             </div>
 
             {/* Animated patient profile — frosted glass on the dark surface,
@@ -371,7 +414,7 @@ function WhatGetsLeftOut() {
                 className="flex-1 h-[2px] rounded-full"
                 style={{
                   background:
-                    stage >= s ? "#B8D94E" : "rgba(255,255,255,0.12)",
+                    displayStage >= s ? "#B8D94E" : "rgba(255,255,255,0.12)",
                   transition: "background 240ms ease",
                 }}
               />

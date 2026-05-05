@@ -30,7 +30,7 @@ export default function ProviderReportVisual({ className = "" }: { className?: s
     >
       {/* Top bar */}
       <div
-        className="flex items-center justify-between px-6 py-4 border-b border-neutral-border"
+        className="flex items-center justify-between gap-3 px-4 sm:px-6 py-3 sm:py-4 border-b border-neutral-border"
         style={{ background: "rgba(250,248,245,0.85)" }}
       >
         <div className="flex items-center gap-2">
@@ -57,19 +57,21 @@ export default function ProviderReportVisual({ className = "" }: { className?: s
           const width = 38 + ((i * 13) % 50)
           const flagged = i === 5 || i === 6 // Social context, Safety
           return (
-            <li key={d} className="flex items-center gap-4 px-6 py-3">
-              <div className="flex items-center gap-2 w-[44%] flex-shrink-0">
+            <li key={d} className="flex items-center gap-3 sm:gap-4 px-4 sm:px-6 py-2.5 sm:py-3">
+              <div className="flex items-center gap-2 w-[42%] sm:w-[44%] flex-shrink-0 min-w-0">
                 <span
-                  className="rounded-full"
+                  className="rounded-full flex-shrink-0"
                   style={{
                     width: 6,
                     height: 6,
                     background: flagged ? "#E8843A" : "#1F1C98",
                   }}
                 />
-                <span className="font-body text-[13px] text-neutral-near-black">{d}</span>
+                <span className="font-body text-[12px] sm:text-[13px] text-neutral-near-black truncate">
+                  {d}
+                </span>
               </div>
-              <div className="flex-1 h-2 rounded-full bg-neutral-border/60 overflow-hidden">
+              <div className="flex-1 h-2 rounded-full bg-neutral-border/60 overflow-hidden min-w-0">
                 <div
                   className="h-full rounded-full"
                   style={{
@@ -80,7 +82,7 @@ export default function ProviderReportVisual({ className = "" }: { className?: s
                   }}
                 />
               </div>
-              <span className="font-body text-[11px] text-neutral-slate tabular-nums w-10 text-right">
+              <span className="font-body text-[11px] text-neutral-slate tabular-nums w-9 sm:w-10 text-right flex-shrink-0">
                 {width}%
               </span>
             </li>
@@ -91,7 +93,7 @@ export default function ProviderReportVisual({ className = "" }: { className?: s
       {/* "And more" disclaimer — softer styling, hints that the domain set is
           configurable per clinic. */}
       <div
-        className="px-6 py-3 border-t border-neutral-border flex items-center gap-2"
+        className="px-4 sm:px-6 py-3 border-t border-neutral-border flex items-center gap-2"
         style={{ background: "rgba(245,240,232,0.45)" }}
       >
         <span
@@ -105,7 +107,7 @@ export default function ProviderReportVisual({ className = "" }: { className?: s
 
       {/* Footer summary chip */}
       <div
-        className="flex items-center justify-between px-6 py-4 border-t border-neutral-border"
+        className="flex items-center justify-between gap-3 px-4 sm:px-6 py-3 sm:py-4 border-t border-neutral-border"
         style={{ background: "rgba(245,240,232,0.5)" }}
       >
         <span className="font-body text-[11px] uppercase font-bold tracking-[0.05em] text-neutral-slate">

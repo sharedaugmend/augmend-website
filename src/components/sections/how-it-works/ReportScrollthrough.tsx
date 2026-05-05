@@ -85,8 +85,26 @@ const toneStyles: Record<InsightCallout["tone"], { accent: string; eyebrow: stri
 export default function ReportScrollthrough() {
   const sectionRef = useRef<HTMLElement>(null)
   const [progress, setProgress] = useState(0)
+  // The scroll-pinned, translating-iframe choreography is desktop-only —
+  // on phones and small tablets it doesn't fit the viewport and the report
+  // text is unreadable when scaled. Switch to a static stack below lg.
+  // SSR-safe: initial value matches the server (desktop assumption); the
+  // useEffect below corrects it after hydration. Initializing from `window`
+  // would cause a hydration mismatch.
+  const [isDesktop, setIsDesktop] = useState<boolean>(true)
+  // Below lg, the static layout uses fully-revealed values without writing state.
+  const displayProgress = isDesktop ? progress : 1
 
   useEffect(() => {
+    const mql = window.matchMedia("(min-width: 1024px)")
+    setIsDesktop(mql.matches)
+    const update = () => setIsDesktop(mql.matches)
+    mql.addEventListener("change", update)
+    return () => mql.removeEventListener("change", update)
+  }, [])
+
+  useEffect(() => {
+    if (!isDesktop) return
     const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
     if (reduce) {
       setProgress(1)
@@ -111,19 +129,147 @@ export default function ReportScrollthrough() {
       window.removeEventListener("scroll", onScroll)
       window.removeEventListener("resize", onScroll)
     }
-  }, [])
+  }, [isDesktop])
 
   // The report content scrolls upward inside its frame. Use a generous range
   // so the iframe content actually travels — the report is long.
-  const reportTranslate = -progress * 1800 // px of upward translation
+  const reportTranslate = -displayProgress * 1800 // px of upward translation
 
   // Determine the currently-active callout. Anything earlier is "stacked".
   const activeIndex = callouts.findIndex((c, i) => {
     const next = callouts[i + 1]
-    return progress >= c.at - 0.06 && (next == null || progress < next.at - 0.06)
+    return displayProgress >= c.at - 0.06 && (next == null || displayProgress < next.at - 0.06)
   })
   const effectiveActive = activeIndex === -1 ? -1 : activeIndex
 
+  // ── MOBILE / TABLET — static, scannable layout ───────────────────────────
+  if (!isDesktop) {
+    return (
+      <section
+        ref={sectionRef}
+        aria-label="Sample clinical report"
+        className="relative bg-surface-warm-white py-16"
+      >
+        <div className="mx-auto max-w-[1280px] px-6">
+          <SectionLabel>The Output</SectionLabel>
+          <h2
+            className="mt-3"
+            style={{
+              fontSize: "clamp(26px, 6vw, 34px)",
+              fontWeight: 600,
+              lineHeight: 1.18,
+              letterSpacing: "-0.015em",
+            }}
+          >
+            The right report format for the right information.
+          </h2>
+          <p
+            className="mt-3 font-body text-neutral-slate"
+            style={{ fontSize: 15, lineHeight: 1.6 }}
+          >
+            Every session generates structured outputs from the same data: a clinical report for review, billing-ready documentation, and the source transcript behind every claim.
+          </p>
+
+          {/* Static report preview — scrollable inside its own frame so the
+              user can browse without the section taking over the page. */}
+          <div
+            className="relative mt-8 rounded-2xl overflow-hidden"
+            style={{
+              border: "1px solid rgba(31, 28, 152, 0.12)",
+              boxShadow:
+                "0 1px 0 rgba(255,255,255,0.7) inset, 0 18px 40px -16px rgba(13,11,62,0.16)",
+              background: "#EFE9DA",
+              height: 480,
+            }}
+          >
+            <div
+              className="flex items-center gap-2 px-3 h-7"
+              style={{
+                background: "rgba(255, 255, 255, 0.65)",
+                borderBottom: "1px solid rgba(31, 28, 152, 0.08)",
+              }}
+              aria-hidden="true"
+            >
+              <span className="w-2 h-2 rounded-full" style={{ background: "#E5DECC" }} />
+              <span className="w-2 h-2 rounded-full" style={{ background: "#E5DECC" }} />
+              <span className="w-2 h-2 rounded-full" style={{ background: "#E5DECC" }} />
+              <span
+                className="ml-2 font-body text-[9px] tracking-[0.04em] truncate"
+                style={{ color: "#5A5A6E" }}
+              >
+                augmend.health · admin · john p.
+              </span>
+            </div>
+            <iframe
+              src="/samples/redacted-report.html"
+              title="Sample clinical report"
+              className="w-full border-0 block"
+              style={{ height: "calc(100% - 28px)" }}
+            />
+          </div>
+          <p className="mt-3 font-body text-[12px] text-neutral-slate">
+            Scroll inside the frame to read the full sample report.
+          </p>
+
+          {/* Static stack of all five insights — the desktop crossfade is
+              replaced by a scannable list. */}
+          <ul className="mt-10 flex flex-col gap-4">
+            {callouts.map((c, i) => {
+              const t = toneStyles[c.tone]
+              return (
+                <li
+                  key={i}
+                  className="rounded-xl px-5 py-4"
+                  style={{
+                    background: "#FFFFFF",
+                    border: "1px solid rgba(31, 28, 152, 0.10)",
+                    borderLeft: `3px solid ${t.accent}`,
+                    boxShadow:
+                      "inset 0 1px 0 rgba(255,255,255,0.7), 0 1px 2px rgba(13,11,62,0.04), 0 12px 28px -12px rgba(13,11,62,0.12)",
+                  }}
+                >
+                  <div className="flex items-center justify-between gap-3 mb-1.5">
+                    <div
+                      className="font-body font-bold text-[10.5px] uppercase tracking-[0.08em]"
+                      style={{ color: t.eyebrow }}
+                    >
+                      {c.label}
+                    </div>
+                    <div
+                      className="font-body font-bold text-[10.5px] tabular-nums"
+                      style={{ color: "rgba(110, 107, 133, 0.7)" }}
+                    >
+                      {String(i + 1).padStart(2, "0")} / {String(callouts.length).padStart(2, "0")}
+                    </div>
+                  </div>
+                  <div
+                    className="font-display mb-1"
+                    style={{
+                      fontSize: 20,
+                      fontWeight: 600,
+                      lineHeight: 1.2,
+                      letterSpacing: "-0.012em",
+                      color: "#1B1A4A",
+                    }}
+                  >
+                    {c.value}
+                  </div>
+                  <p
+                    className="font-body text-neutral-slate"
+                    style={{ fontSize: 13, lineHeight: 1.55 }}
+                  >
+                    {c.body}
+                  </p>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  // ── DESKTOP — original scroll-pinned choreography ────────────────────────
   return (
     <section
       ref={sectionRef}
@@ -209,7 +355,7 @@ export default function ReportScrollthrough() {
               {/* Progress dots tucked below the report frame */}
               <div className="mt-4 flex items-center gap-2" aria-hidden="true">
                 {callouts.map((c, i) => {
-                  const active = progress >= c.at - 0.05
+                  const active = displayProgress >= c.at - 0.05
                   return (
                     <span
                       key={i}

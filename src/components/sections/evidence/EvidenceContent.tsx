@@ -105,35 +105,45 @@ type FounderPub = {
 
 const founderPubs: FounderPub[] = [
   {
-    authors: "Murnane E., Thérond A., et al. · Moreau S., Franklin S.",
-    title: "Virtual Reality in Acute and Chronic Pain Medicine: An Updated Review.",
-    journal: "Clinical Journal of Pain, 2024 Vol. 40(6), 340–354",
+    authors: "Moreau S., Thérond A., Cerda I.H., et al.",
+    title:
+      "Virtual Reality in Acute and Chronic Pain Medicine: An Updated Review.",
+    journal: "Current Pain and Headache Reports, 2024 Vol. 28(9), 893–928.",
+    link: "https://doi.org/10.1007/s11916-024-01246-2",
   },
   {
-    authors: "Murnane E., Alex M. et al. · Thomas S., Franklin A.",
-    title: "The Role of Virtual Reality and Artificial Intelligence in Cognitive Pain Therapy.",
-    journal: "Pain Research & Management, 2024 Vol. 29(3), 210–228",
+    authors: "Mazzolenis M.V., Mourra G.N., Moreau S., et al., Thérond A.",
+    title:
+      "The Role of Virtual Reality and Artificial Intelligence in Cognitive Pain Therapy: A Narrative Review.",
+    journal: "Current Pain and Headache Reports, 2024 Vol. 28(9), 881–892.",
+    link: "https://doi.org/10.1007/s11916-024-01270-2",
   },
   {
-    authors: "Carter A., Thérond A. · Moreau S., Hui C.L.",
-    title: "Telehealth and Virtual Reality Technologies in Chronic Pain Management.",
-    journal: "Journal of Pain Research, 2025 Vol. 18(2), 156–173",
+    authors: "Cerda I.H., Thérond A., Moreau S., et al.",
+    title:
+      "Telehealth and Virtual Reality Technologies in Chronic Pain Management: A Narrative Review.",
+    journal: "Current Pain and Headache Reports, 2024 Vol. 28(3), 83–94.",
+    link: "https://doi.org/10.1007/s11916-023-01205-3",
   },
   {
-    authors: "So A., Thérond A. · Moreau S., Franklin S.",
-    title: "The Role of Virtual Reality in Chronic Pain and Loneliness.",
-    journal: "PLOS One Medicine, 2024 Vol. 19(1), 1–18",
+    authors: "Pan A., Moreau S., Rafeeh G., et al., Thérond A.",
+    title:
+      "The Role of Virtual Reality in Chronic Pain and Loneliness: Narrative Review.",
+    journal: "Journal of Medical Extended Reality, 2025 Vol. 2(1).",
+    link: "https://doi.org/10.1089/jmedxr.2024.0063",
   },
   {
-    authors: "Ang A., Thérond A. et al.",
-    title: "Efficacy of Cognitive Remediation in Depression: Systematic Review and Meta-Analysis.",
-    journal: "JAMA Psychiatry, 2025 Vol. 71(3), 290–307",
+    authors: "Thérond A., Pezzoli P., Abbas M., et al.",
+    title:
+      "The Efficacy of Cognitive Remediation in Depression: A Systematic Literature Review and Meta-Analysis.",
+    journal: "Journal of Affective Disorders, 2021 Vol. 284, 238–246.",
+    link: "https://doi.org/10.1016/j.jad.2021.02.009",
   },
   {
-    authors: "Thérond A., Yuan C., Aiyer R. et al.",
+    authors: "Thérond A., Yuan C., Aiyer R., et al.",
     title:
       "Brain-Centered Interventions for Nociplastic Pain: From Symptom Management to Pain Resolution.",
-    journal: "Curr Pain Headache Rep 30, 46 (2026). doi:10.1007/s11916-026-01489-1",
+    journal: "Current Pain and Headache Reports, 2026 Vol. 30, Article 46.",
     link: "https://doi.org/10.1007/s11916-026-01489-1",
   },
 ]
@@ -389,7 +399,7 @@ export default function EvidenceContent() {
                   rel={p.link ? "noopener noreferrer" : undefined}
                   className="inline-flex mt-4 font-body font-bold text-[13px] text-brand-indigo hover:underline"
                 >
-                  {p.link ? "Pre-publication link →" : "View publication →"}
+                  View publication →
                 </a>
               </GlassCard>
               </motion.div>

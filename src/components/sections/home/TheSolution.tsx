@@ -85,7 +85,7 @@ export default function TheSolution() {
         {/* Row 2 — Provider-facing: visual left, text right */}
         <div className="mt-14 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
           <ScrollReveal>
-            <GlassCard tone="indigo" accent="indigo" className="p-7 lg:order-1">
+            <GlassCard tone="indigo" accent="indigo" className="p-3 sm:p-5 lg:p-7 lg:order-1">
               <ProviderReportVisual className="w-full" />
             </GlassCard>
           </ScrollReveal>

@@ -413,8 +413,8 @@ export default function HowItWorksContent() {
             </ScrollReveal>
 
             <ScrollReveal>
-              <div className="mt-8 overflow-x-auto">
-                <table className="w-full bg-surface-white border border-neutral-border rounded-xl overflow-hidden text-sm">
+              <div className="mt-8 overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+                <table className="w-full min-w-[460px] bg-surface-white border border-neutral-border rounded-xl overflow-hidden text-sm">
                   <thead>
                     <tr className="bg-surface-cream">
                       <th className="text-left px-4 py-3 font-body font-bold text-xs uppercase tracking-wider text-neutral-slate">
@@ -457,7 +457,7 @@ export default function HowItWorksContent() {
             <ScrollReveal>
               <PullQuote
                 className="mt-8"
-                cite="Murnane et al., Journal of Medical Extended Reality, 2026"
+                cite="AugMend RCT, MIT.nano Immersion Lab (n=45, NCT07538387) — under peer review"
               >
                 &ldquo;VR showed higher median ratings than desktop across several domains, with moderate-to-large effect sizes in Core and Overall Experience.&rdquo;
               </PullQuote>
