@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import Section from "@/components/layout/Section"
+import PrivacyContent from "@/components/sections/privacy/PrivacyContent"
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -13,10 +13,5 @@ export const metadata: Metadata = {
 }
 
 export default function PrivacyPage() {
-  return (
-    <Section bg="white" padding="large" className="pt-32!">
-      <h1>Privacy Policy</h1>
-      <p className="mt-4 text-neutral-slate">Coming soon.</p>
-    </Section>
-  )
+  return <PrivacyContent />
 }
