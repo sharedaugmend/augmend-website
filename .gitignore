@@ -43,3 +43,10 @@ next-env.d.ts
 # local design reference materials (not used by the site)
 /docs/design-ref/
 /docs/*.zip
+
+# blog inbox — transient draft drops; keep the README, ignore the contents
+/blog-inbox/*
+!/blog-inbox/README.md
+
+# Claude Code local settings (personal, not shared)
+.claude/settings.local.json

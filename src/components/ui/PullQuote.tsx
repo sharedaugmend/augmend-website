@@ -7,8 +7,8 @@ type PullQuoteVariant = "dark" | "light"
 interface PullQuoteProps {
   /** The quoted text. */
   children: ReactNode
-  /** Attribution. Rendered uppercase eyebrow under the quote. */
-  cite: string
+  /** Attribution. Rendered uppercase eyebrow under the quote. Omit for an unattributed pull quote. */
+  cite?: string
   /** "dark" sits on dark backgrounds (default — matches home WhyVR + TheSolution). "light" sits on cream/warm-white. */
   variant?: PullQuoteVariant
   /** Tailwind utility classes for layout. */
@@ -63,17 +63,19 @@ export default function PullQuote({
       >
         {children}
       </p>
-      <cite className="block mt-3 not-italic">
-        <span
-          className="font-body font-bold uppercase tracking-[0.05em]"
-          style={{
-            fontSize: 11,
-            color: isDark ? "rgba(255,255,255,0.65)" : "rgba(110, 107, 133, 0.95)",
-          }}
-        >
-          {cite}
-        </span>
-      </cite>
+      {cite && (
+        <cite className="block mt-3 not-italic">
+          <span
+            className="font-body font-bold uppercase tracking-[0.05em]"
+            style={{
+              fontSize: 11,
+              color: isDark ? "rgba(255,255,255,0.65)" : "rgba(110, 107, 133, 0.95)",
+            }}
+          >
+            {cite}
+          </span>
+        </cite>
+      )}
     </blockquote>
   )
 }

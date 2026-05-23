@@ -12,11 +12,16 @@
   "dependencies": {
     "@fontsource-variable/source-serif-4": "^5.2.9",
     "@fontsource/atkinson-hyperlegible": "^5.2.8",
+    "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/react": "^3.1.1",
+    "@next/mdx": "^16.2.6",
+    "@types/mdx": "^2.0.13",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.7.0",
     "next": "16.2.2",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.4",
+    "remark-gfm": "^4.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

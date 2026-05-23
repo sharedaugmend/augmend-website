@@ -1,0 +1,118 @@
+import StatGraphic from "@/components/ui/blog/StatGraphic"
+import StatementGraphic from "@/components/ui/blog/StatementGraphic"
+import BarCompareGraphic from "@/components/ui/blog/BarCompareGraphic"
+import PullQuote from "@/components/ui/PullQuote"
+
+export const meta = {
+  title: "Why patients don't tell you everything",
+  excerpt:
+    "A 38-provider survey found that in pain management, every provider named patient nondisclosure a top challenge. The reason isn't patients — it's a visit format never built to collect biopsychosocial context.",
+  category: "industry-perspectives",
+  date: "2026-05-22",
+  author: "Sacha Moreau",
+}
+
+We just ran our own 38-provider survey on patient assessment and data collection practices to understand how providers like to visualize, receive and process information around visits with their patients: 20 in behavioral health, psychiatry, and psychology; 8 in primary care; 6 in pain management and anesthesiology. We asked them to name their biggest challenges with how they currently assess patients. In the pain-management and anesthesiology subgroup, every single provider (6 out of 6) selected "patients don't disclose important information." 83% in that same subgroup added "incomplete or unreliable patient responses" on top of it. Primary care named incomplete or unreliable information (88%), behavioral health named scattered information (58%) and time pressure during visits (63%). (Ko, Jan 2026).
+
+<StatGraphic
+  layout="row"
+  eyebrow="Provider survey · N=38"
+  cite="Ko, Clinical Assessment Portal: Providers' Perspectives, Jan 2026"
+  stats={[
+    { value: "100%", label: "of pain management providers said patients don't disclose important information (6 of 6)" },
+    { value: "88%", label: "of primary care providers cited incomplete or unreliable information" },
+    { value: "63%", label: "of behavioral health providers said assessment is too time-consuming during visits" },
+  ]}
+/>
+
+Those two answers are not two separate problems. They are the same signal read from two angles: in a specialty pain clinic, the full patient experience is not getting through.
+
+I want to talk about why.
+
+## A clinic system designed around the acute visit
+
+The 15-minute specialty visit was not designed for chronic and behavioral-health patients. It was designed around acute, single-issue medicine and as a cost effective way to address demand: a sore throat, a sprain, a follow-up labs review. Show up, name the problem, get a plan, leave.
+
+<StatementGraphic lead="The 15-minute visit was built for a sore throat." />
+
+Chronic patients are not one chapter long, importantly the fragmented nature of healthcare makes their experience even more complex. Roughly 60% of U.S. adults, about 194 million people, live with at least one chronic condition (CDC). Within that, 60 million experience chronic pain and about 40% of adults with chronic pain experience clinically significant depression and anxiety (Aaron RV et al., JAMA Network Open, March 2025). The visit format and the types of patients do not align, and the system has compensated by asking providers to do more inside the same envelope resulting in high rate of provider burn out.
+
+<StatGraphic
+  eyebrow="The patients"
+  cite="CDC; Aaron et al., JAMA Network Open, March 2025"
+  stats={[
+    { value: "194 million", label: "Americans live with at least one chronic condition" },
+    { value: "40%", label: "of adults with chronic pain experience clinically significant depression and anxiety" },
+  ]}
+/>
+
+The result is the most studied operational fact in American medicine right now: for every hour of patient face time, providers spend roughly 2 hours more on the documentation and clerical work (AMA, 2024). When we asked these same providers what an ideal documentation tool should actually do for them, the most compelling benefit named across every specialty was the same: reduce documentation time (Q22 — behavioral health 67%, pain management 50%, primary care tied at 43%). The visit hasn't gotten longer, yet the documentation requirements have extended. The patient has gotten more complex, yet the information collection process hasn't changed.
+
+<BarCompareGraphic
+  eyebrow="The documentation load"
+  title="For every hour with a patient"
+  cite="AMA, 2024"
+  bars={[
+    { label: "1 hr — patient face time", value: 0.5, tone: "lime" },
+    { label: "2 hrs — documentation & clerical work", value: 1, tone: "orange" },
+  ]}
+/>
+
+## What goes uncollected
+
+<StatGraphic
+  eyebrow="The disclosure gap"
+  cite="Levy et al., JAMA Network Open, 2018"
+  stats={[
+    { value: "60–80%", label: "of patients withhold medically relevant information from their clinicians" },
+  ]}
+/>
+
+60–80% of patients withhold medically relevant information from their clinicians (Levy et al., JAMA Network Open, 2018). I used to read that as a patient-honesty problem but with the compressed visit and workflow and operational cuts, the first thing that disappears is the part of the patient's story that doesn't fit a chief complaint. Everything that contributes to the exacerbation of symptoms that the patient often does not realize need to be shared. Importantly they often don't feel comfortable sharing due to stigma, judgement, lack of knowledge. Elements that providers are trained to illicit if they had the time: list of supplements, eating habits, social determinants of health (SDOH), trauma history, substance use. For example, SDOH affect 20–40% of patients. They are documented in 0.5–2.4% of encounters (Health Affairs Scholar 2(4):qxae046, April 2024 — scoping review across 2.7 billion encounters). It is hard to think of another category of clinical information where the gap between prevalence and documentation is that wide. These present as the fact that the back pain started after a workplace incident the patient never reported due to fear of workplace troubles. The fact that the depression and the fibromyalgia and the unsafe housing situation are not three separate problems but confounding variables that exacerbate their suffering.
+
+<StatGraphic
+  eyebrow="Social determinants of health"
+  cite="Health Affairs Scholar, April 2024 — scoping review across 2.7 billion encounters"
+  stats={[
+    { value: "20–40%", label: "of patients are affected by social determinants of health", tone: "lime" },
+    { value: "0.5–2.4%", label: "of encounters document them", tone: "muted" },
+  ]}
+/>
+
+This is not the patient's or provider's failure. It is the result of a system that was never built to collect biopsychosocial context, instead relying on a stressed person to divulge their deepest fears and troubles via boxes on a form or to volunteer it in front of a stranger who is visibly rushed.
+
+<StatementGraphic lead="Not a patient failure." emphasis="A system failure." />
+
+## Why the providers can't fix it from inside the visit
+
+What I hear from every specialty provider I talk to is the same thing in different accents. They know the data is missing. They know the patient hasn't said the thing the patient came in to say. They can feel it. They just don't have the minutes to chase it down, because the next patient is already in the next room and the EHR is asking for closure on the last one and revenue cycle management requires they tick the box for data that they did not have time to collect to capture additional revenue.
+
+The cost of that inefficiency isn't just clinical. Providers fail to collect 2–5% of net patient revenue, due in part to inefficient revenue cycle management (Chandawarkar R et al., Plastic and Reconstructive Surgery, Global Open, 12(7):e5756, July 2024); claim denial alone costs U.S. hospitals roughly $262 billion per year (ibid.). 68% of Medicare improper payments are driven by insufficient or missing documentation (CMS FY 2024 Improper Payments Fact Sheet). The complexity is there. It isn't reaching the chart, and when it doesn't reach the chart it doesn't reach the claim either despite providers doing their best with growing demand.
+
+<StatGraphic
+  eyebrow="What it costs"
+  cite="Chandawarkar et al., 2024; CMS FY 2024 Improper Payments Fact Sheet"
+  stats={[
+    { value: "2–5%", label: "of net patient revenue goes uncollected", tone: "orange" },
+    { value: "$262B", label: "annual cost of claim denials to U.S. hospitals", tone: "orange" },
+    { value: "68%", label: "of Medicare improper payments stem from insufficient or missing documentation", tone: "orange" },
+  ]}
+/>
+
+## Disclosure is not a patient-side problem
+
+This is the part I want to be careful about. The temptation in this conversation is to talk about patients as the variable to fix. Educate them, prompt them, make them better disclosers. I don't think that holds up.
+
+Disclosure is contextual. People will say one thing in a rushed exam room and a very different thing when the room slows down, when they aren't being timed, when they aren't worried that the next question will land on a topic that is difficult to talk about or they otherwise would not have thought to mention. A limited time slot under fluorescent lights with a clinician already three patients behind is not a neutral context for biopsychosocial disclosure. We have just normalized it for so long and other complex issues have taken center stage.
+
+<PullQuote variant="light">A limited time slot under fluorescent lights with a clinician already three patients behind is not a neutral context for biopsychosocial disclosure.</PullQuote>
+
+Let's take this issue seriously so the question stops being how to make patients more honest and starts being how we can optimize the care journey and leverage integrated technologies that fit into the care workflow without adding new burdens to facilitate the capture of biopsychosocial data. We are now lucky to have a variety of technologies at our disposal that do not require a medical professional to be physically present to collect this information: before the visit, after visits, between visits. All that matters is that providers receive the relevant information for their medical decision making and documentation at the right time to aid in improving the quality of care and reduce clerical burdens. Technology can provide a setting explicitly designed for disclosure, instead of one it accidentally designed against it.
+
+## What we're doing about it
+
+<StatementGraphic lead="What if collection happened before the visit?" footnote="AugMend — the clinical context layer" />
+
+AugMend is the clinical context layer to collect self-reported biopsychosocial data in chronic and behavioral disorders. A new way to collect this crucial information outside of the rushed visit and into a calmer setting, so providers walk into the room already knowing the patient's story.
+
+If you sit in a specialty pain clinic, or a psychiatry intake, or a chronic-disease follow-up, and the disclosure pattern I'm describing is familiar, I'd be genuinely interested to hear how it shows up in your setting.
