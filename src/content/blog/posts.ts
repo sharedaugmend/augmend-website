@@ -30,7 +30,7 @@ export const posts: BlogPost[] = [
       "A 38-provider survey found that in pain management, every provider named patient nondisclosure a top challenge. The reason isn't patients — it's a visit format never built to collect biopsychosocial context.",
     category: "industry-perspectives",
     date: "2026-05-22",
-    author: "Sacha Moreau",
+    author: "Sacha Moreau & Sophia Ko",
     readingMinutes: 5,
     load: () => import("./why-patients-dont-tell-you-everything/post.mdx"),
   },
