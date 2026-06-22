@@ -319,7 +319,7 @@ Card 1: Photo placeholder (square, 1:1, grayscale, 16px radius). Name: "Sacha Mo
 Card 2: "Thomas J. Schneider" — Co-Founder, COO, General Counsel & Treasurer. LinkedIn icon. DPhil & DLaws (Hon), Oxford · Harvard College · Harvard Law · Deakin University. 45+ years in business restructuring and healthcare operations.
 Card 3: "Aleksy Dojnow" — Co-Founder, CTO & Secretary. LinkedIn icon. MIT. 6 years in product development spanning VR, AI, and 3D systems. Designed device-agnostic architecture.
 Card 4: "Alexandra Therond" — Co-Founder & Chief Clinical Officer (Part-Time, in Residency). LinkedIn icon. PhD & PsyD, Université du Québec à Montréal. 10 years in clinical and experimental psychology, designed the clinical domain architecture.
-Leadership section, ivory background. Label: "LEADERSHIP." Single wider horizontal card: photo left, text right. "Dr. Mark Ruchman" — VP Medical Affairs. LinkedIn icon. Yale Medical School. Former CMO of Versant Health (MetLife / Fortune 500). 45+ years as clinician and healthcare administrator.
+Leadership section, ivory background. Label: "LEADERSHIP." Single wider horizontal card: photo left, text right. "Dr. Mark Ruchman" — Chief Medical Officer. LinkedIn icon. Yale Medical School. Former CMO of Versant Health (MetLife / Fortune 500). 45+ years as clinician and healthcare administrator.
 No team fun photos. No personality quirks. Restrained, credibility-focused.
 Bottom CTA bar: indigo background, white text: "Interested in joining the team?" Button: "View Careers."
 ```

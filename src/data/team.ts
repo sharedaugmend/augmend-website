@@ -52,7 +52,7 @@ export const team: TeamMember[] = [
   },
   {
     name: "Mark Ruchman, MD",
-    title: "VP Medical Affairs",
+    title: "Chief Medical Officer",
     credentials: "Yale Medical School",
     bio: "Clinical validation and provider engagement.",
     image: "/images/team/MarkRuchman.png",
