@@ -365,7 +365,7 @@ export default function EvidenceContent() {
 
       {/* FOUNDER PUBLICATIONS */}
       <section className="relative overflow-hidden py-24 md:py-28 bg-surface-cream">
-        <BlurredBackdrop src="/images/home/stipple-man.png" tone="cream" imageOpacity={0.22} position="center 28%" />
+        <BlurredBackdrop src="/images/home/stipple-man.jpg" tone="cream" imageOpacity={0.22} position="center 28%" />
         <div className="relative mx-auto max-w-[1280px] px-6 md:px-12">
           <ScrollReveal>
             <SectionLabel>Other Publications by AugMend Staff</SectionLabel>

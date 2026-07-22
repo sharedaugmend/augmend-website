@@ -89,13 +89,25 @@ export default function ParticleFlow({ className }: { className?: string }) {
     const FONT_SIZE = 10
     const LINE_HEIGHT = 14
     const DOT_SIZE = 1.5
-    const DOT_COUNT = 30000
     const ERASER_SIZE = 8
     const DEEP = "#0a082e"
+
+    // Desktop density is the reference point (30k dots at 1440x900). Scaling
+    // by canvas area keeps dots-per-pixel constant so mobile isn't paying for
+    // desktop-scale dot counts it can't even see the benefit of, while a
+    // desktop-sized canvas still yields exactly 30000 (capped, unchanged).
+    const REFERENCE_DOT_COUNT = 30000
+    const REFERENCE_AREA = 1440 * 900
+    const computeDotCount = (w: number, h: number) =>
+      Math.min(REFERENCE_DOT_COUNT, Math.round(w * h * (REFERENCE_DOT_COUNT / REFERENCE_AREA)))
+
+    let lastWidth = 0
+    let resizeDebounce: ReturnType<typeof setTimeout> | null = null
 
     const init = () => {
       W = canvas.offsetWidth
       H = canvas.offsetHeight
+      lastWidth = W
       canvas.width = W * dpr
       canvas.height = H * dpr
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
@@ -123,6 +135,7 @@ export default function ParticleFlow({ className }: { className?: string }) {
         })
       }
 
+      const DOT_COUNT = computeDotCount(W, H)
       dots = new Array(DOT_COUNT)
       for (let i = 0; i < DOT_COUNT; i++) {
         dots[i] = {
@@ -232,15 +245,50 @@ export default function ParticleFlow({ className }: { className?: string }) {
         ctx.fillRect(dots[i].x, dots[i].y, DOT_SIZE, DOT_SIZE)
       }
 
-      animRef.current = requestAnimationFrame(animate)
+      if (running) {
+        animRef.current = requestAnimationFrame(animate)
+      }
     }
 
-    animate()
-
-    const handleResize = () => {
-      cancelAnimationFrame(animRef.current)
-      init()
+    // The rAF loop only runs while the canvas is actually on screen and the
+    // tab is visible — offscreen frames are invisible by definition, so
+    // there is no reason to pay for 30k-dot physics + redraw for them.
+    let running = false
+    let isIntersecting = false
+    const startLoop = () => {
+      if (running) return
+      running = true
       animate()
+    }
+    const stopLoop = () => {
+      running = false
+      cancelAnimationFrame(animRef.current)
+    }
+
+    // iOS Safari fires `resize` whenever the URL bar collapses/expands
+    // during normal scrolling. That resize used to re-run init(), which
+    // re-randomizes every dot position and rebuilds the text lines — the
+    // whole field would visibly flash/reset mid-scroll. A real resize
+    // (rotation, window resize, responsive breakpoint change) always
+    // changes the width; a URL-bar-only event does not. So: only do the
+    // full reset when the width actually changed, and debounce so rapid
+    // address-bar events collapse into a single reset at most.
+    const handleResize = () => {
+      if (resizeDebounce) clearTimeout(resizeDebounce)
+      resizeDebounce = setTimeout(() => {
+        const newWidth = canvas.offsetWidth
+        if (newWidth === lastWidth) {
+          // Height-only change — resync the backing store so the canvas
+          // doesn't stretch, but keep the existing dots/text state intact.
+          H = canvas.offsetHeight
+          canvas.height = H * dpr
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+          return
+        }
+        cancelAnimationFrame(animRef.current)
+        init()
+        if (running) animate()
+      }, 200)
     }
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect()
@@ -252,12 +300,37 @@ export default function ParticleFlow({ className }: { className?: string }) {
       mouseRef.current.y = -9999
     }
 
+    const observer = new IntersectionObserver(
+      (entries) => {
+        isIntersecting = entries[0]?.isIntersecting ?? false
+        if (isIntersecting && !document.hidden) {
+          startLoop()
+        } else {
+          stopLoop()
+        }
+      },
+      { threshold: 0 }
+    )
+    observer.observe(canvas)
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopLoop()
+      } else if (isIntersecting) {
+        startLoop()
+      }
+    }
+
     window.addEventListener('resize', handleResize)
     canvas.addEventListener('mousemove', handleMouseMove)
     canvas.addEventListener('mouseleave', handleMouseLeave)
+    document.addEventListener('visibilitychange', handleVisibilityChange)
 
     return () => {
-      cancelAnimationFrame(animRef.current)
+      stopLoop()
+      if (resizeDebounce) clearTimeout(resizeDebounce)
+      observer.disconnect()
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
       window.removeEventListener('resize', handleResize)
       canvas.removeEventListener('mousemove', handleMouseMove)
       canvas.removeEventListener('mouseleave', handleMouseLeave)

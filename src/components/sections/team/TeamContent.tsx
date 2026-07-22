@@ -189,7 +189,7 @@ export default function TeamContent() {
           }}
         >
           <Image
-            src="/images/home/doctor-portrait-cinematic.png"
+            src="/images/home/doctor-portrait-cinematic.jpg"
             alt=""
             fill
             sizes="55vw"

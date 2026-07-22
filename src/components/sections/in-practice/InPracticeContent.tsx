@@ -46,7 +46,7 @@ const journey: {
     purpose: "Pre-session survey, digital consent, OTP issuance.",
     detail:
       "The clinician authors the session plan of the appointment. Patient receives the consent flow and a one-time access code in advance.",
-    image: "/images/in-practice/consent.png",
+    image: "/images/in-practice/consent.jpg",
     icon: ClipboardCheck,
   },
   {
@@ -56,7 +56,7 @@ const journey: {
     purpose: "Patient checks in at clinic. Admin hands off the headset and runs a pre-check.",
     detail:
       "Non-clinical staff complete a 90-second pre-flight: hardware fit, audio levels, and session ID. The patient is in immersion before the room is even ready.",
-    image: "/images/in-practice/setup.png",
+    image: "/images/in-practice/setup.jpg",
     icon: HeadphonesIcon,
   },
   {
@@ -66,7 +66,7 @@ const journey: {
     purpose: "Patient converses with the avatar across 11 clinical domains; VR exercise if prescribed.",
     detail:
       "The non-human avatar conducts a structured biopsychosocial conversation. Adaptive depth-collection on new disclosures. Continuous safety screening behind the scenes.",
-    image: "/images/home/avatar-robot-2.png",
+    image: "/images/home/avatar-robot-2.jpg",
     icon: Brain,
   },
   {
@@ -76,7 +76,7 @@ const journey: {
     purpose: "Transcript processed; clinical report, 15-second pre-visit summary, and flags generated.",
     detail:
       "Every claim is linked back to the originating exchange in the transcript.",
-    image: "/images/illustrations/data-compounds-chart.png",
+    image: "/images/illustrations/data-compounds-chart.jpg",
     icon: FileText,
   },
   {
@@ -86,7 +86,7 @@ const journey: {
     purpose: "Clinician reads the 15-second summary",
     detail:
       "Two-minute structured brief surfaced to the provider's existing EHR view. Walk into the room with the full clinical picture already in mind.",
-    image: "/images/in-practice/provider-review.png",
+    image: "/images/in-practice/provider-review.jpg",
     icon: Eye,
   },
   {
@@ -96,7 +96,7 @@ const journey: {
     purpose: "Clinician anchors the visit on the report, clarifies with the patient, annotates inline.",
     detail:
       "The conversation is no longer information-gathering — it is shared decision-making. Annotations attach directly to the report.",
-    image: "/images/in-practice/in-room.png",
+    image: "/images/in-practice/in-room.jpg",
     icon: Stethoscope,
   },
   {
@@ -106,7 +106,7 @@ const journey: {
     purpose: "Clinician finalizes, signs off; report locks and EHR copy-paste path activates.",
     detail:
       "Billing-ready documentation is pre-populated and mapped to existing CPT codes. Provider review takes minutes, not the rest of the day.",
-    image: "/images/in-practice/sign-off.png",
+    image: "/images/in-practice/sign-off.jpg",
     icon: CheckCircle2,
   },
 ]
@@ -256,7 +256,7 @@ export default function InPracticeContent() {
           }}
         >
           <Image
-            src="/images/home/doctor-patient-scene.png"
+            src="/images/home/doctor-patient-scene.jpg"
             alt=""
             fill
             sizes="55vw"
@@ -343,7 +343,7 @@ export default function InPracticeContent() {
         className="relative overflow-hidden py-20 md:py-24 bg-surface-cream"
       >
         <BlurredBackdrop
-          src="/images/home/doctor-patient-scene.png"
+          src="/images/home/doctor-patient-scene.jpg"
           tone="cream"
           imageOpacity={0.22}
           position="center 30%"
@@ -534,7 +534,7 @@ export default function InPracticeContent() {
 
       {/* FOR PROVIDERS — clinical-care benefits */}
       <section id="providers" className="relative overflow-hidden py-24 md:py-28 bg-surface-cream">
-        <BlurredBackdrop src="/images/home/provider-cinematic.png" tone="cream" imageOpacity={0.22} position="center 25%" />
+        <BlurredBackdrop src="/images/home/provider-cinematic.jpg" tone="cream" imageOpacity={0.22} position="center 25%" />
         <div className="relative mx-auto max-w-[1280px] px-6 md:px-12">
           <ScrollReveal>
             <SectionLabel>For Providers</SectionLabel>
@@ -567,7 +567,7 @@ export default function InPracticeContent() {
 
       {/* FOR PRACTICE LEADERS — operational + economic benefits, visually distinct from providers */}
       <section id="practice-leaders" className="relative overflow-hidden py-24 md:py-28 bg-surface-warm-white">
-        <BlurredBackdrop src="/images/home/doctor-portrait-cinematic.png" tone="warm-white" imageOpacity={0.30} position="center 30%" />
+        <BlurredBackdrop src="/images/home/doctor-portrait-cinematic.jpg" tone="warm-white" imageOpacity={0.30} position="center 30%" />
         <div className="relative mx-auto max-w-[1280px] px-6 md:px-12">
           <ScrollReveal>
             <SectionLabel>For Practice Leaders</SectionLabel>

@@ -341,7 +341,7 @@ function WhatGetsLeftOut() {
             >
               <div className="relative aspect-[4/3]">
                 <Image
-                  src="/images/home/pensive-woman.png"
+                  src="/images/home/pensive-woman.jpg"
                   alt="Photorealistic portrait of a pensive woman"
                   fill
                   sizes="(min-width: 1024px) 420px, 100vw"
@@ -504,12 +504,11 @@ export default function TheProblem() {
 
             <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
               <Image
-                src="/images/home/doctor-portrait-cinematic.png"
+                src="/images/home/doctor-portrait-cinematic.jpg"
                 alt="Distinguished older clinician in cinematic film-style portrait"
                 fill
                 sizes="(min-width: 1024px) 440px, 100vw"
                 className="object-cover"
-                priority
               />
               <div
                 aria-hidden="true"

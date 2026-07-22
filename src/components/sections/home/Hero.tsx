@@ -37,7 +37,7 @@ export default function Hero() {
         }}
       >
         <Image
-          src="/images/home/hero-doctor.png"
+          src="/images/home/hero-doctor.jpg"
           alt=""
           fill
           sizes="55vw"

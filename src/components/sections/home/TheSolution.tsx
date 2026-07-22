@@ -71,7 +71,7 @@ export default function TheSolution() {
             >
               <div className="relative aspect-[4/3]">
                 <Image
-                  src="/images/home/hands-offer-headset.png"
+                  src="/images/home/hands-offer-headset.jpg"
                   alt="A patient receives a VR headset from a provider"
                   fill
                   sizes="(min-width: 1024px) 600px, 100vw"

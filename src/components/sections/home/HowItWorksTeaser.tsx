@@ -131,7 +131,7 @@ export default function HowItWorksTeaser() {
               }}
             >
               <Image
-                src="/images/home/avatar-robot-2.png"
+                src="/images/home/avatar-robot-2.jpg"
                 alt=""
                 fill
                 sizes="260px"

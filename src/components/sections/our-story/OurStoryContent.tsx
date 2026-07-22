@@ -71,7 +71,7 @@ export default function OurStoryContent() {
           }}
         >
           <Image
-            src="/images/home/doctor-patient-scene.png"
+            src="/images/home/doctor-patient-scene.jpg"
             alt=""
             fill
             sizes="55vw"
@@ -193,7 +193,7 @@ export default function OurStoryContent() {
                 column on the left so the section's top and bottom align. */}
             <div className="hidden lg:block relative rounded-2xl overflow-hidden">
               <Image
-                src="/images/our-story/research-finding-hands.png"
+                src="/images/our-story/research-finding-hands.jpg"
                 alt="Vintage-style photograph of a person's hands holding a patient chart"
                 fill
                 sizes="(min-width: 1024px) 440px, 100vw"

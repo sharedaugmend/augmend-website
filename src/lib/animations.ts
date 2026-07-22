@@ -14,4 +14,4 @@ export const staggerChild = {
   },
 }
 
-export const viewportOnce = { once: true, amount: 0.15 } as const
+export const viewportOnce = { once: true, amount: "some" } as const

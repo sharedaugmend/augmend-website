@@ -102,7 +102,7 @@ export default function HowItWorksContent() {
           }}
         >
           <Image
-            src="/images/how-it-works/hero-woman.png"
+            src="/images/how-it-works/hero-woman.jpg"
             alt=""
             fill
             sizes="55vw"
@@ -244,7 +244,7 @@ export default function HowItWorksContent() {
 
       {/* SESSION TYPES — Data Collection + Exercise groupings (VR Exercises folded in) */}
       <section className="relative overflow-hidden py-24 md:py-28 bg-surface-cream">
-        <BlurredBackdrop src="/images/home/vr-chamber.png" tone="cream" imageOpacity={0.25} position="center 40%" />
+        <BlurredBackdrop src="/images/home/vr-chamber.jpg" tone="cream" imageOpacity={0.25} position="center 40%" />
         <div className="relative mx-auto max-w-[1280px] px-6 md:px-12">
           <ScrollReveal>
             <SectionLabel>Session Types</SectionLabel>
@@ -307,7 +307,7 @@ export default function HowItWorksContent() {
               <GlassCard tone="neutral" className="overflow-hidden order-2 lg:order-1 flex flex-col">
                 <div className="relative flex-1 min-h-[520px]">
                   <Image
-                    src="/images/how-it-works/exercise-living-room-new.png"
+                    src="/images/how-it-works/exercise-living-room-new.jpg"
                     alt="A modern living room set up for an at-home VR exercise session"
                     fill
                     sizes="(min-width: 1024px) 420px, 100vw"
@@ -377,7 +377,7 @@ export default function HowItWorksContent() {
         >
           <div className="relative h-full overflow-hidden">
             <Image
-              src="/images/home/hands-offer-headset.png"
+              src="/images/home/hands-offer-headset.jpg"
               alt=""
               fill
               sizes="44vw"
