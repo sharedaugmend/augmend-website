@@ -93,15 +93,6 @@ export const advisors: Advisor[] = [
     board: "medical",
   },
   {
-    name: "Risa Weisberg, PhD",
-    affiliation: "Boston VA / Brown University",
-    domain: "Anxiety, primary care, digital behavioral health",
-    bio: "Clinical psychologist and health services researcher. Expert in implementing behavioral health interventions in primary care settings. Advises on clinical deployment and population reach.",
-    image: "/images/advisors/RisaWeisberg.png",
-    category: "clinical",
-    board: "medical",
-  },
-  {
     name: "Christine Palermo, MD, MBA",
     affiliation: "Encore Consulting / Former CommonSpirit",
     domain: "Revenue cycle management",
