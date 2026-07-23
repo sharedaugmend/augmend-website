@@ -49,18 +49,9 @@ export default function FloatingDotBar({
   const animRef = useRef<number>(0)
 
   // Imperative refs so the animation loop sees the latest target without
-  // tearing down between renders. Initialized straight from props (no need
-  // to wait for an effect) and kept in sync by the small effects below —
-  // the dot cloud + draw loop below never depends on these, so scrolling
-  // fill/accent changes no longer tear down and regenerate the dots.
-  const targetFillRef = useRef(fill)
-  const targetAccentRef = useRef(accentRatio)
-  useEffect(() => {
-    targetFillRef.current = fill
-  }, [fill])
-  useEffect(() => {
-    targetAccentRef.current = accentRatio
-  }, [accentRatio])
+  // tearing down between renders.
+  const targetFill = fill
+  const targetAccent = accentRatio
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -75,8 +66,8 @@ export default function FloatingDotBar({
 
     const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
     if (reduce) {
-      fillRef.current = targetFillRef.current
-      accentRef.current = targetAccentRef.current
+      fillRef.current = targetFill
+      accentRef.current = targetAccent
     }
 
     // Generate a stable cloud of dots once. Density is high enough that the
@@ -112,8 +103,8 @@ export default function FloatingDotBar({
     let t = 0
     function draw() {
       // Ease toward target
-      fillRef.current += (targetFillRef.current - fillRef.current) * 0.06
-      accentRef.current += (targetAccentRef.current - accentRef.current) * 0.06
+      fillRef.current += (targetFill - fillRef.current) * 0.06
+      accentRef.current += (targetAccent - accentRef.current) * 0.06
       t += 16
 
       ctx!.clearRect(0, 0, width, height)
@@ -161,54 +152,12 @@ export default function FloatingDotBar({
       }
       ctx!.globalAlpha = 1
 
-      if (running) {
-        animRef.current = requestAnimationFrame(draw)
-      }
+      animRef.current = requestAnimationFrame(draw)
     }
+    draw()
 
-    // Pause the loop entirely while the bar is offscreen or the tab is
-    // hidden — four of these run at once on TheProblem, each doing its own
-    // per-frame canvas work for no visible benefit when scrolled away.
-    let running = false
-    let isIntersecting = false
-    const startLoop = () => {
-      if (running) return
-      running = true
-      draw()
-    }
-    const stopLoop = () => {
-      running = false
-      cancelAnimationFrame(animRef.current)
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        isIntersecting = entries[0]?.isIntersecting ?? false
-        if (isIntersecting && !document.hidden) {
-          startLoop()
-        } else {
-          stopLoop()
-        }
-      },
-      { threshold: 0 }
-    )
-    observer.observe(canvas)
-
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        stopLoop()
-      } else if (isIntersecting) {
-        startLoop()
-      }
-    }
-    document.addEventListener("visibilitychange", handleVisibilityChange)
-
-    return () => {
-      stopLoop()
-      observer.disconnect()
-      document.removeEventListener("visibilitychange", handleVisibilityChange)
-    }
-  }, [width, height, variant])
+    return () => cancelAnimationFrame(animRef.current)
+  }, [targetFill, targetAccent, width, height, variant])
 
   const labelColor =
     variant === "dark" ? "rgba(255,255,255,0.78)" : "var(--color-neutral-slate, #6B7B8D)"
