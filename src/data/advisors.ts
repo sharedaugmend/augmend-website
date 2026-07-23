@@ -100,7 +100,7 @@ export const advisors: Advisor[] = [
     image: "/images/advisors/ChristinePalermo.png",
     linkedin: "https://www.linkedin.com/in/christine-palermo-md-facp-cpc/",
     category: "business",
-    board: "business",
+    board: "medical",
   },
   {
     name: "Jessica Jackson, PhD",
@@ -110,7 +110,7 @@ export const advisors: Advisor[] = [
     image: "/images/advisors/JessicaJackson.png",
     linkedin: "https://www.linkedin.com/in/jljackso/",
     category: "regulatory",
-    board: "business",
+    board: "medical",
   },
   {
     name: "Roger Ferguson Jr., PhD, JD",
