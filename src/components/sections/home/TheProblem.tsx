@@ -122,7 +122,7 @@ type Stage = 0 | 1 | 2 | 3 | 4 | 5
 function pickBarSize(width: number): { w: number; h: number } {
   if (width < 480) return { w: 60, h: 300 }
   if (width < 640) return { w: 72, h: 340 }
-  if (width < 1024) return { w: 96, h: 400 }
+  if (width < 1280) return { w: 96, h: 400 }
   return { w: 140, h: 460 }
 }
 
@@ -142,9 +142,9 @@ function WhatGetsLeftOut() {
     // initial state already matches the server-rendered HTML, this update
     // will not trigger a hydration mismatch.
     setBar(pickBarSize(window.innerWidth))
-    setIsPinned(window.matchMedia("(min-width: 1280px)").matches)
+    setIsPinned(window.matchMedia("(min-width: 1024px)").matches)
 
-    const mql = window.matchMedia("(min-width: 1280px)")
+    const mql = window.matchMedia("(min-width: 1024px)")
     const onMqlChange = () => setIsPinned(mql.matches)
     mql.addEventListener("change", onMqlChange)
 
@@ -220,10 +220,10 @@ function WhatGetsLeftOut() {
   return (
     <section
       ref={sectionRef}
-      className="relative xl:h-[320vh]"
+      className="relative lg:h-[320vh]"
     >
       <div
-        className="relative xl:sticky xl:top-0 xl:h-screen flex items-center overflow-hidden py-16 xl:py-0"
+        className="relative lg:sticky lg:top-0 lg:h-screen flex items-center overflow-hidden py-16 lg:py-0"
         style={{
           background:
             "radial-gradient(ellipse at 30% 20%, #1a1660 0%, #0f0c46 45%, #070625 100%)",
@@ -250,7 +250,7 @@ function WhatGetsLeftOut() {
         />
 
         <div className="relative mx-auto max-w-[1280px] px-6 md:px-12 w-full py-8 md:py-10">
-          <div className="grid grid-cols-1 xl:grid-cols-[1fr_400px] gap-8 sm:gap-10 xl:gap-14 items-stretch">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] xl:grid-cols-[1fr_400px] gap-8 sm:gap-10 lg:gap-10 xl:gap-14 items-stretch">
             {/* LEFT — title sits at the top of the column so it top-aligns
                 with the right-side image card. Bars fill the rest below. */}
             <div className="flex flex-col">
