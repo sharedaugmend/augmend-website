@@ -286,10 +286,10 @@ export default function OurStoryContent() {
                     <div className="font-body font-bold text-[12px] uppercase tracking-[0.05em] text-brand-indigo mt-1">
                       {m.title}
                     </div>
-                    {m.bio && (
-                      <p className="mt-3 font-body text-[14px] leading-relaxed text-neutral-slate">
-                        {m.bio}
-                      </p>
+                    {m.credentials && (
+                      <div className="mt-1 font-body text-[12px] text-neutral-slate">
+                        {m.credentials}
+                      </div>
                     )}
                   </GlassCard>
                 </motion.div>

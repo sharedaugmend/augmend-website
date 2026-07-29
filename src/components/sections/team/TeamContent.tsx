@@ -80,9 +80,6 @@ function LeaderCard({ m }: { m: TeamMember }) {
       {m.credentials && (
         <div className="font-body text-[12px] text-neutral-slate mt-1">{m.credentials}</div>
       )}
-      {m.bio && (
-        <p className="mt-3 font-body text-[14px] leading-relaxed text-neutral-slate">{m.bio}</p>
-      )}
       {m.linkedin && (
         <a
           href={m.linkedin}

@@ -35,7 +35,7 @@ const jsonLd = {
         { "@type": "Person", name: "Sacha Moreau" },
         { "@type": "Person", name: "Thomas J. Schneider" },
         { "@type": "Person", name: "Aleksy Dojnow" },
-        { "@type": "Person", name: "Alexandra Therond" },
+        { "@type": "Person", name: "Alexandra Thérond" },
       ],
       contactPoint: {
         "@type": "ContactPoint",

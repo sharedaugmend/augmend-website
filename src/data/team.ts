@@ -2,7 +2,6 @@ export interface TeamMember {
   name: string
   title: string
   credentials?: string
-  bio: string
   image?: string
   linkedin?: string
   section: "leadership" | "extended"
@@ -13,8 +12,7 @@ export const team: TeamMember[] = [
   {
     name: "Sacha Moreau",
     title: "Co-Founder",
-    credentials: "MIT",
-    bio: "Product development, design, and environmental psychology.",
+    credentials: "MIT MA Architecture & Planning",
     image: "/images/team/SachaMoreau.png",
     linkedin: "https://linkedin.com/in/sacha-moreau",
     section: "leadership",
@@ -23,8 +21,7 @@ export const team: TeamMember[] = [
   {
     name: "Thomas J. Schneider",
     title: "Co-Founder, CEO & General Counsel",
-    credentials: "DPhil, Oxford · Harvard Law. DLaws, Deakin",
-    bio: "Business restructuring and healthcare operations.",
+    credentials: "Oxford DPhil · Harvard Law JD · Deakin LLD (hon.)",
     image: "/images/team/ThomasSchneider.png",
     linkedin: "https://linkedin.com/in/thomas-schneider-094623246",
     section: "leadership",
@@ -33,18 +30,16 @@ export const team: TeamMember[] = [
   {
     name: "Aleksy Dojnow",
     title: "Co-Founder, CPO",
-    credentials: "MIT",
-    bio: "Product development spanning VR, AI, and 3D systems.",
+    credentials: "MIT M.Arch",
     image: "/images/team/AleksyDojnow.png",
     linkedin: "https://linkedin.com/in/aleksy-dojnow-bb810a13b",
     section: "leadership",
     order: 3,
   },
   {
-    name: "Alexandra Therond",
-    title: "Co-Founder",
-    credentials: "PhD & PsyD, Université du Québec à Montréal",
-    bio: "Clinical and experimental psychology with specialization in VR and digital health.",
+    name: "Alexandra Thérond",
+    title: "Co-Founder and Clinical Advisor",
+    credentials: "UQÀM PhD & PsyD (candidate, expected June 2027)",
     image: "/images/team/AlexandraTherond.png",
     linkedin: "https://linkedin.com/in/alexandra-therond-63290391",
     section: "leadership",
@@ -53,8 +48,7 @@ export const team: TeamMember[] = [
   {
     name: "Mark Ruchman, MD",
     title: "Chief Medical Officer",
-    credentials: "Yale Medical School",
-    bio: "Clinical validation and provider engagement.",
+    credentials: "Yale MD",
     image: "/images/team/MarkRuchman.jpg",
     linkedin: "https://linkedin.com/in/mark-ruchman",
     section: "leadership",
@@ -62,9 +56,8 @@ export const team: TeamMember[] = [
   },
   {
     name: "Raysha Hutchins",
-    title: "Director of Engineering",
-    credentials: "MPH, Harvard · MBA & MS, Illinois State",
-    bio: "Data science, predictive modeling, and analytics engineering.",
+    title: "Chief Operations Officer",
+    credentials: "Harvard MPH · Illinois State MBA & MS",
     image: "/images/team/RayshaHutchins.png",
     linkedin: "https://www.linkedin.com/in/rayshahutch/",
     section: "leadership",
@@ -73,8 +66,7 @@ export const team: TeamMember[] = [
   {
     name: "Randy Maldonado, LCSW",
     title: "Senior Therapist",
-    credentials: "MSW, Fordham University",
-    bio: "Trauma-informed clinical care and bilingual therapy.",
+    credentials: "Fordham MSW",
     image: "/images/team/RandyMaldonado.jpg",
     linkedin: "https://www.linkedin.com/in/randymaldonadolcsw",
     section: "leadership",
@@ -83,8 +75,7 @@ export const team: TeamMember[] = [
   {
     name: "Hyunseok Hwang",
     title: "Senior Developer",
-    credentials: "Stanford",
-    bio: "Human-computer interaction and product engineering.",
+    credentials: "Stanford BS Computer Science",
     image: "/images/team/HyunseokHwang.png",
     linkedin: "https://www.linkedin.com/in/hyunseok-hwang/",
     section: "leadership",
@@ -93,8 +84,7 @@ export const team: TeamMember[] = [
   {
     name: "Chanapa \"Gift\" Kerdlapee",
     title: "Senior Technical Artist",
-    credentials: "BFA, SCAD",
-    bio: "Immersive 3D environments and VR art direction.",
+    credentials: "SCAD BFA",
     image: "/images/team/ChanapaGiftKerdlapee.jpg",
     linkedin: "https://www.linkedin.com/in/chanapakerd/",
     section: "leadership",
@@ -103,8 +93,7 @@ export const team: TeamMember[] = [
   {
     name: "Lucas De Paula Mari",
     title: "Senior DevOps",
-    credentials: "UNESP",
-    bio: "Platform engineering and cloud infrastructure.",
+    credentials: "UNESP BEng Mechanical Engineering",
     image: "/images/team/LucasDePaulaMari.png",
     linkedin: "https://www.linkedin.com/in/lucas-mari-119951118/",
     section: "leadership",
