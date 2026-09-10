@@ -11,7 +11,7 @@ export interface TeamMember {
 export const team: TeamMember[] = [
   {
     name: "Sacha Moreau",
-    title: "Co-Founder",
+    title: "Co-Founder & CEO",
     credentials: "MIT MA Architecture & Planning",
     image: "/images/team/SachaMoreau.png",
     linkedin: "https://linkedin.com/in/sacha-moreau",
@@ -20,7 +20,7 @@ export const team: TeamMember[] = [
   },
   {
     name: "Thomas J. Schneider",
-    title: "Co-Founder, CEO & General Counsel",
+    title: "Co-Founder, President & General Counsel",
     credentials: "Oxford DPhil · Harvard Law JD · Deakin LLD (hon.)",
     image: "/images/team/ThomasSchneider.png",
     linkedin: "https://linkedin.com/in/thomas-schneider-094623246",

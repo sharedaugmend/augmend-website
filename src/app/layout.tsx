@@ -32,10 +32,18 @@ const jsonLd = {
         "Clinical data collection services for specialty care. AugMend captures biopsychosocial data, structures it for clinical use, and generates billing documentation.",
       foundingDate: "2023",
       founders: [
-        { "@type": "Person", name: "Sacha Moreau" },
-        { "@type": "Person", name: "Thomas J. Schneider" },
-        { "@type": "Person", name: "Aleksy Dojnow" },
-        { "@type": "Person", name: "Alexandra Thérond" },
+        { "@type": "Person", name: "Sacha Moreau", jobTitle: "Co-Founder & CEO" },
+        {
+          "@type": "Person",
+          name: "Thomas J. Schneider",
+          jobTitle: "Co-Founder, President & General Counsel",
+        },
+        { "@type": "Person", name: "Aleksy Dojnow", jobTitle: "Co-Founder, CPO" },
+        {
+          "@type": "Person",
+          name: "Alexandra Thérond",
+          jobTitle: "Co-Founder and Clinical Advisor",
+        },
       ],
       contactPoint: {
         "@type": "ContactPoint",
