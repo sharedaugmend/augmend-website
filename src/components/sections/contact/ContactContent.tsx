@@ -18,10 +18,28 @@ const inquiryTypes = [
 
 export default function ContactContent() {
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState("")
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    setSubmitted(true)
+    setSending(true)
+    setError("")
+    const data = Object.fromEntries(new FormData(e.currentTarget))
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+      const json = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(json.error || "Your message didn't go through. Please email info@augmend.health.")
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Your message didn't go through. Please email info@augmend.health.")
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -59,7 +77,13 @@ export default function ContactContent() {
               </ScrollReveal>
             ) : (
               <ScrollReveal>
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="relative space-y-6">
+                  <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+                    <label>
+                      Website
+                      <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+                    </label>
+                  </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label htmlFor="name" className="block font-body font-bold text-sm text-neutral-near-black mb-2">
@@ -142,9 +166,14 @@ export default function ContactContent() {
                     />
                   </div>
 
-                  <Button type="submit" variant="primary" className="w-full md:w-auto">
-                    Send
+                  <Button type="submit" variant="primary" disabled={sending} className="w-full md:w-auto">
+                    {sending ? "Sending…" : "Send"}
                   </Button>
+                  {error && (
+                    <p role="alert" className="mt-3 font-body text-sm text-semantic-danger">
+                      {error}
+                    </p>
+                  )}
                   <p className="mt-3 font-body text-xs text-neutral-slate">
                     A clinical team member will follow up within one business day.
                   </p>

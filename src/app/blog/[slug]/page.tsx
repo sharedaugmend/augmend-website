@@ -7,6 +7,7 @@ import SectionLabel from "@/components/ui/SectionLabel"
 import ScrollReveal from "@/components/ui/ScrollReveal"
 import BrandedCover from "@/components/ui/BrandedCover"
 import Button from "@/components/ui/Button"
+import NewsletterCallout from "@/components/sections/newsletter/NewsletterCallout"
 import { blogCategories, DEFAULT_AUTHOR } from "@/data/blog"
 import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/content/blog/posts"
 
@@ -123,6 +124,11 @@ export default async function BlogPostPage({
         <article className="mx-auto max-w-[720px]">
           <Article />
         </article>
+
+        {/* Newsletter */}
+        <div className="mx-auto mt-16 max-w-[720px]">
+          <NewsletterCallout source={`blog:${post.slug}`} />
+        </div>
 
         {/* Back link */}
         <div className="mx-auto mt-16 max-w-[720px] border-t border-neutral-border pt-8">

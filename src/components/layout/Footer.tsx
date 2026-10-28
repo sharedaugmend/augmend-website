@@ -2,6 +2,8 @@ import Link from "next/link"
 import Image from "next/image"
 import { footerColumns, legalLinks } from "@/data/navigation"
 import Button from "@/components/ui/Button"
+import NewsletterSignup from "@/components/ui/NewsletterSignup"
+import { NEWSLETTER_NAME, NEWSLETTER_TAGLINE } from "@/data/newsletter"
 
 export default function Footer() {
   return (
@@ -10,6 +12,20 @@ export default function Footer() {
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-lime/30 to-transparent" />
 
       <div className="relative mx-auto max-w-[1280px] px-6 py-16 md:py-20">
+        {/* Newsletter */}
+        <div className="mb-16 grid grid-cols-1 gap-8 border-b border-white/[0.08] pb-16 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-5">
+            <p className="font-body font-bold text-[13px] uppercase tracking-[0.05em] text-accent-lime">
+              The monthly newsletter
+            </p>
+            <p className="mt-2 font-display text-[26px] leading-tight text-white">{NEWSLETTER_NAME}</p>
+            <p className="mt-2 font-body text-[15px] leading-relaxed text-white/60">{NEWSLETTER_TAGLINE}</p>
+          </div>
+          <div className="lg:col-span-7">
+            <NewsletterSignup tone="dark" compact source="footer" />
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-12">
           {/* Logo + tagline */}
           <div className="lg:col-span-4">

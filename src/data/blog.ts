@@ -6,12 +6,14 @@ export type BlogCategory =
   | "product-updates"
   | "industry-perspectives"
   | "press"
+  | "newsletter"
 
 export const blogCategories: Record<BlogCategory, string> = {
   "clinical-evidence": "Clinical Evidence",
   "product-updates": "Product Updates",
   "industry-perspectives": "Industry Perspectives",
   press: "Press",
+  newsletter: "Newsletter",
 }
 
 /** House byline used when a post doesn't name an author. */

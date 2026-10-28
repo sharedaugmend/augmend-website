@@ -20,6 +20,7 @@ interface ButtonProps {
   children: ReactNode
   onClick?: () => void
   type?: "button" | "submit"
+  disabled?: boolean
 }
 
 const variantClasses: Record<ButtonVariant, string> = {
@@ -66,6 +67,7 @@ export default function Button({
   children,
   onClick,
   type = "button",
+  disabled = false,
 }: ButtonProps) {
   const classes = `inline-flex items-center justify-center font-body font-bold text-[15px] tracking-[0.02em] rounded-md transition-all duration-150 ${variantClasses[variant]} ${sizeClasses[size]} ${className}`
   const mergedStyle: CSSProperties = {
@@ -83,7 +85,13 @@ export default function Button({
   }
 
   return (
-    <button type={type} onClick={onClick} className={classes} style={mergedStyle}>
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`${classes} disabled:opacity-60 disabled:pointer-events-none`}
+      style={mergedStyle}
+    >
       {children}
     </button>
   )
