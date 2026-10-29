@@ -6,6 +6,7 @@ import Section from "@/components/layout/Section"
 import SectionLabel from "@/components/ui/SectionLabel"
 import ScrollReveal from "@/components/ui/ScrollReveal"
 import Button from "@/components/ui/Button"
+import { CONTACT_MAILTO } from "@/data/newsletter"
 
 const inquiryTypes = [
   "General Inquiry",
@@ -188,14 +189,14 @@ export default function ContactContent() {
               <div className="space-y-6">
                 <div>
                   <h3 className="font-body font-bold text-lg">Get in touch</h3>
-                  <div className="mt-4 space-y-4">
-                    <a
-                      href="mailto:info@augmend.health"
-                      className="flex items-center gap-3 font-body text-[15px] text-neutral-near-black hover:text-brand-indigo transition-colors"
-                    >
-                      <Mail className="h-5 w-5 text-brand-indigo shrink-0" strokeWidth={1.5} />
+                  <div className="mt-4 space-y-3">
+                    <Button variant="secondary" href={CONTACT_MAILTO} className="gap-2">
+                      <Mail className="h-5 w-5 shrink-0" strokeWidth={1.5} />
+                      Email us
+                    </Button>
+                    <p className="font-body text-[15px] text-neutral-slate">
                       info@augmend.health
-                    </a>
+                    </p>
                   </div>
                 </div>
 

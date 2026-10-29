@@ -9,6 +9,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal"
 import Card from "@/components/ui/Card"
 import Button from "@/components/ui/Button"
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/animations"
+import { BOOKING_URL, CTA_LABEL } from "@/data/newsletter"
 
 const securityControls = [
   { domain: "Encryption in Transit", control: "TLS 1.2+ on all connections; WebSocket Secure", standard: "NIST SP 800-52 Rev. 2" },
@@ -280,8 +281,8 @@ export default function TrustSecurityContent() {
             Questions about our security infrastructure?
           </h2>
           <div className="mt-8 flex justify-center">
-            <Button variant="ghost" href="/contact">
-              Contact Our Team
+            <Button variant="ghost" href={BOOKING_URL} newTab>
+              {CTA_LABEL}
             </Button>
           </div>
         </ScrollReveal>

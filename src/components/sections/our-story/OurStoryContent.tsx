@@ -10,6 +10,7 @@ import GlassCard from "@/components/ui/GlassCard"
 import ConstellationBeliefs from "@/components/sections/our-story/ConstellationBeliefs"
 import { team } from "@/data/team"
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/animations"
+import { BOOKING_URL, CTA_LABEL } from "@/data/newsletter"
 
 const todayItems = [
   "Demand for care far exceeds the capacity of the system to provide the needed care in a timely manner.",
@@ -323,8 +324,8 @@ export default function OurStoryContent() {
             >
               We partner with specialty care practices, health systems, and clinical researchers building toward the same vision.
             </p>
-            <Button variant="primary" href="/contact" size="large">
-              Schedule a Conversation →
+            <Button variant="primary" href={BOOKING_URL} newTab size="large">
+              {CTA_LABEL} →
             </Button>
           </ScrollReveal>
         </div>

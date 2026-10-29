@@ -27,6 +27,7 @@ import Button from "@/components/ui/Button"
 import GlassCard from "@/components/ui/GlassCard"
 import BlurredBackdrop from "@/components/ui/BlurredBackdrop"
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/animations"
+import { BOOKING_URL, CTA_LABEL } from "@/data/newsletter"
 
 type Owner = "patient" | "system" | "provider"
 
@@ -324,8 +325,8 @@ export default function InPracticeContent() {
               </p>
             </div>
             <div className="relative z-[3] mt-6 flex flex-wrap gap-4 pointer-events-auto">
-              <Button variant="primary" href="/contact" size="large">
-                Start a Pilot →
+              <Button variant="primary" href={BOOKING_URL} newTab size="large">
+                {CTA_LABEL} →
               </Button>
               <Button variant="frosted" href="/platform/how-it-works" size="large">
                 See How It Works
@@ -752,8 +753,8 @@ export default function InPracticeContent() {
             >
               We work with specialty care practices. The deployment runs in four steps — pace varies clinic to clinic.
             </p>
-            <Button variant="primary" href="/contact" size="large">
-              Schedule a Conversation →
+            <Button variant="primary" href={BOOKING_URL} newTab size="large">
+              {CTA_LABEL} →
             </Button>
           </ScrollReveal>
         </div>

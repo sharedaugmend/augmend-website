@@ -10,6 +10,7 @@ import Button from "@/components/ui/Button"
 import NewsletterCallout from "@/components/sections/newsletter/NewsletterCallout"
 import { blogCategories, DEFAULT_AUTHOR } from "@/data/blog"
 import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/content/blog/posts"
+import { BOOKING_URL, CTA_LABEL } from "@/data/newsletter"
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }))
@@ -193,8 +194,8 @@ export default async function BlogPostPage({
               We run structured pilots with specialty care practices. Most go live in under four weeks.
             </p>
             <div className="mt-8 flex justify-center">
-              <Button href="/#contact" variant="primary" size="large">
-                Schedule a Conversation →
+              <Button href={BOOKING_URL} newTab variant="primary" size="large">
+                {CTA_LABEL} →
               </Button>
             </div>
           </div>

@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Button from "@/components/ui/Button"
 import ParticleFlow from "@/components/ui/ParticleFlow"
+import { BOOKING_URL, CTA_LABEL } from "@/data/newsletter"
 
 /**
  * Hero — exact port of the Claude design ref `Home.html` hero.
@@ -109,8 +110,8 @@ export default function Hero() {
         </div>
 
         <div className="relative z-[3] mt-6 flex flex-wrap gap-4 pointer-events-auto">
-          <Button variant="primary" href="#contact" size="large">
-            Schedule a Conversation
+          <Button variant="primary" href={BOOKING_URL} newTab size="large">
+            {CTA_LABEL}
           </Button>
           <Button variant="frosted" href="/platform/how-it-works" size="large">
             See How It Works

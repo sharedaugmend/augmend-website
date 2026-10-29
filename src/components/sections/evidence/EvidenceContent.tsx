@@ -10,6 +10,7 @@ import Button from "@/components/ui/Button"
 import GlassCard from "@/components/ui/GlassCard"
 import BlurredBackdrop from "@/components/ui/BlurredBackdrop"
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/animations"
+import { BOOKING_URL, CTA_LABEL } from "@/data/newsletter"
 
 /**
  * Animated number counter — counts from 0 → target when the element enters
@@ -279,8 +280,8 @@ export default function EvidenceContent() {
               </p>
             </div>
             <div className="relative z-[3] mt-6 flex flex-wrap gap-4 pointer-events-auto">
-              <Button variant="primary" href="/contact" size="large">
-                Talk to Research Team
+              <Button variant="primary" href={BOOKING_URL} newTab size="large">
+                {CTA_LABEL}
               </Button>
               <Button variant="frosted" href="#third-party" size="large">
                 Browse Citations
@@ -485,8 +486,8 @@ export default function EvidenceContent() {
             >
               We&rsquo;re happy to walk through the evidence base with your medical team or IRB.
             </p>
-            <Button variant="primary" href="/contact" size="large">
-              Schedule a Conversation →
+            <Button variant="primary" href={BOOKING_URL} newTab size="large">
+              {CTA_LABEL} →
             </Button>
           </ScrollReveal>
         </div>

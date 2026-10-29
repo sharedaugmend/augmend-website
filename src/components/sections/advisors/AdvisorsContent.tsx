@@ -8,6 +8,7 @@ import ScrollReveal from "@/components/ui/ScrollReveal"
 import Button from "@/components/ui/Button"
 import { advisors } from "@/data/advisors"
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/animations"
+import { BOOKING_URL, CTA_LABEL } from "@/data/newsletter"
 
 export default function AdvisorsContent() {
   return (
@@ -55,7 +56,7 @@ export default function AdvisorsContent() {
       <Section bg="indigo">
         <ScrollReveal>
           <h2 className="text-white text-center">Let's talk.</h2>
-          <div className="mt-8 flex justify-center"><Button variant="ghost" href="/contact">Schedule a Conversation</Button></div>
+          <div className="mt-8 flex justify-center"><Button variant="ghost" href={BOOKING_URL} newTab>{CTA_LABEL}</Button></div>
         </ScrollReveal>
       </Section>
     </>

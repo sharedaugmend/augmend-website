@@ -3,7 +3,7 @@ import Image from "next/image"
 import { footerColumns, legalLinks } from "@/data/navigation"
 import Button from "@/components/ui/Button"
 import NewsletterSignup from "@/components/ui/NewsletterSignup"
-import { NEWSLETTER_NAME, NEWSLETTER_TAGLINE } from "@/data/newsletter"
+import { BOOKING_URL, CONTACT_MAILTO, CTA_LABEL, NEWSLETTER_NAME, NEWSLETTER_TAGLINE } from "@/data/newsletter"
 
 export default function Footer() {
   return (
@@ -71,10 +71,16 @@ export default function Footer() {
 
           {/* CTA */}
           <div className="lg:col-span-3">
-            <div>
-              <Button variant="ghost" href="/contact" className="!h-10 !px-6 !text-sm">
-                Schedule a Conversation
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-3">
+              <Button variant="ghost" href={BOOKING_URL} newTab className="!h-10 !px-6 !text-sm">
+                {CTA_LABEL}
               </Button>
+              <a
+                href={CONTACT_MAILTO}
+                className="font-body text-sm text-white/60 hover:text-accent-lime transition-colors duration-150"
+              >
+                Email us
+              </a>
             </div>
           </div>
         </div>

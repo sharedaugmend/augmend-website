@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { mainNav, type NavItem } from "@/data/navigation"
 import Button from "@/components/ui/Button"
+import { BOOKING_URL, CTA_LABEL } from "@/data/newsletter"
 
 function DesktopDropdown({
   item,
@@ -268,10 +269,10 @@ export default function Navbar() {
           <div className="hidden lg:block">
             <Button
               variant="primary"
-              href="/contact"
+              href={BOOKING_URL} newTab
               className="!h-10 !px-6 !text-sm"
             >
-              Schedule a Conversation
+              {CTA_LABEL}
             </Button>
           </div>
 
@@ -316,8 +317,8 @@ export default function Navbar() {
                 />
               ))}
               <div className="mt-4 pt-4 border-t border-neutral-border">
-                <Button variant="primary" href="/contact" className="w-full">
-                  Schedule a Conversation
+                <Button variant="primary" href={BOOKING_URL} newTab className="w-full">
+                  {CTA_LABEL}
                 </Button>
               </div>
             </div>

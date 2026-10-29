@@ -1,17 +1,8 @@
-"use client"
-
-import { useState, type FormEvent } from "react"
 import ScrollReveal from "@/components/ui/ScrollReveal"
 import Button from "@/components/ui/Button"
+import { BOOKING_URL, CTA_LABEL } from "@/data/newsletter"
 
 export default function CtaBlock() {
-  const [submitted, setSubmitted] = useState(false)
-
-  function onSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setSubmitted(true)
-  }
-
   return (
     <section
       id="contact"
@@ -42,57 +33,9 @@ export default function CtaBlock() {
               We run structured pilots with specialty care practices. Most go live in under four weeks.
             </p>
 
-            {submitted ? (
-              <p className="font-display text-[22px] text-white">
-                Thank you, we&rsquo;ll be in touch shortly.
-              </p>
-            ) : (
-              <form onSubmit={onSubmit} className="flex flex-col items-center gap-4">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Your name"
-                    required
-                    className="rounded-lg px-[18px] h-12 w-full font-body text-[15px] text-white placeholder:text-white/40 outline-none transition-colors"
-                    style={{
-                      background: "rgba(255,255,255,0.1)",
-                      border: "1px solid rgba(255,255,255,0.2)",
-                    }}
-                  />
-                  <input
-                    type="text"
-                    name="org"
-                    placeholder="Organization"
-                    className="rounded-lg px-[18px] h-12 w-full font-body text-[15px] text-white placeholder:text-white/40 outline-none transition-colors"
-                    style={{
-                      background: "rgba(255,255,255,0.1)",
-                      border: "1px solid rgba(255,255,255,0.2)",
-                    }}
-                  />
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="Work email"
-                    required
-                    className="rounded-lg px-[18px] h-12 w-full font-body text-[15px] text-white placeholder:text-white/40 outline-none transition-colors"
-                    style={{
-                      background: "rgba(255,255,255,0.1)",
-                      border: "1px solid rgba(255,255,255,0.2)",
-                    }}
-                  />
-                </div>
-                <Button variant="primary" size="large" type="submit">
-                  Schedule a Conversation →
-                </Button>
-                <p
-                  className="font-body text-[13px] mt-3"
-                  style={{ color: "rgba(255,255,255,0.35)" }}
-                >
-                  We&rsquo;ll be in touch within one business day. No spam, ever.
-                </p>
-              </form>
-            )}
+            <Button variant="primary" size="large" href={BOOKING_URL} newTab>
+              {CTA_LABEL} →
+            </Button>
           </div>
         </ScrollReveal>
       </div>

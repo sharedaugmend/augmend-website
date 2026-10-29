@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Section from "@/components/layout/Section"
 import Button from "@/components/ui/Button"
+import { BOOKING_URL, CTA_LABEL } from "@/data/newsletter"
 
 export default function NotFound() {
   return (
@@ -17,8 +18,8 @@ export default function NotFound() {
           <Button variant="primary" href="/">
             Go Home
           </Button>
-          <Button variant="secondary" href="/contact">
-            Contact Us
+          <Button variant="secondary" href={BOOKING_URL} newTab>
+            {CTA_LABEL}
           </Button>
         </div>
       </div>

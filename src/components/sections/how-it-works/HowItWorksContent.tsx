@@ -12,6 +12,7 @@ import PullQuote from "@/components/ui/PullQuote"
 import BlurredBackdrop from "@/components/ui/BlurredBackdrop"
 import ReportScrollthrough from "@/components/sections/how-it-works/ReportScrollthrough"
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/animations"
+import { BOOKING_URL, CTA_LABEL } from "@/data/newsletter"
 
 const conversationFeatures = [
   {
@@ -178,8 +179,8 @@ export default function HowItWorksContent() {
               <Button variant="primary" href="/in-practice" size="large">
                 See It in Practice
               </Button>
-              <Button variant="frosted" href="/contact" size="large">
-                Schedule a Conversation
+              <Button variant="frosted" href={BOOKING_URL} newTab size="large">
+                {CTA_LABEL}
               </Button>
             </div>
           </ScrollReveal>
@@ -572,8 +573,8 @@ export default function HowItWorksContent() {
               <Button variant="primary" href="/in-practice" size="large">
                 See It in Practice →
               </Button>
-              <Button variant="frosted" href="/contact" size="large">
-                Schedule a Conversation
+              <Button variant="frosted" href={BOOKING_URL} newTab size="large">
+                {CTA_LABEL}
               </Button>
             </div>
           </ScrollReveal>

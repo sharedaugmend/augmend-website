@@ -15,6 +15,8 @@ interface ButtonProps {
   variant?: ButtonVariant
   size?: ButtonSize
   href?: string
+  /** Open an http(s) href in a new tab via a plain <a>. */
+  newTab?: boolean
   className?: string
   style?: CSSProperties
   children: ReactNode
@@ -62,6 +64,7 @@ export default function Button({
   variant = "primary",
   size = "default",
   href,
+  newTab = false,
   className = "",
   style,
   children,
@@ -74,6 +77,20 @@ export default function Button({
     transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)",
     ...variantStyle[variant],
     ...style,
+  }
+
+  // External, new-tab and mailto links skip next/link's client routing.
+  if (href && (newTab || href.startsWith("mailto:"))) {
+    return (
+      <a
+        href={href}
+        className={classes}
+        style={mergedStyle}
+        {...(newTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
+        {children}
+      </a>
+    )
   }
 
   if (href) {

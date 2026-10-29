@@ -72,3 +72,10 @@ export const WARM_TIMELINES = new Set(TIMELINE_OPTIONS.slice(1))
 /** Booking link for "Book a 20-minute call" (Sacha's Notion Calendar page). */
 export const BOOKING_URL =
   process.env.NEXT_PUBLIC_BOOKING_URL || "https://calendar.notion.so/meet/sachamoreau/hf7cw4y0w"
+
+/** Label for every booking button across the site. */
+export const CTA_LABEL = "Book a 20-minute call"
+
+/** "Email us" links: opens a new email to info@ with Sacha in CC. */
+export const CONTACT_MAILTO =
+  "mailto:info@augmend.health?cc=smoreau@augmend.health&subject=AugMend%20inquiry"

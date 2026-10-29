@@ -10,6 +10,7 @@ import GlassCard from "@/components/ui/GlassCard"
 import { team, type TeamMember } from "@/data/team"
 import { advisors, type Advisor } from "@/data/advisors"
 import { staggerParent, staggerChild, viewportOnce } from "@/lib/animations"
+import { BOOKING_URL, CTA_LABEL } from "@/data/newsletter"
 
 const backerLogos = [
   { src: "mit-sandbox.png", alt: "MIT Sandbox" },
@@ -379,8 +380,8 @@ export default function TeamContent() {
             >
               We&rsquo;re building toward a future where every provider has the information they need. If that resonates, we&rsquo;d like to hear from you.
             </p>
-            <Button variant="primary" href="/contact" size="large">
-              Get in Touch →
+            <Button variant="primary" href={BOOKING_URL} newTab size="large">
+              {CTA_LABEL} →
             </Button>
           </ScrollReveal>
         </div>
