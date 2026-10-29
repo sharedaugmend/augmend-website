@@ -1,11 +1,10 @@
 /**
  * Newsletter + lead-capture copy and options — one place to edit.
  *
- * The newsletter name is a placeholder until Sacha picks one; change
- * NEWSLETTER_NAME here and every page, form and email alert updates.
+ * Change NEWSLETTER_NAME here and every page, form and email alert updates.
  */
 
-export const NEWSLETTER_NAME = "Point by Point"
+export const NEWSLETTER_NAME = "Mending Healthcare"
 
 export const NEWSLETTER_TAGLINE =
   "A monthly read for specialty clinic leaders on patient-reported data, clinical workflow and what's changing in care delivery."
