@@ -1,7 +1,8 @@
 /**
  * Signs the subscriber's email into a short-lived httpOnly cookie so the
  * welcome survey can only update the person who just signed up.
- * Env: NEWSLETTER_SIGNING_SECRET (any long random string).
+ * Env: NEWSLETTER_SIGNING_SECRET (optional; falls back to BEEHIIV_API_KEY,
+ * which is already a server-only secret).
  */
 import { createHmac, timingSafeEqual } from "node:crypto"
 
@@ -9,8 +10,8 @@ export const SUBSCRIBER_COOKIE = "am_nl_sub"
 const MAX_AGE_SECONDS = 60 * 60 * 24 // one day to answer the survey
 
 function secret() {
-  const s = process.env.NEWSLETTER_SIGNING_SECRET
-  if (!s) throw new Error("NEWSLETTER_SIGNING_SECRET is not set")
+  const s = process.env.NEWSLETTER_SIGNING_SECRET || process.env.BEEHIIV_API_KEY
+  if (!s) throw new Error("No signing secret: set BEEHIIV_API_KEY")
   return s
 }
 

@@ -1,8 +1,8 @@
 import { NextResponse, type NextRequest } from "next/server"
 import { beehiivConfigured, createSubscription } from "@/lib/beehiiv"
-import { clean, isEmail, notifySlack, slackConfigured } from "@/lib/notify"
+import { clean, isEmail } from "@/lib/notify"
 import { SUBSCRIBER_COOKIE, cookieOptions, signEmail } from "@/lib/signing"
-import { NEWSLETTER_NAME, ROLE_OPTIONS } from "@/data/newsletter"
+import { ROLE_OPTIONS } from "@/data/newsletter"
 
 export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => null)
@@ -21,39 +21,30 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Please enter a valid email address." }, { status: 400 })
   }
 
-  if (!beehiivConfigured() && !slackConfigured()) {
+  if (!beehiivConfigured()) {
     return NextResponse.json(
       { error: "Sign-up isn't available right now. Please email info@augmend.health." },
       { status: 503 },
     )
   }
 
-  if (beehiivConfigured()) {
-    try {
-      await createSubscription({
-        email,
-        referringSite: request.headers.get("referer") ?? undefined,
-        customFields: [
-          { name: "First Name", value: firstName },
-          { name: "Role", value: role },
-          { name: "Organization", value: organization },
-        ],
-      })
-    } catch (err) {
-      console.error(err)
-      return NextResponse.json(
-        { error: "Something went wrong. Please try again or email info@augmend.health." },
-        { status: 502 },
-      )
-    }
-  }
-
-  if (slackConfigured()) {
-    const who = [firstName, role, organization].filter(Boolean).join(" · ")
-    const note = beehiivConfigured() ? "" : "\n(beehiiv not connected: add this person to the list by hand)"
-    await notifySlack(
-      `New ${NEWSLETTER_NAME} subscriber: ${email}${who ? ` (${who})` : ""}, signed up from ${source}.${note}`,
-    ).catch((err) => console.error(err))
+  try {
+    await createSubscription({
+      email,
+      referringSite: request.headers.get("referer") ?? undefined,
+      source,
+      customFields: [
+        { name: "First Name", value: firstName },
+        { name: "Role", value: role },
+        { name: "Organization", value: organization },
+      ],
+    })
+  } catch (err) {
+    console.error(err)
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again or email info@augmend.health." },
+      { status: 502 },
+    )
   }
 
   const res = NextResponse.json({ ok: true })

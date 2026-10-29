@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server"
 import { beehiivConfigured, updateSubscriptionFields } from "@/lib/beehiiv"
-import { clean, notifySlack, slackConfigured } from "@/lib/notify"
+import { clean } from "@/lib/notify"
 import { SUBSCRIBER_COOKIE, verifyToken } from "@/lib/signing"
 import {
   PROBLEM_OPTIONS,
@@ -37,24 +37,23 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Please answer at least one question." }, { status: 400 })
   }
 
-  if (beehiivConfigured()) {
+  if (!beehiivConfigured()) {
+    return NextResponse.json({ error: "Thanks — you're subscribed. The survey is offline right now." }, { status: 503 })
+  }
+
+  try {
     await updateSubscriptionFields(email, [
       { name: "Specialty", value: specialty },
       { name: "Biggest Problem", value: problem },
       { name: "Timeline", value: timeline },
-    ]).catch((err) => console.error(err))
-  }
-
-  if (slackConfigured()) {
-    const warm = WARM_TIMELINES.has(timeline)
-    const lines = [
-      `${warm ? "WARM LEAD — " : ""}Survey answered by ${email}`,
-      specialty && `Specialty: ${specialty}`,
-      problem && `Biggest problem: ${problem}`,
-      timeline && `Timeline: ${timeline}`,
-      notes && `Notes: ${notes}`,
-    ].filter(Boolean)
-    await notifySlack(lines.join("\n")).catch((err) => console.error(err))
+      { name: "Survey Notes", value: notes },
+    ])
+  } catch (err) {
+    console.error(err)
+    return NextResponse.json(
+      { error: "Your answers didn't save. You're still subscribed." },
+      { status: 502 },
+    )
   }
 
   return NextResponse.json({ ok: true, warm: WARM_TIMELINES.has(timeline) })

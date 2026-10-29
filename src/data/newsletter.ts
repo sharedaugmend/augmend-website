@@ -66,11 +66,9 @@ export const TIMELINE_OPTIONS = [
   "Now, looking for a pilot",
 ]
 
-/** Timeline answers that flag a reader as a warm lead in Slack. */
+/** Timeline answers that make a reader a warm lead (picked up by the weekday outreach task). */
 export const WARM_TIMELINES = new Set(TIMELINE_OPTIONS.slice(1))
 
-/**
- * Booking link for "Book a 20-minute call". Set NEXT_PUBLIC_BOOKING_URL in
- * Vercel to a Google Calendar booking page; falls back to the contact page.
- */
-export const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL || "/contact"
+/** Booking link for "Book a 20-minute call" (Sacha's Notion Calendar page). */
+export const BOOKING_URL =
+  process.env.NEXT_PUBLIC_BOOKING_URL || "https://calendar.notion.so/meet/sachamoreau/hf7cw4y0w"
