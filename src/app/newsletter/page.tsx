@@ -58,20 +58,43 @@ export default function NewsletterPage() {
       </Section>
 
       <Section bg="cream">
-        <ScrollReveal>
-          <SectionLabel>In every issue</SectionLabel>
-          <h2 className="mt-4 max-w-2xl">Four parts, ten minutes.</h2>
-        </ScrollReveal>
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-          {NEWSLETTER_SECTIONS.map((s, i) => (
-            <ScrollReveal key={s.title}>
-              <div className="h-full rounded-xl border border-neutral-border bg-surface-white p-7">
-                <span className="font-display text-[28px] text-brand-indigo">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="mt-3 font-body font-bold text-lg leading-snug">{s.title}</h3>
-                <p className="mt-2 text-[15px] text-neutral-slate">{s.body}</p>
-              </div>
-            </ScrollReveal>
-          ))}
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
+          <ScrollReveal className="lg:col-span-4">
+            <div className="lg:sticky lg:top-32">
+              <SectionLabel>In every issue</SectionLabel>
+              <h2 className="mt-4">One email a month. Four things worth opening it for.</h2>
+              <p className="mt-6 text-[17px] leading-relaxed text-neutral-slate">
+                Written for the medical directors, practice managers and owners who run specialty clinics,
+                and who would rather see the evidence than hear the pitch.
+              </p>
+            </div>
+          </ScrollReveal>
+
+          <ol className="lg:col-span-8 divide-y divide-neutral-border border-y border-neutral-border">
+            {NEWSLETTER_SECTIONS.map((s, i) => (
+              <li key={s.label}>
+                <ScrollReveal>
+                  <div className="grid grid-cols-[3.5rem_1fr] gap-x-4 py-8 md:grid-cols-[5rem_1fr] md:gap-x-6 md:py-10">
+                    <span
+                      aria-hidden="true"
+                      className="font-display text-[40px] leading-none text-brand-indigo md:text-[52px]"
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <p className="font-body font-bold text-[13px] uppercase tracking-[0.05em] text-brand-indigo">
+                        {s.label}
+                      </p>
+                      <h3 className="mt-2 font-body font-bold text-[22px] leading-snug text-neutral-near-black">
+                        {s.title}
+                      </h3>
+                      <p className="mt-3 max-w-xl text-[16px] leading-relaxed text-neutral-slate">{s.body}</p>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              </li>
+            ))}
+          </ol>
         </div>
       </Section>
 

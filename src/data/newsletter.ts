@@ -14,20 +14,24 @@ export const NEWSLETTER_AUTHOR = "Sacha Moreau, Co-founder & CEO"
 /** What each issue contains — shown on /newsletter. */
 export const NEWSLETTER_SECTIONS = [
   {
-    title: "One argument worth having",
-    body: "A position on a question clinic leaders disagree about, backed by peer-reviewed evidence you can check.",
+    label: "The argument",
+    title: "A clear position on a question clinic leaders disagree about",
+    body: "With the peer-reviewed studies behind it, so you can check the evidence and make up your own mind.",
   },
   {
-    title: "The deeper version",
-    body: "The idea readers responded to most on LinkedIn this month, followed all the way through.",
+    label: "The deep dive",
+    title: "One idea, taken further than a headline allows",
+    body: "What it means in practice for your intake, your staff and the way your clinic documents care.",
   },
   {
-    title: "What's new at AugMend",
-    body: "Milestones, new modules and features, and real footage from the clinic, with nothing you have to read twice.",
+    label: "From AugMend",
+    title: "What we're building and learning",
+    body: "New modules, milestones and real footage from the clinics we work with. Kept short.",
   },
   {
-    title: "One thing you can use",
-    body: "A checklist, template or chart you can take into your next staff meeting.",
+    label: "The takeaway",
+    title: "Something you can use on Monday",
+    body: "A checklist, template or chart to bring to your next staff meeting and use as is.",
   },
 ]
 
