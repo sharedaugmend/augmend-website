@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server"
 import { beehiivConfigured, createSubscription } from "@/lib/beehiiv"
-import { clean, isEmail } from "@/lib/notify"
+import { clean, isEmail, notifySlack, slackConfigured } from "@/lib/notify"
 import { SUBSCRIBER_COOKIE, cookieOptions, signEmail } from "@/lib/signing"
 import { ROLE_OPTIONS } from "@/data/newsletter"
 
@@ -45,6 +45,23 @@ export async function POST(request: NextRequest) {
       { error: "Something went wrong. Please try again or email info@augmend.health." },
       { status: 502 },
     )
+  }
+
+  if (slackConfigured()) {
+    try {
+      await notifySlack(
+        [
+          `New newsletter sign-up (${source})`,
+          firstName ? `${firstName} <${email}>` : email,
+          [role, organization].filter(Boolean).join(", "),
+        ]
+          .filter(Boolean)
+          .join("\n"),
+      )
+    } catch (err) {
+      // The alert is a convenience; the subscriber is already safe in beehiiv.
+      console.error(err)
+    }
   }
 
   const res = NextResponse.json({ ok: true })

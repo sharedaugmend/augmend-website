@@ -20,9 +20,9 @@ Newsletter name, tagline, form options, survey wording and booking link all live
 
 ## Where data goes
 
-- **Sign-up** → beehiiv subscriber in the Mending Healthcare publication, with First Name, Role, Organization, and the sign-up location as `utm_campaign`.
+- **Sign-up** → beehiiv subscriber in the Mending Healthcare publication, with First Name, Role, Organization, and the sign-up location as `utm_campaign`, plus a Slack alert through the same webhook as the contact form. A failed alert never blocks the sign-up.
 - **Survey** → the same subscriber gets Specialty, Biggest Problem, Timeline and Survey Notes. Only the person who just signed up can answer (signed httpOnly cookie, valid one day).
-- **Warm leads** (Timeline "Within the next 6 months" or "Now, looking for a pilot") are picked up each weekday morning by the "Website leads → outreach tracker" scheduled task, which adds them to the outreach tracker for a drafted reply. No Slack alert is sent by the site for newsletter activity.
+- **Warm leads** (Timeline "Within the next 6 months" or "Now, looking for a pilot") are picked up each weekday morning by the "Website leads → outreach tracker" scheduled task, which adds them to the outreach tracker for a drafted reply. Survey answers don't trigger a Slack alert.
 - **Contact form** → Slack, through an incoming webhook (time-sensitive: the page promises a reply within one business day).
 
 ## One-time setup — Vercel → Project → Settings → Environment Variables (Production and Preview)
@@ -36,12 +36,12 @@ Optional: `BEEHIIV_PUBLICATION_ID` (defaults to Mending Healthcare's ID), `NEWSL
 
 Already done in beehiiv: publication renamed Mending Healthcare, sender "Sacha Moreau", footer address, custom fields First Name, Role, Organization, Specialty, Biggest Problem, Timeline, Survey Notes.
 
-Redeploy after adding variables, then test: submit the contact form, sign up with a test address, answer the survey, and check Slack (contact only) and beehiiv (subscriber + fields).
+Redeploy after adding variables, then test: submit the contact form, sign up with a test address, answer the survey, and check Slack (contact and sign-up alerts) and beehiiv (subscriber + fields).
 
 ## Behaviour when something isn't configured
 
 - No beehiiv key: sign-up asks people to email info@augmend.health instead.
-- No Slack webhook: the contact form shows "please email info@augmend.health" instead of pretending to send.
+- No Slack webhook: the contact form shows "please email info@augmend.health" instead of pretending to send. Sign-ups still reach beehiiv, without the alert.
 - Nothing is ever silently dropped.
 
 ## Before going live
