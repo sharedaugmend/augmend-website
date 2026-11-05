@@ -29,7 +29,7 @@ export const team: TeamMember[] = [
   },
   {
     name: "Aleksy Dojnow",
-    title: "Co-Founder, CPO",
+    title: "Co-Founder",
     credentials: "MIT M.Arch",
     image: "/images/team/AleksyDojnow.png",
     linkedin: "https://linkedin.com/in/aleksy-dojnow-bb810a13b",

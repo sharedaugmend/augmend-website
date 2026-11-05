@@ -104,9 +104,9 @@ export const advisors: Advisor[] = [
   },
   {
     name: "Jessica Jackson, PhD",
-    affiliation: "Mental Health America / APA",
+    affiliation: "Compass Pathways / APA",
     domain: "Digital mental health policy, health equity",
-    bio: "Vice President of Alliance Development at Mental Health America. Founder & CEO of Therapy Is For Everyone. Chairs the APA Mental Health Technology Advisory Committee. Advises on federal digital health policy and health equity.",
+    bio: "Now at Compass Pathways. Founder & CEO of Therapy Is For Everyone. Chairs the APA Mental Health Technology Advisory Committee. Advises on federal digital health policy and health equity.",
     image: "/images/advisors/JessicaJackson.png",
     linkedin: "https://www.linkedin.com/in/jljackso/",
     category: "regulatory",

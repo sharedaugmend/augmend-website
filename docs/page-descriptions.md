@@ -337,7 +337,7 @@ Row 1: Dr. Michael Kritzer-Cheren — MGH, Harvard Medical School — Neuropsych
 Row 2: Dr. Min Lang — MGH, Brigham & Women's, Harvard Medical School — Neuroradiology, AI/XR in clinical imaging.
 Row 3: Dr. Soo Jeong Youn — OptumCare, Harvard Medical School — Product & implementation, evidence-based treatments.
 Row 4: Dr. Hilary Weingarden — HabitAware, Harvard Medical School — Digital mental health, former MGH Digital Health.
-Row 5: Dr. Jessica Jackson — Mental Health America, FDA Advisory — Regulatory strategy, clinical AI governance.
+Row 5: Dr. Jessica Jackson — Compass Pathways, FDA Advisory — Regulatory strategy, clinical AI governance.
 Row 6: Dr. Christine Palermo — Encore Consulting, former CommonSpirit Health — Revenue cycle, denials management.
 Row 7: Dr. Roger Ferguson Jr. — Alphabet, Memorial Sloan Kettering, former Federal Reserve — Institutional governance.
 Row 8: Dr. Jeffrey Gold — USC Keck, former AppliedVR/Limbix — Pediatric pain, VR therapeutics commercialization.

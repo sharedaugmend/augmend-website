@@ -39,7 +39,7 @@ const jsonLd = {
           name: "Thomas J. Schneider",
           jobTitle: "Co-Founder, President & General Counsel",
         },
-        { "@type": "Person", name: "Aleksy Dojnow", jobTitle: "Co-Founder, CPO" },
+        { "@type": "Person", name: "Aleksy Dojnow", jobTitle: "Co-Founder" },
         {
           "@type": "Person",
           name: "Alexandra Thérond",
