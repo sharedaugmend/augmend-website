@@ -58,7 +58,7 @@ export default function Figure({
               alt={altText}
               fill
               priority={priority}
-              sizes={wide ? "(min-width: 768px) 960px, 100vw" : "(min-width: 768px) 720px, 100vw"}
+              sizes={wide ? "(min-width: 768px) 960px, 100vw" : "(min-width: 768px) 780px, 100vw"}
               className={mat ? "object-contain" : "object-cover"}
             />
           </div>
@@ -69,7 +69,7 @@ export default function Figure({
             src={src}
             alt={altText}
             priority={priority}
-            sizes={wide ? "(min-width: 768px) 960px, 100vw" : "(min-width: 768px) 720px, 100vw"}
+            sizes={wide ? "(min-width: 768px) 960px, 100vw" : "(min-width: 768px) 780px, 100vw"}
             className="w-full h-auto"
           />
         </div>

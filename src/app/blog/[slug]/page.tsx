@@ -133,17 +133,17 @@ export default async function BlogPostPage({
 
       {/* Body */}
       <Section bg="white" padding="large" className="pt-12!">
-        <article className="mx-auto max-w-[720px]">
+        <article className="mx-auto max-w-[780px]">
           <Article />
         </article>
 
         {/* Newsletter */}
-        <div className="mx-auto mt-16 max-w-[720px]">
+        <div className="mx-auto mt-16 max-w-[780px]">
           <NewsletterCallout source={`blog:${post.slug}`} />
         </div>
 
         {/* Back link */}
-        <div className="mx-auto mt-16 max-w-[720px] border-t border-neutral-border pt-8">
+        <div className="mx-auto mt-16 max-w-[780px] border-t border-neutral-border pt-8">
           <Link
             href="/blog"
             className="font-body font-bold text-sm text-brand-indigo hover:text-brand-deep-space transition-colors"
