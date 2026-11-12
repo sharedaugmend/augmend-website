@@ -22,7 +22,8 @@ How a blog draft moves from the **AugMend Marketing Agent** to the **website**, 
 | A comparison or bar chart | the underlying values + citation | a native SVG chart |
 | A quote / statement | the text | a native pull quote / statement card |
 | Tabular data | the table as text/markdown | a styled native table |
-| A photo, scene, or illustration | the **image file** (Luma) | a `<Figure>` raster image |
+| A photo, scene, or illustration | the **image file** (Luma, or a still from the post's film) | a `<Figure>` raster image |
+| A film | web MP4s (1080p + 720p), a 16:9 poster, a caption, the on-screen text | a hero `ArticleVideo` (or inline) |
 
 Do **not** flatten a statistic into a PNG and send the PNG. Send the number. The site already has the brand-styled card system to render it.
 

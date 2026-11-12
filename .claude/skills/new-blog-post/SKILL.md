@@ -28,10 +28,11 @@ After publishing, move processed images into `src/content/blog/<slug>/`; the inb
 Before publishing, make sure you have:
 
 1. **Title** and the **body text** (the article itself).
-2. A **category** — one of: `clinical-evidence`, `product-updates`, `industry-perspectives`, `press`.
+2. A **category** — one of: `clinical-evidence`, `product-updates`, `industry-perspectives`, `press`, `newsletter`.
 3. A **publish date** (defaults to today if not given).
 4. **Images**, if any, and a note of roughly where each goes in the text. A **cover image** is optional — if none is given, a branded fallback cover is generated automatically.
 5. An **author/byline** only if it differs from the house default ("AugMend Health").
+5b. A **hero video**, if the post has one (see "Video" below): the web MP4s, a 16:9 poster, a one-line caption and, for films without voice-over, the on-screen text line by line.
 6. A short **excerpt** (1–2 sentences) for the card and meta tags. If not supplied, draft one and show it to the author for approval — this is summary copy, not the prose, so it may be written, but confirm it.
 
 If anything essential is missing, ask before proceeding.
@@ -70,6 +71,30 @@ The author's prose is never touched, but any copy *you* write — excerpts, capt
 - Tell, don't sell — captions and excerpts educate; they don't pitch.
 
 Draft excerpts/captions and show them to the author for approval rather than publishing copy silently.
+
+## Video
+
+A post can open with a film instead of a cover image, and can embed more films inline.
+
+- **Hero video:** set `heroVideo` on the registry entry (type `BlogVideo` in `src/data/blog.ts`): `src`, optional `srcSmall`, `poster` (an imported 16:9 image, usually the same file as `cover`), `title`, `durationSeconds`, `caption`, and `transcript` (the film's on-screen text, line by line). The article page renders it with `ArticleVideo` in place of the cover. Keep `cover` set too: it drives the blog index card and the share image.
+- **Inline video:** `import ArticleVideo from "@/components/ui/blog/ArticleVideo"` and use `<ArticleVideo src="/videos/blog/…" poster={importedPoster} title="…" caption="…" />` between paragraphs (add `wide` to break out of the text column).
+- **Files:** videos live in `public/videos/blog/<slug>-1080.mp4` (and `<slug>-720.mp4` for phones). Posters and stills live in the post folder like any image.
+- **Never autoplay** a film with sound. The component uses native controls, `preload="metadata"` and the poster first.
+- **Disclose AI imagery** in the caption and in the closing note when the film or stills were made with AI tools.
+
+### Video export standards
+
+- H.264 (High profile), yuv420p, `-movflags +faststart`, AAC 128 kbps.
+- 1080p two-pass at about 1.9 Mbps (≤ 25 MB for a 90-second film); 720p at about 1.0 Mbps for `srcSmall`. A light `hqdn3d` before encoding keeps film grain from eating the bitrate.
+- Poster: the strongest frame, 16:9, JPG ≤ 800 KB, no baked-in text.
+
+## Visual family for a post with a film
+
+When a post has a film, its inline images come from the film's world so the page reads as one piece: clean stills rendered without captions, in the film's style (for AugMend: indigo line drawings and dots over warm paper and graded film frames). Number them in reading order, give each a caption and alt text, and keep data (stats, comparisons) native as above rather than as stills.
+
+## Claims check
+
+Every AugMend claim in the post must match CLAIMS.md (Drive "AugMend Health/00 Company Brain"), column P (public). The author's prose is checked before it reaches this repo; captions, excerpts and alt text you write must follow the same file (for example, never "transform", "therapy", "therapeutic", "before and between visits"; the MIT pilot stays qualitative until published; no Montefiore figures in public).
 
 ## Folder structure
 
@@ -180,6 +205,7 @@ Guidance:
 - `src/content/blog/posts.ts` — the registry + `getAllPosts`, `getPostBySlug`, `getRelatedPosts`.
 - `src/components/ui/Figure.tsx` — standardized image frame.
 - `src/components/ui/PullQuote.tsx` — quote treatment.
+- `src/components/ui/blog/ArticleVideo.tsx` — hero and inline video player (poster, captions, "Text in the film" panel).
 - `src/components/ui/BrandedCover.tsx` — fallback cover when no image is supplied.
 - `src/mdx-components.tsx` — global markdown element styling (handles all prose typography automatically).
 - Article route: `src/app/blog/[slug]/page.tsx`. Index: `src/components/sections/blog/BlogContent.tsx`.

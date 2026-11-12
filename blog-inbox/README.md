@@ -17,9 +17,11 @@ Create one folder per post, named with the intended slug:
 blog-inbox/
   what-patients-withhold/
     draft.md         ← the article text (paste/export from the agent or Notion)
-    images/          ← raster images you generated in Luma (photos/scenes only)
+    images/          ← raster images (Luma scenes, or stills from the post's film)
       cover.jpg
       clinic-scene.jpg
+    video/           ← optional: web MP4s for a hero film (<slug>-1080.mp4, <slug>-720.mp4)
+    manifest.md      ← optional: where each image/stat/video goes, captions, alt text, sources
 ```
 
 `draft.md` can be plain text or markdown — just the title and the body as the

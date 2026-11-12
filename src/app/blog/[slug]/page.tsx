@@ -6,6 +6,7 @@ import Section from "@/components/layout/Section"
 import SectionLabel from "@/components/ui/SectionLabel"
 import ScrollReveal from "@/components/ui/ScrollReveal"
 import BrandedCover from "@/components/ui/BrandedCover"
+import ArticleVideo from "@/components/ui/blog/ArticleVideo"
 import Button from "@/components/ui/Button"
 import NewsletterCallout from "@/components/sections/newsletter/NewsletterCallout"
 import { blogCategories, DEFAULT_AUTHOR } from "@/data/blog"
@@ -36,6 +37,8 @@ export async function generateMetadata({
   const post = getPostBySlug(slug)
   if (!post) return {}
 
+  const shareImage = post.cover ?? post.heroVideo?.poster
+
   return {
     title: post.title,
     description: post.excerpt,
@@ -44,7 +47,8 @@ export async function generateMetadata({
       description: post.excerpt,
       type: "article",
       publishedTime: post.date,
-      images: post.cover ? [{ url: post.cover.src }] : undefined,
+      images: shareImage ? [{ url: shareImage.src }] : undefined,
+      videos: post.heroVideo ? [{ url: post.heroVideo.src, type: "video/mp4", width: 1920, height: 1080 }] : undefined,
     },
   }
 }
@@ -93,8 +97,13 @@ export default async function BlogPostPage({
         </ScrollReveal>
       </Section>
 
-      {/* Cover */}
+      {/* Cover — a hero video replaces the cover image when the post has one */}
       <Section bg="white" className="py-0!">
+        {post.heroVideo ? (
+          <div className="mx-auto max-w-[960px]">
+            <ArticleVideo {...post.heroVideo} />
+          </div>
+        ) : (
         <ScrollReveal>
           <div className="mx-auto max-w-[960px] overflow-hidden rounded-2xl border border-neutral-border">
             <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
@@ -118,6 +127,7 @@ export default async function BlogPostPage({
             </div>
           </div>
         </ScrollReveal>
+        )}
       </Section>
 
       {/* Body */}
