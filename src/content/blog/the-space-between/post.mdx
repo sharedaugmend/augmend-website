@@ -1,0 +1,122 @@
+import Figure from "@/components/ui/Figure"
+import Button from "@/components/ui/Button"
+import StatGraphic from "@/components/ui/blog/StatGraphic"
+import BarCompareGraphic from "@/components/ui/blog/BarCompareGraphic"
+import { BOOKING_URL } from "@/data/newsletter"
+import doorway from "./01-liminal-doorway.jpg"
+import avatar from "./02-avatar-conversation.jpg"
+import exercise from "./03-breathing-exercise.jpg"
+import handover from "./04-headset-handover.jpg"
+import threshold from "./05-threshold.jpg"
+
+export const meta = {
+  title: "The Space Between",
+  excerpt: "What immersive technology can do in the moments around a visit, and why it has to stay human.",
+  category: "industry-perspectives",
+  date: "2026-11-24",
+  author: "Sacha Moreau",
+}
+
+The future of care delivery support is immersive.
+
+Carefully crafted immersion holds attention in a way screens rarely do, and that's exactly why we cannot let it become dystopian.
+
+## Let's be honest and start from the facts
+
+There aren't enough staff, yet care needs people, especially nurses, for quality and compassion. Federal projections expect the United States to be short of registered nurses through 2038, the end of the projection period. The gap is about 8% nationally in 2028, and 24% outside metropolitan areas. For licensed practical nurses it is wider still: by 2038, supply is projected to meet only about 70% of demand.¹
+
+<StatGraphic
+  layout="row"
+  eyebrow="The nursing gap"
+  cite="HRSA, Nurse Workforce Projections 2023–2038 (Dec 2025)"
+  stats={[
+    { value: "8%", label: "projected shortage of registered nurses nationally in 2028" },
+    { value: "24%", label: "projected shortage of registered nurses outside metropolitan areas in 2028", tone: "orange" },
+    { value: "70%", label: "of demand for licensed practical nurses that supply is projected to meet in 2038", tone: "white" },
+  ]}
+/>
+
+Budgets aren't budging, and AI alone hasn't given care teams their time back, despite an avalanche of software options.
+
+Compliance, documentation and measurement keep adding to the to-do list, whatever the care model. In a four-year study of 141 primary care physicians at one academic health system, they spent more than six hours in the electronic health record, including time outside clinic hours, for every eight hours of scheduled appointments, and that time kept rising from 2019 to 2023.²
+
+If we want to genuinely evolve healthcare, we have to accept that humans need humans, and give care teams more time for the parts of care that give them energy. AI alone won't solve our problems. It has to fold into the realities of care. Agents can take on much of the remote work and box-ticking, and we should use them for it. But the problem isn't only paperwork. The opportunity is in the moments around the visit.
+
+## The space between
+
+There's a concept in architecture and design called liminal space: the space between two more important spaces. A corridor, a doorway, an entrance hall. Each exists to carry you into what comes next. The word comes from the Latin *limen*, threshold, and anthropologists have used it for more than a century to describe the in-between stage of a transition, when people have left one state and not yet arrived at the next.³
+
+<Figure src={doorway} alt="Indigo line drawing of an open doorway in elevation, with its door swing drawn in plan below." caption="A doorway: built to carry you into what comes next." />
+
+Immersive realities can be the liminal space clinics need before the visit. What if every clinic had one?
+
+This is not about all of us being plugged in like the humans in WALL-E. If it ever heads that way, we should pull the plug.
+
+What I'm talking about is enhancing the experience of care and making it a pleasant experience again, for patients and medical professionals at crucial points in the journey.
+
+## What happens when patients are immersed
+
+A patient settles into a chair in the clinic, puts on the headset, and an avatar asks what brought them in. When patients are immersed, they focus on the task at hand. The distractions fall away, and they can answer in their own words, so what they share informs the visit that follows.
+
+<Figure src={avatar} wide alt="AugMend's avatar floating beside a still lake in a calm desert landscape at golden hour, with faint line drawings and dots over the scene." caption="Inside the headset: AugMend's avatar asks the questions, and the patient answers in their own words." />
+
+That matters because so much goes unsaid today. In two national online surveys of 4,510 US adults, 61–81% said they had withheld medically relevant information from a clinician. The most common reason was not wanting to be judged or lectured.⁴
+
+<StatGraphic
+  eyebrow="What goes unsaid"
+  cite="Levy et al., JAMA Network Open, 2018"
+  stats={[
+    { value: "61–81%", label: "of adults in two national surveys said they had withheld medically relevant information from a clinician" },
+  ]}
+/>
+
+We want patients to feel unhurried and unjudged when they answer. One participant in their 60s, after the in-person VR session in our pilot with MIT, put the experience simply: "Being a first time experience, it was actually remarkably easy."⁵
+
+An immersive world can also guide patients through the clinician-prescribed self-management exercises staff explain every day but rarely have time to walk through, like the underwater breathing exercise in the film. That attention goes back to another patient who needs it.
+
+<Figure src={exercise} alt="An underwater scene with sunlit sand and seaweed, a glowing breathing ring in the centre and AugMend's avatar nearby." caption="The underwater breathing exercise from AugMend's product, prescribed by the clinician." />
+
+## What it asks of care teams
+
+For medical professionals, it's a technology they can hand to a patient. It doesn't need them at the patient's side while it runs. Staff start a session in about 5 minutes. What follows is about 30 minutes of patient-reported history with no clinician in the room, while the team cares for other patients. Every finding in the report cites the patient's own words, and the clinician reviews and signs.
+
+<Figure src={handover} alt="Hands passing a VR headset, overlaid with an indigo line tracing of the headset." caption="Staff start a session in about 5 minutes." />
+
+When staff are short on time, it's not because the clinic is cutting back. It's because demand outpaces even the best triage. In those moments, we want patients to still get focused attention, in the clinic, before the visit.
+
+## A new form factor, not a replacement
+
+This isn't the solution to all of healthcare's problems. It's an extension of care, not a replacement for it.
+
+But just as tablets changed how patients check in and share information, this is a new form factor. When six primary care practices handed patients a tablet at check-in to answer the screening questions nurses had been asking out loud, more than twice as many patients screened positive for depression, fall risk or intimate partner violence (19.5%, against 8.7% in the 60 days before). It was a before-and-after comparison in one health system, not a randomized trial. The authors suggest patients may find a tablet more private, and that staff may paraphrase questions when asking aloud.⁶ The lesson isn't that one device fixes disclosure. It's that how we ask shapes what we hear.
+
+<BarCompareGraphic
+  eyebrow="How we ask shapes what we hear"
+  title="Patients screening positive for depression, fall risk or intimate partner violence"
+  cite="Miller et al., JAMA Network Open, 2022 · six primary care practices, one health system, nonrandomized before-and-after"
+  bars={[
+    { label: "8.7% — nurses asking the questions aloud (60 days before)", value: 0.446, tone: "orange" },
+    { label: "19.5% — patients answering on a tablet at check-in (after)", value: 1, tone: "lime" },
+  ]}
+/>
+
+Immersive technology is finally easy to use and powerful enough to change how care teams collect patient-reported data (answers in the patient's own words) and deliver self-management exercises. Our intake is a seated conversation in VR, in the clinic, before the visit, and the exercises are prescribed by the clinician.
+
+<Figure src={threshold} alt="A minimal indigo line drawing of a door standing open on a single horizon line." />
+
+If you haven't tried it yet, I'd love to show you how this technology can be anchored in the realities of care delivery. If we can't achieve that together, then we don't need more technology.
+
+<div className="mt-8"><Button href={BOOKING_URL} newTab variant="primary">Book a demo →</Button></div>
+
+---
+
+## Sources
+
+1. Health Resources and Services Administration, National Center for Health Workforce Analysis. [*Nurse Workforce Projections, 2023–2038*](https://bhw.hrsa.gov/sites/default/files/bureau-health-workforce/data-research/nursing-projections-factsheet.pdf) (fact sheet, December 2025).
+2. Arndt BG, Micek MA, Rule A, Shafer CM, Baltus JJ, Sinsky CA. More tethered to the EHR: EHR workload trends among academic primary care physicians, 2019–2023. *Ann Fam Med.* 2024;22(1):12–18. [doi:10.1370/afm.3047](https://doi.org/10.1370/afm.3047)
+3. van Gennep A. *The Rites of Passage* (1909); Turner V. "Betwixt and Between: The Liminal Period in Rites de Passage" (1964), in *The Forest of Symbols* (1967).
+4. Levy AG, Scherer AM, Zikmund-Fisher BJ, et al. Prevalence of and factors associated with patient nondisclosure of medically relevant information to clinicians. *JAMA Netw Open.* 2018;1(7):e185293. [doi:10.1001/jamanetworkopen.2018.5293](https://doi.org/10.1001/jamanetworkopen.2018.5293)
+5. Participant, registered randomized pilot with MIT ([NCT07336537](https://clinicaltrials.gov/study/NCT07336537)). Manuscript under peer review.
+6. Miller DP Jr, Foley KL, Bundy R, et al. Universal screening in primary care practices by self-administered tablet vs nursing staff. *JAMA Netw Open.* 2022;5(3):e221480. [doi:10.1001/jamanetworkopen.2022.1480](https://doi.org/10.1001/jamanetworkopen.2022.1480)
+
+*The film's visuals were made with AI tools. The avatar and the underwater breathing exercise are from AugMend's own product, and the report shown on the iPad is a demo sample, not patient data.*
