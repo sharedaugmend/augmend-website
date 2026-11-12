@@ -201,7 +201,7 @@ export default async function BlogPostPage({
           <div className="mx-auto max-w-[640px] text-center">
             <h2 className="text-white">Ready to see AugMend in your clinic?</h2>
             <p className="mt-4 font-body text-[17px] text-white/60">
-              We run structured pilots with specialty care practices. Most go live in under four weeks.
+              We run structured pilots with specialty care practices.
             </p>
             <div className="mt-8 flex justify-center">
               <Button href={BOOKING_URL} newTab variant="primary" size="large">
