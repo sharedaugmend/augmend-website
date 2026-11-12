@@ -30,7 +30,7 @@ export const posts: BlogPost[] = [
     title: "The Space Between",
     excerpt: "What immersive technology can do in the moments around a visit, and why it has to stay human.",
     category: "industry-perspectives",
-    date: "2026-11-24",
+    date: "2026-11-12",
     author: "Sacha Moreau",
     cover: coverSpaceBetween,
     heroVideo: {
